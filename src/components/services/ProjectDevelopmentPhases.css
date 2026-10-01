@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* ------------------------------------------------------------------
+   Everything inside .pdp__stage is authored on a fixed 693 x 456 canvas
+   (the size of the reference design) and scaled to fit the container,
+   so the layout, colours and proportions never change.
+------------------------------------------------------------------- */
+
+.pdp {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #ffffff;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pdp__stage {
+  position: relative;
+  transform-origin: top left;
+}
+
+/* ---------- Header ---------- */
+
+.pdp__eyebrow-line {
+  position: absolute;
+  left: 35px;
+  top: 12px;
+  width: 22px;
+  height: 2px;
+  background: #e11d2e;
+}
+
+.pdp__eyebrow {
+  position: absolute;
+  left: 62px;
+  top: 8px;
+  margin: 0;
+  font-size: 6.5px;
+  line-height: 10px;
+  font-weight: 700;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+  color: #e11d2e;
+}
+
+.pdp__title {
+  position: absolute;
+  left: 34px;
+  top: 21px;
+  margin: 0;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: #1b2a78;
+  white-space: nowrap;
+}
+
+.pdp__subtitle {
+  position: absolute;
+  left: 34px;
+  top: 50px;
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 14px;
+  font-weight: 400;
+  color: #4a5b8c;
+  white-space: nowrap;
+}
+
+/* ---------- Dashed arrows ---------- */
+
+.pdp__ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ---------- Centre ---------- */
+
+.pdp__hub {
+  position: absolute;
+  left: 280px;
+  top: 155px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #ffffff 0,
+    #ffffff 66%,
+    #e8effc 72%,
+    #f3f6fd 100%
+  );
+  box-shadow: 0 0 24px rgba(120, 150, 222, 0.32),
+    0 0 0 1px rgba(214, 226, 248, 0.7);
+}
+
+.pdp__hub-inner {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 172px;
+  height: 172px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #e6edfa;
+  box-shadow: inset 0 0 16px rgba(140, 165, 225, 0.28),
+    0 0 10px rgba(150, 175, 230, 0.35);
+}
+
+.pdp__box {
+  position: absolute;
+  left: 320px;
+  top: 168px;
+  width: 120px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdp__box img,
+.pdp__box svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.pdp__hub-text {
+  position: absolute;
+  left: 280px;
+  top: 252px;
+  width: 200px;
+  margin: 0;
+  text-align: center;
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 700;
+  color: #1c2a6b;
+}
+
+.pdp__hub-underline {
+  position: absolute;
+  left: 358px;
+  top: 286px;
+  width: 44px;
+  height: 6px;
+  overflow: visible;
+}
+
+/* ---------- Phase pills ---------- */
+
+.pdp__phases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pdp__phase {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 10px 0 24px;
+  box-sizing: border-box;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--from), var(--to));
+  box-shadow: 0 9px 16px -5px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.pdp__lead {
+  width: 30px;
+  flex: 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pdp__icon {
+  width: 21px;
+  height: 21px;
+  display: block;
+}
+
+.pdp__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.pdp__num {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 700;
+}
+
+.pdp__body .pdp__num {
+  margin-bottom: 1px;
+}
+
+.pdp__phase-title {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- C.Q.S note ---------- */
+
+.pdp__note {
+  position: absolute;
+  left: 540px;
+  top: 450px;
+  margin: 0;
+  padding: 5px 9px;
+  background: #fdf3b5;
+  border-radius: 3px;
+  font-size: 7.5px;
+  line-height: 12px;
+  font-weight: 500;
+  color: #5b4a10;
+  white-space: nowrap;
+}
