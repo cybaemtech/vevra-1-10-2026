@@ -1,0 +1,46 @@
+[
+  {
+    "partCode": "PRT-CNC-001",
+    "itemDescription": "Aluminum Die-Cast Housing Assembly",
+    "length": 250,
+    "width": 180,
+    "height": 120,
+    "perLayerQty": 6,
+    "requiredQty": 240,
+    "category": "Industrial",
+    "defaultProtection": "Medium"
+  },
+  {
+    "partCode": "PRT-PCB-042",
+    "itemDescription": "Industrial Controller Mainboard Module",
+    "length": 160,
+    "width": 120,
+    "height": 45,
+    "perLayerQty": 12,
+    "requiredQty": 480,
+    "category": "Electronics",
+    "defaultProtection": "Premium"
+  },
+  {
+    "partCode": "PRT-SEN-108",
+    "itemDescription": "Optoelectronic Precision Sensor Unit",
+    "length": 90,
+    "width": 60,
+    "height": 35,
+    "perLayerQty": 24,
+    "requiredQty": 1200,
+    "category": "Electronics",
+    "defaultProtection": "Extreme"
+  },
+  {
+    "partCode": "PRT-MTR-550",
+    "itemDescription": "BLDC Servo Motor 750W with Flange",
+    "length": 210,
+    "width": 140,
+    "height": 140,
+    "perLayerQty": 4,
+    "requiredQty": 100,
+    "category": "Automotive",
+    "defaultProtection": "Premium"
+  }
+]

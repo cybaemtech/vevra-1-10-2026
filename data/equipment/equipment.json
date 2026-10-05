@@ -1,0 +1,393 @@
+{
+  "version": "1.0",
+  "description": "Master equipment and orientation GLT dimensions extracted directly from ORIENTATION.xlsm (EQP sheet)",
+  "equipmentCount": 9,
+  "supportedOrientations": [
+    "LXL",
+    "LxW",
+    "LxH",
+    "WXW",
+    "WxH",
+    "HxW"
+  ],
+  "equipment": [
+    {
+      "id": "eqp_1",
+      "name": "FLC ( 1200 x 1000 x 800) mm",
+      "category": "FLC",
+      "baseGLTDimensions": {
+        "lengthMm": 1120.0,
+        "widthMm": 920.0,
+        "heightMm": 640.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 1120.0,
+          "widthMm": 920.0,
+          "heightMm": 640.0
+        },
+        "LxW": {
+          "lengthMm": 920.0,
+          "widthMm": 1120.0,
+          "heightMm": 640.0
+        },
+        "LxH": {
+          "lengthMm": 640.0,
+          "widthMm": 1120.0,
+          "heightMm": 920.0
+        },
+        "WXW": {
+          "lengthMm": 640.0,
+          "widthMm": 920.0,
+          "heightMm": 1120.0
+        },
+        "WxH": {
+          "lengthMm": 920.0,
+          "widthMm": 640.0,
+          "heightMm": 1120.0
+        },
+        "HxW": {
+          "lengthMm": 1120.0,
+          "widthMm": 640.0,
+          "heightMm": 920.0
+        }
+      }
+    },
+    {
+      "id": "eqp_2",
+      "name": "FLC ( 1200 x 800 x 975) mm",
+      "category": "FLC",
+      "baseGLTDimensions": {
+        "lengthMm": 1155.0,
+        "widthMm": 755.0,
+        "heightMm": 780.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 1155.0,
+          "widthMm": 755.0,
+          "heightMm": 780.0
+        },
+        "LxW": {
+          "lengthMm": 755.0,
+          "widthMm": 1155.0,
+          "heightMm": 780.0
+        },
+        "LxH": {
+          "lengthMm": 780.0,
+          "widthMm": 1155.0,
+          "heightMm": 755.0
+        },
+        "WXW": {
+          "lengthMm": 780.0,
+          "widthMm": 755.0,
+          "heightMm": 1155.0
+        },
+        "WxH": {
+          "lengthMm": 755.0,
+          "widthMm": 780.0,
+          "heightMm": 1155.0
+        },
+        "HxW": {
+          "lengthMm": 1155.0,
+          "widthMm": 780.0,
+          "heightMm": 755.0
+        }
+      }
+    },
+    {
+      "id": "eqp_3",
+      "name": "FCS (810 x 760 x 860)mm",
+      "category": "FCS",
+      "baseGLTDimensions": {
+        "lengthMm": 780.0,
+        "widthMm": 730.0,
+        "heightMm": 720.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 780.0,
+          "widthMm": 730.0,
+          "heightMm": 720.0
+        },
+        "LxW": {
+          "lengthMm": 730.0,
+          "widthMm": 780.0,
+          "heightMm": 720.0
+        },
+        "LxH": {
+          "lengthMm": 720.0,
+          "widthMm": 780.0,
+          "heightMm": 730.0
+        },
+        "WXW": {
+          "lengthMm": 720.0,
+          "widthMm": 730.0,
+          "heightMm": 780.0
+        },
+        "WxH": {
+          "lengthMm": 730.0,
+          "widthMm": 720.0,
+          "heightMm": 780.0
+        },
+        "HxW": {
+          "lengthMm": 780.0,
+          "widthMm": 720.0,
+          "heightMm": 730.0
+        }
+      }
+    },
+    {
+      "id": "eqp_4",
+      "name": "Crate (600 x 400 x 120) mm",
+      "category": "Crate",
+      "baseGLTDimensions": {
+        "lengthMm": 560.0,
+        "widthMm": 360.0,
+        "heightMm": 105.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 560.0,
+          "widthMm": 360.0,
+          "heightMm": 105.0
+        },
+        "LxW": {
+          "lengthMm": 360.0,
+          "widthMm": 560.0,
+          "heightMm": 105.0
+        },
+        "LxH": {
+          "lengthMm": 105.0,
+          "widthMm": 560.0,
+          "heightMm": 360.0
+        },
+        "WXW": {
+          "lengthMm": 105.0,
+          "widthMm": 360.0,
+          "heightMm": 560.0
+        },
+        "WxH": {
+          "lengthMm": 360.0,
+          "widthMm": 105.0,
+          "heightMm": 560.0
+        },
+        "HxW": {
+          "lengthMm": 560.0,
+          "widthMm": 105.0,
+          "heightMm": 360.0
+        }
+      }
+    },
+    {
+      "id": "eqp_5",
+      "name": "Crate (600 x 400 x 170) mm",
+      "category": "Crate",
+      "baseGLTDimensions": {
+        "lengthMm": 560.0,
+        "widthMm": 360.0,
+        "heightMm": 155.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 560.0,
+          "widthMm": 360.0,
+          "heightMm": 155.0
+        },
+        "LxW": {
+          "lengthMm": 360.0,
+          "widthMm": 560.0,
+          "heightMm": 155.0
+        },
+        "LxH": {
+          "lengthMm": 155.0,
+          "widthMm": 560.0,
+          "heightMm": 360.0
+        },
+        "WXW": {
+          "lengthMm": 155.0,
+          "widthMm": 360.0,
+          "heightMm": 560.0
+        },
+        "WxH": {
+          "lengthMm": 360.0,
+          "widthMm": 155.0,
+          "heightMm": 560.0
+        },
+        "HxW": {
+          "lengthMm": 560.0,
+          "widthMm": 155.0,
+          "heightMm": 360.0
+        }
+      }
+    },
+    {
+      "id": "eqp_6",
+      "name": "Crate (600 x 400 x 220) mm",
+      "category": "Crate",
+      "baseGLTDimensions": {
+        "lengthMm": 560.0,
+        "widthMm": 360.0,
+        "heightMm": 205.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 560.0,
+          "widthMm": 360.0,
+          "heightMm": 205.0
+        },
+        "LxW": {
+          "lengthMm": 360.0,
+          "widthMm": 560.0,
+          "heightMm": 205.0
+        },
+        "LxH": {
+          "lengthMm": 205.0,
+          "widthMm": 560.0,
+          "heightMm": 360.0
+        },
+        "WXW": {
+          "lengthMm": 205.0,
+          "widthMm": 360.0,
+          "heightMm": 560.0
+        },
+        "WxH": {
+          "lengthMm": 360.0,
+          "widthMm": 205.0,
+          "heightMm": 560.0
+        },
+        "HxW": {
+          "lengthMm": 560.0,
+          "widthMm": 205.0,
+          "heightMm": 360.0
+        }
+      }
+    },
+    {
+      "id": "eqp_7",
+      "name": "Crate (400 x 300 x 120) mm",
+      "category": "Crate",
+      "baseGLTDimensions": {
+        "lengthMm": 360.0,
+        "widthMm": 260.0,
+        "heightMm": 105.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 360.0,
+          "widthMm": 260.0,
+          "heightMm": 105.0
+        },
+        "LxW": {
+          "lengthMm": 260.0,
+          "widthMm": 360.0,
+          "heightMm": 105.0
+        },
+        "LxH": {
+          "lengthMm": 105.0,
+          "widthMm": 360.0,
+          "heightMm": 260.0
+        },
+        "WXW": {
+          "lengthMm": 105.0,
+          "widthMm": 260.0,
+          "heightMm": 360.0
+        },
+        "WxH": {
+          "lengthMm": 260.0,
+          "widthMm": 105.0,
+          "heightMm": 360.0
+        },
+        "HxW": {
+          "lengthMm": 360.0,
+          "widthMm": 105.0,
+          "heightMm": 260.0
+        }
+      }
+    },
+    {
+      "id": "eqp_8",
+      "name": "Crate (400 x 300 x 170) mm",
+      "category": "Crate",
+      "baseGLTDimensions": {
+        "lengthMm": 360.0,
+        "widthMm": 260.0,
+        "heightMm": 155.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 360.0,
+          "widthMm": 260.0,
+          "heightMm": 155.0
+        },
+        "LxW": {
+          "lengthMm": 260.0,
+          "widthMm": 360.0,
+          "heightMm": 155.0
+        },
+        "LxH": {
+          "lengthMm": 155.0,
+          "widthMm": 360.0,
+          "heightMm": 260.0
+        },
+        "WXW": {
+          "lengthMm": 155.0,
+          "widthMm": 260.0,
+          "heightMm": 360.0
+        },
+        "WxH": {
+          "lengthMm": 260.0,
+          "widthMm": 155.0,
+          "heightMm": 360.0
+        },
+        "HxW": {
+          "lengthMm": 360.0,
+          "widthMm": 155.0,
+          "heightMm": 260.0
+        }
+      }
+    },
+    {
+      "id": "eqp_9",
+      "name": "Crate (400 x 300 x 220) mm",
+      "category": "Crate",
+      "baseGLTDimensions": {
+        "lengthMm": 360.0,
+        "widthMm": 260.0,
+        "heightMm": 205.0
+      },
+      "orientations": {
+        "LXL": {
+          "lengthMm": 360.0,
+          "widthMm": 260.0,
+          "heightMm": 205.0
+        },
+        "LxW": {
+          "lengthMm": 260.0,
+          "widthMm": 360.0,
+          "heightMm": 205.0
+        },
+        "LxH": {
+          "lengthMm": 205.0,
+          "widthMm": 360.0,
+          "heightMm": 260.0
+        },
+        "WXW": {
+          "lengthMm": 205.0,
+          "widthMm": 260.0,
+          "heightMm": 360.0
+        },
+        "WxH": {
+          "lengthMm": 260.0,
+          "widthMm": 205.0,
+          "heightMm": 360.0
+        },
+        "HxW": {
+          "lengthMm": 360.0,
+          "widthMm": 205.0,
+          "heightMm": 260.0
+        }
+      }
+    }
+  ]
+}

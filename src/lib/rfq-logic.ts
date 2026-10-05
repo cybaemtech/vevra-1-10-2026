@@ -63,15 +63,36 @@ export const PROT_LEVELS = [
 ];
 
 export const STEP_LABELS = [
-  "Route",
-  "Product",
-  "Protection",
-  "Carton",
-  "Transport",
-  "RFQ Review",
   "Contact",
+  "Product & Parts",
 ];
-export const TOTAL_STEPS = 7;
+export const TOTAL_STEPS = 2;
+
+export type RFQPart = {
+  id: string;
+  partCode: string;
+  itemDescription: string;
+  length: string; // Length (mm)
+  width: string;  // Width (mm)
+  height: string; // Height (mm)
+  perLayerQty: string; // Per Layer Qty
+  requiredQty: string; // Required Qty
+  weight?: string;
+  weightUnit?: string;
+};
+
+export const initialPart: RFQPart = {
+  id: "part-1",
+  partCode: "",
+  itemDescription: "",
+  length: "",
+  width: "",
+  height: "",
+  perLayerQty: "",
+  requiredQty: "1",
+  weight: "",
+  weightUnit: "kg",
+};
 
 export type RFQState = {
   shipmentType: string;
@@ -83,6 +104,7 @@ export type RFQState = {
   destCity: string;
   purpose: string;
   transportPref: string;
+  parts: RFQPart[];
   productName: string;
   category: string;
   prodValue: string;
@@ -125,8 +147,9 @@ export const initialState: RFQState = {
   destCity: "",
   purpose: "Commercial",
   transportPref: "Balanced (cost + speed)",
+  parts: [initialPart],
   productName: "",
-  category: "Electronics",
+  category: "Industrial & Manufacturing",
   prodValue: "",
   currency: "INR",
   qty: "1",
@@ -173,9 +196,27 @@ export function toKG(val: string | number, unit: string) {
 
 /* ============ Box fit engine ============ */
 export function computeFits(state: RFQState) {
-  const L = toMM(state.pLength, state.dimUnit);
-  const W = toMM(state.pWidth, state.dimUnit);
-  const H = toMM(state.pHeight, state.dimUnit);
+  // If parts are provided, determine effective dimensions from parts or fallback to pLength/pWidth/pHeight
+  let baseL = toMM(state.pLength, state.dimUnit);
+  let baseW = toMM(state.pWidth, state.dimUnit);
+  let baseH = toMM(state.pHeight, state.dimUnit);
+
+  if (state.parts && state.parts.length > 0) {
+    const validParts = state.parts.filter(p => Number(p.length) > 0 && Number(p.width) > 0 && Number(p.height) > 0);
+    if (validParts.length > 0) {
+      // Find maximum individual dimensions or bounding layer
+      const maxL = Math.max(...validParts.map(p => Number(p.length) || 0));
+      const maxW = Math.max(...validParts.map(p => Number(p.width) || 0));
+      const maxH = Math.max(...validParts.map(p => Number(p.height) || 0));
+      baseL = maxL;
+      baseW = maxW;
+      baseH = maxH;
+    }
+  }
+
+  const L = baseL;
+  const W = baseW;
+  const H = baseH;
   const th = state.thickOverride ? Number(state.thickOverride) : state.protTh;
 
   const eff = [L + th * 2, W + th * 2, H + th * 2].sort((a, b) => a - b) as [
@@ -199,8 +240,8 @@ export function computeFits(state: RFQState) {
 /* ============ Cost engine (internal only — never shown to customer) ============ */
 export function computeCosts(state: RFQState) {
   const box = (state.selectedBox || {}) as Box;
-  const qty = Number(state.qty) || 1;
-  const weightPerUnit = toKG(state.pWeight, state.weightUnit);
+  const qty = Number(state.qty) || (state.parts?.reduce((sum, p) => sum + (Number(p.requiredQty) || 0), 0) || 1);
+  const weightPerUnit = toKG(state.pWeight || "2.5", state.weightUnit);
   const actualWeight = weightPerUnit * qty;
   const volWeight = (((box.L || 0) / 10) * ((box.W || 0) / 10) * ((box.H || 0) / 10) / 5000) * qty;
   const chargeableWeight = Math.max(actualWeight, volWeight);
@@ -252,12 +293,15 @@ export function computeCosts(state: RFQState) {
 }
 
 export function genRFQ() {
-  const d = new Date();
-  const ymd =
-    d.getFullYear().toString() +
-    String(d.getMonth() + 1).padStart(2, "0") +
-    String(d.getDate()).padStart(2, "0");
-  return `RFQ-${ymd}-${Math.floor(1000 + Math.random() * 9000)}`;
+  const year = new Date().getFullYear();
+  try {
+    const existing = JSON.parse(localStorage.getItem("vevra_rfqs") || "[]");
+    const nextNum = String(existing.length + 1).padStart(4, "0");
+    return `VEVRA-RFQ-${year}-${nextNum}`;
+  } catch {
+    const randomNum = String(Math.floor(1 + Math.random() * 9999)).padStart(4, "0");
+    return `VEVRA-RFQ-${year}-${randomNum}`;
+  }
 }
 
 export function routeLabel(state: RFQState) {
@@ -271,6 +315,13 @@ export function routeLabel(state: RFQState) {
 export function buildRFQText(state: RFQState, rfqNumber: string) {
   const c = computeCosts(state);
   const box = state.selectedBox || ({} as Box);
+  const partsSummary = (state.parts || [])
+    .map(
+      (p, i) =>
+        `Part #${i + 1}: Code=${p.partCode || "N/A"} | Desc=${p.itemDescription || "N/A"} | Dims=${p.length}x${p.width}x${p.height}mm | PerLayer=${p.perLayerQty || "-"} | ReqQty=${p.requiredQty || "-"}`
+    )
+    .join("\n");
+
   return `${rfqNumber}
 Submitted to: ${CONFIG.companyName}
 
@@ -280,14 +331,11 @@ Route: ${routeLabel(state)}
 Purpose: ${state.purpose}
 Priority: ${state.transportPref}
 
-PRODUCT
-Name: ${state.productName}
+PARTS & PRODUCTS
+Total Parts: ${state.parts?.length || 1}
+${partsSummary}
+
 Category: ${state.category}
-Quantity: ${state.qty}
-Value: ${state.currency} ${state.prodValue} / unit
-HS Code: ${state.hsCode || "Not Provided"}
-Dimensions: ${state.pLength}x${state.pWidth}x${state.pHeight} ${state.dimUnit}
-Weight: ${state.pWeight} ${state.weightUnit} / unit
 Stackable: ${state.stackable}
 Temperature Sensitive: ${state.tempSensitive}
 Hazardous: ${state.hazardous}
@@ -385,35 +433,46 @@ function incotermFor(state: RFQState) {
 function buildCards(state: RFQState): { left: Card[]; right: Card[] } {
   const c = computeCosts(state);
   const box = state.selectedBox || ({} as Box);
-  return {
 
+  // Build product rows with parts details
+  const productRows: Row[] = [
+    ["Category", state.category],
+    ["Total Parts", `${state.parts?.length || 1} Part Spec(s)`],
+  ];
+
+  (state.parts || []).forEach((p, idx) => {
+    productRows.push([
+      `Part #${idx + 1}`,
+      `${p.partCode || "—"} | ${p.itemDescription || "—"} (${p.length || 0}x${p.width || 0}x${p.height || 0}mm, Layer: ${p.perLayerQty || "-"}, Req: ${p.requiredQty || "-"})`,
+    ]);
+  });
+
+  productRows.push(
+    ["Stackable", state.stackable],
+    ["Temperature Sensitive", state.tempSensitive],
+    ["Hazardous", state.hazardous]
+  );
+
+  return {
     left: [
       {
-        title: "Shipment Details",
+        title: "Customer Contact",
         accent: "red",
         rows: [
-          ["Type", state.shipmentType],
-          ["Route", routeLabel(state)],
-          ["Purpose", state.purpose],
-          ["Priority", state.transportPref],
+          ["Name", state.cName || "-"],
+          ["Company", state.cCompany || "-"],
+          ["Email", state.cEmail || "-"],
+          ["Phone", state.cPhone || "-"],
+          ["Location / City", state.destCity || state.destPin || "-"],
         ],
       },
       {
-        title: "Product Details",
+        title: "Parts & Product Details",
         accent: "blue",
-        rows: [
-          ["Name", state.productName],
-          ["Category", state.category],
-          ["Quantity", state.qty],
-          ["Value", `${state.currency} ${state.prodValue} / unit`],
-          ["HS Code", state.hsCode || "Not Provided"],
-          ["Dimensions", `${state.pLength} x ${state.pWidth} x ${state.pHeight} ${state.dimUnit}`],
-          ["Weight", `${state.pWeight} ${state.weightUnit} / unit`],
-          ["Stackable", state.stackable],
-          ["Temperature Sensitive", state.tempSensitive],
-          ["Hazardous", state.hazardous],
-        ],
+        rows: productRows,
       },
+    ],
+    right: [
       {
         title: "Packaging Specifications",
         accent: "blue",
@@ -425,8 +484,6 @@ function buildCards(state: RFQState): { left: Card[]; right: Card[] } {
           ["Orientation Requirement", state.orientation],
         ],
       },
-    ],
-    right: [
       {
         title: "Trade & Compliance",
         accent: "blue",
@@ -446,30 +503,9 @@ function buildCards(state: RFQState): { left: Card[]; right: Card[] } {
         ],
       },
       {
-
-        title: "Transport Information",
-        accent: "red",
-        rows: [
-          ["Chargeable Weight", `${c.chargeableWeight.toFixed(2)} kg`],
-          ["Mode", state.mode],
-          ["Preferred Carrier", state.carrier || "No preference"],
-          ["Remote / Rural Destination", state.remoteArea ? "Yes" : "No"],
-        ],
-      },
-      {
-        title: "Customer Contact",
-        accent: "blue",
-        rows: [
-          ["Name", state.cName],
-          ["Company", state.cCompany],
-          ["Email", state.cEmail],
-          ["Phone", state.cPhone],
-        ],
-      },
-      {
-        title: "Notes",
+        title: "Notes & Special Requirements",
         accent: "gray",
-        rows: [["Notes", state.cNotes || "-"]],
+        rows: [["Notes", state.cNotes || "Standard packaging specifications"]],
       },
     ],
   };

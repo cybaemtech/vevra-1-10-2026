@@ -20,6 +20,7 @@ import { Route as CorporateOfficeRouteImport } from './routes/corporate-office'
 import { Route as EKartRouteImport } from './routes/e-kart'
 import { Route as LeadershipRouteImport } from './routes/leadership'
 import { Route as LifeAtVevraRouteImport } from './routes/life-at-vevra'
+import { Route as RfqResultsRouteImport } from './routes/rfq-results'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as WarehousesRouteImport } from './routes/warehouses'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
@@ -82,6 +83,11 @@ const LifeAtVevraRoute = LifeAtVevraRouteImport.update({
   path: '/life-at-vevra',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RfqResultsRoute = RfqResultsRouteImport.update({
+  id: '/rfq-results',
+  path: '/rfq-results',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TestimonialsRoute = TestimonialsRouteImport.update({
   id: '/testimonials',
   path: '/testimonials',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/e-kart': typeof EKartRoute
   '/leadership': typeof LeadershipRoute
   '/life-at-vevra': typeof LifeAtVevraRoute
+  '/rfq-results': typeof RfqResultsRoute
   '/testimonials': typeof TestimonialsRoute
   '/warehouses': typeof WarehousesRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/e-kart': typeof EKartRoute
   '/leadership': typeof LeadershipRoute
   '/life-at-vevra': typeof LifeAtVevraRoute
+  '/rfq-results': typeof RfqResultsRoute
   '/testimonials': typeof TestimonialsRoute
   '/warehouses': typeof WarehousesRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/e-kart': typeof EKartRoute
   '/leadership': typeof LeadershipRoute
   '/life-at-vevra': typeof LifeAtVevraRoute
+  '/rfq-results': typeof RfqResultsRoute
   '/testimonials': typeof TestimonialsRoute
   '/warehouses': typeof WarehousesRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/e-kart'
     | '/leadership'
     | '/life-at-vevra'
+    | '/rfq-results'
     | '/testimonials'
     | '/warehouses'
     | '/products/$slug'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/e-kart'
     | '/leadership'
     | '/life-at-vevra'
+    | '/rfq-results'
     | '/testimonials'
     | '/warehouses'
     | '/products/$slug'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/e-kart'
     | '/leadership'
     | '/life-at-vevra'
+    | '/rfq-results'
     | '/testimonials'
     | '/warehouses'
     | '/products/$slug'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   EKartRoute: typeof EKartRoute
   LeadershipRoute: typeof LeadershipRoute
   LifeAtVevraRoute: typeof LifeAtVevraRoute
+  RfqResultsRoute: typeof RfqResultsRoute
   TestimonialsRoute: typeof TestimonialsRoute
   WarehousesRoute: typeof WarehousesRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
@@ -330,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LifeAtVevraRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rfq-results': {
+      id: '/rfq-results'
+      path: '/rfq-results'
+      fullPath: '/rfq-results'
+      preLoaderRoute: typeof RfqResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/testimonials': {
       id: '/testimonials'
       path: '/testimonials'
@@ -387,6 +407,7 @@ const rootRouteChildren: RootRouteChildren = {
   EKartRoute: EKartRoute,
   LeadershipRoute: LeadershipRoute,
   LifeAtVevraRoute: LifeAtVevraRoute,
+  RfqResultsRoute: RfqResultsRoute,
   TestimonialsRoute: TestimonialsRoute,
   WarehousesRoute: WarehousesRoute,
   ProductsSlugRoute: ProductsSlugRoute,

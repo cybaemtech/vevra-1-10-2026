@@ -1,0 +1,56 @@
+[
+  {
+    "rfqNumber": "RFQ-2026-0001",
+    "timestamp": "2026-10-01T11:00:00.000Z",
+    "status": "Submitted",
+    "shipment": {
+      "type": "Domestic",
+      "originPin": "411057",
+      "destPin": "560001",
+      "purpose": "Commercial",
+      "priority": "Balanced (cost + speed)"
+    },
+    "parts": [
+      {
+        "id": "part-1",
+        "partCode": "PRT-CNC-001",
+        "itemDescription": "Aluminum Die-Cast Housing Assembly",
+        "length": 250,
+        "width": 180,
+        "height": 120,
+        "perLayerQty": 6,
+        "requiredQty": 240
+      },
+      {
+        "id": "part-2",
+        "partCode": "PRT-PCB-042",
+        "itemDescription": "Industrial Controller Mainboard Module",
+        "length": 160,
+        "width": 120,
+        "height": 45,
+        "perLayerQty": 12,
+        "requiredQty": 480
+      }
+    ],
+    "packaging": {
+      "recommendedBox": "Medium Electronics (457×305×305 mm)",
+      "protectionLevel": "Medium",
+      "material": "Foam Sheet",
+      "thicknessMm": 20,
+      "voidFill": "Honeycomb Paper",
+      "orientation": "Can Rotate"
+    },
+    "transport": {
+      "mode": "Road",
+      "carrier": "Blue Dart",
+      "remoteArea": false
+    },
+    "contact": {
+      "name": "Rajesh Sharma",
+      "company": "AutoMech Systems Ltd.",
+      "email": "rajesh.sharma@automech.example.com",
+      "phone": "+91 98765 43210",
+      "notes": "Need returnable PP boxes with customized internal foam dunnage."
+    }
+  }
+]

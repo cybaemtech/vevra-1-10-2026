@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "description": "Submitted RFQ records with customer contact, multi-part specifications, and calculation references",
+  "rfqs": [
+    {
+      "rfqNumber": "VEVRA-RFQ-2026-0001",
+      "createdAt": "2026-10-01T12:00:00.000Z",
+      "status": "Submitted",
+      "customer": {
+        "name": "Rajesh Kumar",
+        "company": "Tata AutoComp Systems Ltd.",
+        "email": "rajesh.k@tataindia.com",
+        "phone": "+91 98230 12345",
+        "location": "Pune, Maharashtra, 411018",
+        "notes": "Evaluation for returnable packaging bins & crates across all 6 standard orientations"
+      },
+      "parts": [
+        {
+          "partCode": "14007834",
+          "itemDescription": "2.0_M_CENTER BEZEL PREMIUM ASSY",
+          "length": 274,
+          "width": 76,
+          "height": 620,
+          "perLayerQty": 44,
+          "requiredQty": 80
+        },
+        {
+          "partCode": "14007835",
+          "itemDescription": "SHROUD UPPER",
+          "length": 225,
+          "width": 125,
+          "height": 190,
+          "perLayerQty": 96,
+          "requiredQty": 18
+        },
+        {
+          "partCode": "14007836",
+          "itemDescription": "SHROUD LOWER",
+          "length": 435,
+          "width": 100,
+          "height": 210,
+          "perLayerQty": 48,
+          "requiredQty": 75
+        },
+        {
+          "partCode": "14007837",
+          "itemDescription": "CLUSTER BEZEL LOWER ASSY",
+          "length": 365,
+          "width": 63,
+          "height": 225,
+          "perLayerQty": 96,
+          "requiredQty": 38
+        }
+      ],
+      "calculationReference": "VEVRA-RFQ-2026-0001"
+    }
+  ]
+}

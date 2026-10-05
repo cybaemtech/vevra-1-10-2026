@@ -1,0 +1,104 @@
+{
+  "version": "1.0",
+  "name": "VEVRA RFQ Calculation Engine Formulas",
+  "source": "ORIENTATION.xlsm (RFQ & Orientation sheet)",
+  "clearanceBufferMm": 5,
+  "supportedOrientations": [
+    {
+      "code": "LXL",
+      "name": "Length x Length",
+      "description": "Primary standard orientation using LXL GLT dimensions"
+    },
+    {
+      "code": "LxW",
+      "name": "Length x Width",
+      "description": "Rotated width-wise orientation using LxW GLT dimensions"
+    },
+    {
+      "code": "LxH",
+      "name": "Length x Height",
+      "description": "Vertical orientation using LxH GLT dimensions"
+    },
+    {
+      "code": "WXW",
+      "name": "Width x Width",
+      "description": "Width-aligned orientation using WXW GLT dimensions"
+    },
+    {
+      "code": "WxH",
+      "name": "Width x Height",
+      "description": "Side vertical orientation using WxH GLT dimensions"
+    },
+    {
+      "code": "HxW",
+      "name": "Height x Width",
+      "description": "Inverted orientation using HxW GLT dimensions"
+    }
+  ],
+  "formulas": {
+    "effectivePartDimensions": {
+      "length": "partLengthMm + clearanceBufferMm (5mm)",
+      "width": "partWidthMm + clearanceBufferMm (5mm)",
+      "height": "partHeightMm + clearanceBufferMm (5mm)"
+    },
+    "packetArrayLength": {
+      "excelFormula": "ROUNDDOWN(GLT_L / (Part_L + 5), 0)",
+      "math": "Math.floor(gltLengthMm / (partLengthMm + 5))",
+      "parameters": [
+        "gltLengthMm",
+        "partLengthMm"
+      ]
+    },
+    "packetArrayWidth": {
+      "excelFormula": "ROUNDDOWN(GLT_W / (Part_W + 5), 0)",
+      "math": "Math.floor(gltWidthMm / (partWidthMm + 5))",
+      "parameters": [
+        "gltWidthMm",
+        "partWidthMm"
+      ]
+    },
+    "packetArrayHeight": {
+      "excelFormula": "ROUNDDOWN(GLT_H / (Part_H + 5), 0)",
+      "math": "Math.floor(gltHeightMm / (partHeightMm + 5))",
+      "parameters": [
+        "gltHeightMm",
+        "partHeightMm"
+      ]
+    },
+    "partsPerLayer": {
+      "excelFormula": "Packet_Array_L * Packet_Array_W",
+      "math": "packetArrayLength * packetArrayWidth",
+      "parameters": [
+        "packetArrayLength",
+        "packetArrayWidth"
+      ]
+    },
+    "layersPerGLT": {
+      "excelFormula": "Packet_Array_H",
+      "math": "packetArrayHeight",
+      "parameters": [
+        "packetArrayHeight"
+      ]
+    },
+    "partsPerGLT": {
+      "excelFormula": "Parts_Per_Layer * Layers_Per_GLT",
+      "math": "partsPerLayer * layersPerGLT",
+      "parameters": [
+        "partsPerLayer",
+        "layersPerGLT"
+      ]
+    },
+    "requiredGLTs": {
+      "excelFormula": "IF(Parts_Per_GLT > 0, ROUNDUP(Qty_Req / Parts_Per_GLT, 0), 0)",
+      "math": "partsPerGLT > 0 ? Math.ceil(requiredQty / partsPerGLT) : 0",
+      "parameters": [
+        "requiredQty",
+        "partsPerGLT"
+      ]
+    },
+    "feasibilityStatus": {
+      "rule": "Feasible if packetArrayLength > 0 AND packetArrayWidth > 0 AND packetArrayHeight > 0 (i.e. partsPerGLT > 0)",
+      "output": "feasible | infeasible"
+    }
+  }
+}
