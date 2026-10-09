@@ -465,8 +465,20 @@ function SiteFooter() {
           <RfqButton className="mt-5" />
         </div>
       </div>
-      <div className="border-t border-white/10 py-5 text-center text-xs text-white/55">
-        © 2026 {COMPANY.name} All Rights Reserved.
+      <div className="border-t border-white/10 py-5 text-center text-xs text-white/60 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+        <span>© 2026 {COMPANY.name} All Rights Reserved.</span>
+        <span className="hidden sm:inline opacity-40">•</span>
+        <span>
+          Designed by{" "}
+          <a
+            href="https://www.cybaemtech.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-white/80 hover:text-white underline decoration-white/30 hover:decoration-white transition"
+          >
+            CybaemTech
+          </a>
+        </span>
       </div>
     </footer>
   );

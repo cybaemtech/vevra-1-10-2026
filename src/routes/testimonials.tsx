@@ -21,6 +21,7 @@ import {
 import { SiteLayout } from "@/components/site/SiteLayout";
 import returnableCratesHero from "@/assets/capabilities/service-returnable-crates.jpg";
 import palletBoxImage from "@/assets/clients-page/case-study-box.png";
+import npsSurveyImg from "@/assets/NPS.png";
 
 export const Route = createFileRoute("/testimonials")({
   head: () => ({
@@ -31,8 +32,8 @@ export const Route = createFileRoute("/testimonials")({
         content:
           "Real businesses. Real results. Hear from customers who reduced packaging costs, improved efficiency and transformed operations with VEVRA Packaging.",
       },
-      { property: "og:title", content: "VEVRA Customer Success" },
-      { property: "og:description", content: "Customer success is our measure of success." },
+      { property: "og:title", content: "VEVRA Customer Success & Feedback Survey" },
+      { property: "og:description", content: "Trusted by Industry. Validated by Customers. 95% satisfaction rate across packaging touchpoints." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -297,7 +298,47 @@ function TestimonialsPage() {
         </div>
       </section>
 
-      {/* 2. Customer Testimonials Section: Carousel with Peeking Adjacent Cards */}
+      {/* =========================================================================
+          2. CUSTOMER FEEDBACK SURVEY 2026 SECTION (Full Image as Section)
+         ========================================================================= */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#f8faff] via-white to-slate-50 py-14 sm:py-20 border-b border-slate-200/80">
+        {/* Soft Ambient Background Glows */}
+        <div className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-rose-100/30 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 top-1/3 h-96 w-96 rounded-full bg-blue-100/20 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#D9232A] bg-white px-4 py-1 text-[#D9232A] text-xs font-bold uppercase tracking-[0.2em] shadow-sm mb-3">
+              <span className="h-2 w-2 rounded-full bg-[#D9232A] animate-pulse" />
+              <span>CUSTOMER FEEDBACK SURVEY • 2026</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-black text-slate-900 tracking-tight leading-tight">
+              TRUSTED BY INDUSTRY.{" "}
+              <span className="text-[#D9232A]">VALIDATED BY CUSTOMERS.</span>
+            </h2>
+
+            <p className="mt-3 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto">
+              Real feedback from the businesses we serve, driving our commitment to deliver better packaging solutions every day.
+            </p>
+          </div>
+
+          {/* Complete Survey Infographic Image */}
+          <div className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border border-slate-200/90 bg-white shadow-xl shadow-slate-900/5">
+            <img
+              src={npsSurveyImg}
+              alt="VEVRA Packaging Customer Feedback Survey 2026 - NPS Survey"
+              className="w-full h-auto object-contain block"
+              loading="lazy"
+            />
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. Customer Testimonials Section: Carousel with Peeking Adjacent Cards */}
       <section className="bg-slate-50/50 py-16 sm:py-20 lg:py-24 border-b border-slate-100 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           

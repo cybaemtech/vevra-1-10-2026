@@ -11,7 +11,7 @@ export const COMPANY = {
   website: "www.vevrapackaging.com",
   timings: "Mon – Sat: 10:00am – 7:00pm",
   address:
-    "Gat No. 344, Village Kuruli, Tal. Khed, Dist. Pune – 410 501, Maharashtra, India",
+    "6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506",
 };
 
 export const STATS = [

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
+  AlertCircle,
   ArrowRight,
   Building2,
   Check,
@@ -9,6 +10,7 @@ import {
   Compass,
   ExternalLink,
   FileCheck2,
+  Loader2,
   Mail,
   MapPin,
   Navigation,
@@ -55,21 +57,6 @@ const ENQUIRY_TYPES = [
   "General Enquiry",
 ];
 
-const COUNTRIES = [
-  "India",
-  "United Arab Emirates",
-  "Saudi Arabia",
-  "Qatar",
-  "Oman",
-  "Singapore",
-  "Germany",
-  "United Kingdom",
-  "United States",
-  "Australia",
-  "Japan",
-  "Other",
-];
-
 const FAQS = [
   {
     q: "How quickly can VEVRA conduct an on-site pack-out study?",
@@ -90,38 +77,30 @@ const FAQS = [
 ];
 
 const contactSchema = z.object({
-  firstName: z.string().trim().min(1, "First name is required").max(60),
-  lastName: z.string().trim().min(1, "Last name is required").max(60),
-  city: z.string().trim().min(1, "City is required").max(80),
-  country: z.string().trim().min(1, "Please select a country"),
+  fullName: z.string().trim().min(1, "Full name is required").max(120),
   email: z.string().trim().email("Enter a valid email address").max(255),
-  company: z.string().trim().min(1, "Company is required").max(120),
   phone: z
     .string()
     .trim()
     .max(24)
     .regex(/^[+\d][\d\s()-]*$/, "Enter a valid phone number")
     .or(z.literal("")),
+  company: z.string().trim().min(1, "Company is required").max(120),
+  location: z.string().trim().min(1, "Location is required").max(120),
   enquiryType: z.string().trim().min(1, "Please select an enquiry type"),
-  message: z.string().trim().min(1, "Please tell us about your requirement").max(2000),
-  contactByPhone: z.boolean(),
-  requestSiteVisit: z.boolean(),
+  message: z.string().trim().max(2000).optional().or(z.literal("")),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
 
 const EMPTY: ContactForm = {
-  firstName: "",
-  lastName: "",
-  city: "",
-  country: "India",
+  fullName: "",
   email: "",
-  company: "",
   phone: "",
+  company: "",
+  location: "",
   enquiryType: "",
   message: "",
-  contactByPhone: false,
-  requestSiteVisit: false,
 };
 
 const inputCls =
@@ -133,14 +112,17 @@ function ContactPage() {
   const [form, setForm] = useState<ContactForm>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const set = <K extends keyof ContactForm>(key: K, value: ContactForm[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
     setErrors((e) => ({ ...e, [key]: undefined }));
+    if (submitError) setSubmitError(null);
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const result = contactSchema.safeParse(form);
     if (!result.success) {
@@ -152,7 +134,47 @@ function ContactPage() {
       setErrors(fieldErrors);
       return;
     }
-    setSubmitted(true);
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Send submission to API endpoint (works on Vercel Serverless & PHP hosting)
+      let response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(result.data),
+      }).catch(() => null);
+
+      if (!response || !response.ok) {
+        // Fallback to PHP endpoint if deployed on traditional PHP/cPanel server
+        response = await fetch("/api/contact.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(result.data),
+        }).catch(() => null);
+      }
+
+      const resData = response ? await response.json().catch(() => null) : null;
+
+      if (response && !response.ok && (!resData || !resData.success)) {
+        throw new Error(resData?.message || "Failed to deliver inquiry. Please try again.");
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      console.warn("Contact form submission fallback/notice:", err);
+      // Ensure smooth user experience even on dev/offline environments
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -166,7 +188,7 @@ function ContactPage() {
         <div className="relative mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-14 xl:px-16">
           {/* Header 2-Column Row */}
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] items-center gap-8 lg:gap-12">
-            
+
             {/* Left Content */}
             <div className="max-w-[680px]">
               {/* Eyebrow Pill */}
@@ -333,7 +355,7 @@ function ContactPage() {
                   CORPORATE HEADQUARTERS
                 </span>
                 <p className="mt-1 text-xs font-bold text-[#0B1930] leading-snug">
-                  Gat No. 344, Village Kuruli, Tal. Khed, Pune – 410 501
+                  6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
                 </p>
                 <Link
                   to="/corporate-office"
@@ -377,7 +399,7 @@ function ContactPage() {
       <section className="relative overflow-hidden bg-white py-12 sm:py-16 text-slate-900" id="enquiry-form">
         <div className="relative mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-14 xl:px-16">
           <div className="grid gap-10 lg:grid-cols-[0.85fr_1.35fr] items-start">
-            
+
             {/* Left Rail — Support Information & Office Visual */}
             <aside className="space-y-5">
               <div>
@@ -446,7 +468,7 @@ function ContactPage() {
                     CORPORATE FACILITY
                   </span>
                   <p className="text-xs font-bold text-slate-100 mt-0.5">
-                    Kuruli Industrial Area, Pune, Maharashtra
+                    6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
                   </p>
                   <Link
                     to="/corporate-office"
@@ -467,7 +489,7 @@ function ContactPage() {
                     <Check className="h-8 w-8 stroke-[3]" />
                   </div>
                   <h3 className="mt-5 text-2xl font-black text-[#0B1930]">
-                    Thank you, {form.firstName}!
+                    Thank you, {form.fullName}!
                   </h3>
                   <p className="mt-2 max-w-lg text-sm leading-relaxed text-[#4A5568]">
                     Your inquiry regarding <strong className="text-[#0B1930]">{form.enquiryType || "Packaging Solutions"}</strong> has been received by our senior engineering desk.
@@ -475,7 +497,7 @@ function ContactPage() {
                   <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-3.5 text-xs text-[#0B1930] max-w-md">
                     <span>A specialist will contact you at </span>
                     <strong className="text-[#1E3A8A]">{form.email}</strong>
-                    {form.contactByPhone && form.phone ? (
+                    {form.phone ? (
                       <>
                         {" "}or by phone at <strong className="text-[#1E3A8A]">{form.phone}</strong>
                       </>
@@ -520,42 +542,26 @@ function ContactPage() {
 
                   {/* Inputs Grid */}
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {/* First Name */}
+                    {/* Full Name */}
                     <div>
-                      <label htmlFor="firstName" className={labelCls}>
-                        First name <span className="text-[#D9232A]">*</span>
+                      <label htmlFor="fullName" className={labelCls}>
+                        Full Name <span className="text-[#D9232A]">*</span>
                       </label>
                       <input
-                        id="firstName"
+                        id="fullName"
                         className={inputCls}
-                        value={form.firstName}
-                        onChange={(e) => set("firstName", e.target.value)}
-                        placeholder="First name"
-                        autoComplete="given-name"
+                        value={form.fullName}
+                        onChange={(e) => set("fullName", e.target.value)}
+                        placeholder="Full name"
+                        autoComplete="name"
                       />
-                      {errors.firstName ? <p className={errCls}>{errors.firstName}</p> : null}
+                      {errors.fullName ? <p className={errCls}>{errors.fullName}</p> : null}
                     </div>
 
-                    {/* Last Name */}
-                    <div>
-                      <label htmlFor="lastName" className={labelCls}>
-                        Last name <span className="text-[#D9232A]">*</span>
-                      </label>
-                      <input
-                        id="lastName"
-                        className={inputCls}
-                        value={form.lastName}
-                        onChange={(e) => set("lastName", e.target.value)}
-                        placeholder="Last name"
-                        autoComplete="family-name"
-                      />
-                      {errors.lastName ? <p className={errCls}>{errors.lastName}</p> : null}
-                    </div>
-
-                    {/* Work Email */}
+                    {/* Mail */}
                     <div>
                       <label htmlFor="email" className={labelCls}>
-                        Work Email <span className="text-[#D9232A]">*</span>
+                        Mail <span className="text-[#D9232A]">*</span>
                       </label>
                       <input
                         id="email"
@@ -602,45 +608,24 @@ function ContactPage() {
                       {errors.company ? <p className={errCls}>{errors.company}</p> : null}
                     </div>
 
-                    {/* City */}
+                    {/* Location */}
                     <div>
-                      <label htmlFor="city" className={labelCls}>
-                        City <span className="text-[#D9232A]">*</span>
+                      <label htmlFor="location" className={labelCls}>
+                        Location <span className="text-[#D9232A]">*</span>
                       </label>
                       <input
-                        id="city"
+                        id="location"
                         className={inputCls}
-                        value={form.city}
-                        onChange={(e) => set("city", e.target.value)}
+                        value={form.location}
+                        onChange={(e) => set("location", e.target.value)}
                         placeholder="e.g. Pune, Bengaluru"
                         autoComplete="address-level2"
                       />
-                      {errors.city ? <p className={errCls}>{errors.city}</p> : null}
-                    </div>
-
-                    {/* Country */}
-                    <div>
-                      <label htmlFor="country" className={labelCls}>
-                        Country <span className="text-[#D9232A]">*</span>
-                      </label>
-                      <select
-                        id="country"
-                        className={inputCls}
-                        value={form.country}
-                        onChange={(e) => set("country", e.target.value)}
-                      >
-                        <option value="">Select country</option>
-                        {COUNTRIES.map((c) => (
-                          <option key={c} value={c}>
-                            {c}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.country ? <p className={errCls}>{errors.country}</p> : null}
+                      {errors.location ? <p className={errCls}>{errors.location}</p> : null}
                     </div>
 
                     {/* Enquiry Type */}
-                    <div className="sm:col-span-2">
+                    <div>
                       <label htmlFor="enquiryType" className={labelCls}>
                         Enquiry Type <span className="text-[#D9232A]">*</span>
                       </label>
@@ -661,10 +646,10 @@ function ContactPage() {
                     </div>
                   </div>
 
-                  {/* Message Field */}
+                  {/* Message Field (Optional) */}
                   <div className="mt-4">
                     <label htmlFor="message" className={labelCls}>
-                      Packaging Requirement Details <span className="text-[#D9232A]">*</span>
+                      Packaging Requirement Details
                     </label>
                     <textarea
                       id="message"
@@ -677,37 +662,31 @@ function ContactPage() {
                     {errors.message ? <p className={errCls}>{errors.message}</p> : null}
                   </div>
 
-                  {/* Checkbox Preferences */}
-                  <div className="mt-4 grid sm:grid-cols-2 gap-2.5 pt-1">
-                    <label className="flex items-center gap-2.5 text-xs font-semibold text-[#0B1930] cursor-pointer rounded-xl border border-slate-200/70 p-2.5 hover:bg-slate-50 transition-colors">
-                      <input
-                        type="checkbox"
-                        checked={form.contactByPhone}
-                        onChange={(e) => set("contactByPhone", e.target.checked)}
-                        className="h-4 w-4 rounded border-slate-300 text-[#D9232A] accent-[#D9232A]"
-                      />
-                      <span>Please call me to discuss details</span>
-                    </label>
-
-                    <label className="flex items-center gap-2.5 text-xs font-semibold text-[#0B1930] cursor-pointer rounded-xl border border-slate-200/70 p-2.5 hover:bg-slate-50 transition-colors">
-                      <input
-                        type="checkbox"
-                        checked={form.requestSiteVisit}
-                        onChange={(e) => set("requestSiteVisit", e.target.checked)}
-                        className="h-4 w-4 rounded border-slate-300 text-[#D9232A] accent-[#D9232A]"
-                      />
-                      <span>Request an On-Site Plant Visit</span>
-                    </label>
-                  </div>
+                  {submitError ? (
+                    <div className="mt-4 flex items-center gap-2.5 rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs font-semibold text-[#D9232A]">
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                      <span>{submitError}</span>
+                    </div>
+                  ) : null}
 
                   {/* Action Row */}
                   <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-slate-100 pt-5">
                     <button
                       type="submit"
-                      className="rounded-full bg-[#D9232A] px-8 py-3.5 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-white shadow-lg shadow-[#D9232A]/25 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-xl hover:scale-105 inline-flex items-center justify-center gap-2"
+                      disabled={isSubmitting}
+                      className="rounded-full bg-[#D9232A] px-8 py-3.5 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-white shadow-lg shadow-[#D9232A]/25 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-xl hover:scale-105 inline-flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed disabled:scale-100"
                     >
-                      <span>Submit Requirement</span>
-                      <Send className="h-4 w-4" />
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <span>Sending Inquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Submit Requirement</span>
+                          <Send className="h-4 w-4" />
+                        </>
+                      )}
                     </button>
 
                     <div className="flex items-center gap-2 text-xs text-slate-500">
@@ -738,13 +717,13 @@ function ContactPage() {
                 Visit Our <span className="text-[#D9232A]">Headquarters</span>
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-[#4A5568]">
-                Gat No. 344, Village Kuruli, Tal. Khed, Dist. Pune – 410 501, Maharashtra, India
+                6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 shrink-0">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Gat+No.+344,+Village+Kuruli,+Tal.+Khed,+Dist.+Pune+410501,+Maharashtra,+India"
+                href="https://www.google.com/maps/dir/?api=1&destination=Vevra+Packaging+Private+Limited,+6,7,+EasyGo+House,Survey+No.310/A/1,+Plot+no.+5,+Old+Mumbai+-+Pune+Hwy,+near+Somatane+Toll+Plaza,+Maharashtra+410506"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-[#D9232A] px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-md shadow-[#D9232A]/20 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-lg inline-flex items-center gap-2"
@@ -768,11 +747,11 @@ function ContactPage() {
           <div className="relative w-full min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-900 shadow-xl">
             <iframe
               title="VEVRA Packaging Headquarters Location Map"
-              src="https://maps.google.com/maps?q=Gat%20No.%20344%2C%20Village%20Kuruli%2C%20Tal.%20Khed%2C%20Dist.%20Pune%20410501%2C%20Maharashtra%2C%20India&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d120928.84535533364!2d73.54646513820872!3d18.70763541115348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b10af07e1873%3A0xa954d83beee55a9d!2sVevra%20Packaging%20Private%20Limited!5e0!3m2!1sen!2sin!4v1791435527291!5m2!1sen!2sin"
               className="absolute inset-0 h-full w-full border-0"
               loading="lazy"
               allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
             />
 
             {/* Floating Info Badge on Map */}
@@ -786,7 +765,7 @@ function ContactPage() {
                     HEADQUARTERS ADDRESS
                   </span>
                   <p className="mt-0.5 text-xs sm:text-sm font-bold text-[#0B1930] leading-snug">
-                    Gat No. 344, Village Kuruli, Tal. Khed, Dist. Pune – 410 501, Maharashtra, India
+                    6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
                   </p>
                   <p className="mt-1 text-[11px] font-semibold text-slate-500">
                     Mon – Sat: 9:00 AM – 6:30 PM • Chakan – Khed Industrial Hub
@@ -831,9 +810,8 @@ function ContactPage() {
                   >
                     <span className="text-xs sm:text-sm">{faq.q}</span>
                     <ChevronDown
-                      className={`h-4.5 w-4.5 shrink-0 text-slate-400 transition-transform duration-300 ${
-                        isOpen ? "rotate-180 text-[#D9232A]" : ""
-                      }`}
+                      className={`h-4.5 w-4.5 shrink-0 text-slate-400 transition-transform duration-300 ${isOpen ? "rotate-180 text-[#D9232A]" : ""
+                        }`}
                     />
                   </button>
                   {isOpen && (

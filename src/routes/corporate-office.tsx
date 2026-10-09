@@ -30,7 +30,7 @@ export const Route = createFileRoute("/corporate-office")({
       {
         name: "description",
         content:
-          "VEVRA Packaging Pvt. Ltd. corporate office at Gat No. 344, Village Kuruli, Tal. Khed, Dist. Pune 410 501, Maharashtra, India.",
+          "VEVRA Packaging Pvt. Ltd. corporate office at Gat No. 344, Village , Tal. Khed, Dist. Pune 410 501, Maharashtra, India.",
       },
       { property: "og:title", content: "VEVRA Packaging Corporate Office" },
       { property: "og:description", content: "Our registered corporate office in Pune, India." },
@@ -50,9 +50,9 @@ const OFFICE_GALLERY = [
   },
   {
     step: "02",
-    title: "CORPORATE OFFICE, KURULI",
+    title: "CORPORATE OFFICE, ",
     image: office02Building,
-    alt: "VEVRA Corporate Office building exterior in Kuruli, Pune",
+    alt: "VEVRA Corporate Office building exterior in , Pune",
   },
   {
     step: "03",
@@ -103,7 +103,7 @@ function CorporateOfficePage() {
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-            
+
             {/* Left Column: Heading, Subtext, Buttons & Feature Badges */}
             <div className="lg:col-span-6 2xl:col-span-6 z-10 py-2">
               <div className="flex items-center gap-2">
@@ -177,7 +177,7 @@ function CorporateOfficePage() {
                 <div className="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-slate-900 shadow-2xl">
                   <img
                     src={office02Building}
-                    alt="VEVRA Packaging Corporate Office building in Kuruli, Pune"
+                    alt="VEVRA Packaging Corporate Office building in , Pune"
                     className="h-[360px] sm:h-[420px] lg:h-[460px] w-full object-cover"
                     loading="eager"
                   />
@@ -224,7 +224,7 @@ function CorporateOfficePage() {
       <section className="bg-slate-50/70 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
-            
+
             {/* Headquarters Address Card */}
             <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 sm:p-8 shadow-sm transition-all hover:shadow-md">
               <div className="absolute top-0 left-0 right-0 h-1 bg-[#D9232A]" />
@@ -235,9 +235,9 @@ function CorporateOfficePage() {
                 <div>
                   <h2 className="text-xl font-bold text-brand-blue-dark">Headquarters Address</h2>
                   <div className="mt-3 space-y-1 text-sm text-slate-600 font-medium leading-relaxed">
-                    <p>Gat No. 344, Village Kuruli,</p>
-                    <p>Tal. Khed, Dist. Pune – 410 501,</p>
-                    <p>Maharashtra, India</p>
+                    <p>6,7, EasyGo House, Survey No.310/A/1,</p>
+                    <p>Plot no. 5, Old Mumbai - Pune Hwy,</p>
+                    <p>near Somatane Toll Plaza, Maharashtra 410506</p>
                   </div>
                 </div>
               </div>
@@ -276,7 +276,7 @@ function CorporateOfficePage() {
       {/* Inside VEVRA Gallery Section */}
       <section className="bg-white py-16 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
+
           {/* Section Header with Quote Box */}
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between pb-10">
             <div>
@@ -287,7 +287,7 @@ function CorporateOfficePage() {
                 Our people, our office, our way of working
               </h2>
               <p className="mt-3 max-w-2xl text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
-                A closer look at the team and the corporate office in Kuruli, Pune, where packaging problems are studied, engineered and managed end to end.
+                A closer look at the team and the corporate office in Somatane, Pune, where packaging problems are studied, engineered and managed end to end.
               </p>
             </div>
 
@@ -316,7 +316,7 @@ function CorporateOfficePage() {
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                
+
                 {/* Soft gradient veil on hover */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/15 transition-opacity duration-300" />
 

@@ -20,19 +20,45 @@ export function ImmersiveHero() {
         <div className="absolute inset-y-0 left-0 w-full sm:w-2/3 lg:w-72 xl:w-96 bg-gradient-to-r from-white via-white/90 lg:via-white/70 to-transparent" />
       </div>
 
-      {/* Top-Right Red Wedge Graphic Accent */}
-      <div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-44 sm:w-60 md:w-72 lg:w-96 xl:w-[420px] overflow-hidden">
+      {/* Ambient Faint Red Glow on Top-Right Corner */}
+      <div className="pointer-events-none absolute top-0 right-0 h-64 sm:h-72 lg:h-88 w-64 sm:w-72 lg:w-88 bg-gradient-to-bl from-red-600/18 via-red-500/6 to-transparent blur-3xl z-10" />
+
+      {/* Top-Right Red Wedge Graphic Accent (Short corner fit) */}
+      <div className="pointer-events-none absolute top-0 right-0 z-10 h-44 sm:h-56 md:h-64 lg:h-72 xl:h-80 w-44 sm:w-56 md:w-64 lg:w-72 xl:w-80 overflow-hidden drop-shadow-[-12px_12px_24px_rgba(217,35,42,0.22)]">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full">
-          <polygon points="35,0 100,0 100,100" fill="#991B1B" opacity="0.95" />
-          <polygon points="50,0 100,0 100,70" fill="#D9232A" opacity="0.85" />
+          <defs>
+            <linearGradient id="heroRedGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#991B1B" stopOpacity="0.65" />
+              <stop offset="100%" stopColor="#7F1D1D" stopOpacity="0.85" />
+            </linearGradient>
+            <linearGradient id="heroRedGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#EF4444" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#D9232A" stopOpacity="0.75" />
+            </linearGradient>
+          </defs>
+          <polygon points="15,0 100,0 100,85" fill="url(#heroRedGrad1)" />
+          <polygon points="45,0 100,0 100,55" fill="url(#heroRedGrad2)" />
         </svg>
       </div>
 
-      {/* Bottom-Left Red Wedge Graphic Accent */}
-      <div className="pointer-events-none absolute bottom-0 left-0 z-0 h-44 sm:h-56 lg:h-72 w-44 sm:w-56 lg:w-72 overflow-hidden">
+      {/* Ambient Faint Red Glow on Left Side */}
+      <div className="pointer-events-none absolute bottom-0 left-0 h-64 lg:h-96 w-64 lg:w-96 bg-gradient-to-tr from-red-600/18 via-red-500/6 to-transparent blur-3xl z-0" />
+
+      {/* Bottom-Left Red Wedge Graphic Accent with faint shadow and softer gradient */}
+      <div className="pointer-events-none absolute bottom-0 left-0 z-0 h-44 sm:h-56 lg:h-72 w-44 sm:w-56 lg:w-72 overflow-hidden drop-shadow-[16px_-16px_32px_rgba(217,35,42,0.2)]">
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="h-full w-full">
-          <polygon points="0,100 100,100 0,25" fill="#991B1B" opacity="0.85" />
-          <polygon points="0,100 65,100 0,55" fill="#D9232A" opacity="0.75" />
+          <defs>
+            <linearGradient id="heroRedGradLeft1" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#991B1B" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#7F1D1D" stopOpacity="0.75" />
+            </linearGradient>
+            <linearGradient id="heroRedGradLeft2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#EF4444" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#D9232A" stopOpacity="0.65" />
+            </linearGradient>
+          </defs>
+          <polygon points="0,100 100,100 0,25" fill="url(#heroRedGradLeft1)" />
+          <polygon points="0,100 65,100 0,55" fill="url(#heroRedGradLeft2)" />
         </svg>
       </div>
 
