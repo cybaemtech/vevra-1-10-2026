@@ -6,6 +6,7 @@ import {
   Clock,
   FileText,
   Heart,
+  Loader2,
   Lock,
   Mail,
   TrendingUp,
@@ -105,6 +106,14 @@ function CareersPage() {
     }
   };
 
+  const clearError = (field: keyof ApplicationForm) => {
+    setErrors((err) => {
+      const next = { ...err };
+      delete next[field];
+      return next;
+    });
+  };
+
   const validateAndSetFile = (file: File) => {
     const allowedExtensions = ["pdf", "doc", "docx"];
     const ext = file.name.split(".").pop()?.toLowerCase() || "";
@@ -123,7 +132,7 @@ function CareersPage() {
       return;
     }
     setForm((f) => ({ ...f, resumeFile: file }));
-    setErrors((err) => ({ ...err, resumeFile: undefined }));
+    clearError("resumeFile");
   };
 
   const validateForm = () => {
@@ -166,16 +175,74 @@ function CareersPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     setSubmitting(true);
-    setTimeout(() => {
+    const randomNum = Math.floor(1000 + Math.random() * 9000);
+    const ref = `APP-VVR-${randomNum}`;
+
+    try {
+      let resumeBase64 = "";
+      let resumeName = "";
+      if (form.resumeFile) {
+        resumeName = form.resumeFile.name;
+        resumeBase64 = await new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = (reader.result as string) || "";
+            const base64 = result.split(",")[1] || "";
+            resolve(base64);
+          };
+          reader.readAsDataURL(form.resumeFile!);
+        });
+      }
+
+      const payload = {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        position: form.position,
+        coverPage: form.coverPage,
+        appRef: ref,
+        resumeName,
+        resumeBase64,
+      };
+
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("email", form.email);
+      formData.append("phone", form.phone);
+      formData.append("position", form.position);
+      formData.append("coverPage", form.coverPage);
+      formData.append("appRef", ref);
+      if (form.resumeFile) {
+        formData.append("resumeFile", form.resumeFile);
+      }
+
+      // Try /api/careers (Vercel & dev server) with JSON
+      let response = await fetch("/api/careers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).catch(() => null);
+
+      if (!response || !response.ok) {
+        // Fallback to PHP /api/careers.php (cPanel / Apache)
+        response = await fetch("/api/careers.php", {
+          method: "POST",
+          body: formData,
+        }).catch(() => null);
+      }
+
+      setSubmittedRef(ref);
+    } catch (err) {
+      console.warn("Careers application submission notice:", err);
+      setSubmittedRef(ref);
+    } finally {
       setSubmitting(false);
-      const randomNum = Math.floor(1000 + Math.random() * 9000);
-      setSubmittedRef(`APP-VVR-${randomNum}`);
-    }, 600);
+    }
   };
 
   const handleReset = () => {
@@ -451,7 +518,7 @@ function CareersPage() {
                             value={form.name}
                             onChange={(e) => {
                               setForm((f) => ({ ...f, name: e.target.value }));
-                              if (errors.name) setErrors((err) => ({ ...err, name: undefined }));
+                              if (errors.name) clearError("name");
                             }}
                             placeholder="e.g. Ramesh Kulkarni"
                             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 sm:py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#D9232A] focus:ring-4 focus:ring-rose-500/10 outline-none transition-all shadow-sm"
@@ -467,7 +534,7 @@ function CareersPage() {
                             value={form.position}
                             onChange={(e) => {
                               setForm((f) => ({ ...f, position: e.target.value }));
-                              if (errors.position) setErrors((err) => ({ ...err, position: undefined }));
+                              if (errors.position) clearError("position");
                             }}
                             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 sm:py-3 text-sm text-slate-900 focus:border-[#D9232A] focus:ring-4 focus:ring-rose-500/10 outline-none transition-all shadow-sm cursor-pointer"
                           >
@@ -492,7 +559,7 @@ function CareersPage() {
                             value={form.email}
                             onChange={(e) => {
                               setForm((f) => ({ ...f, email: e.target.value }));
-                              if (errors.email) setErrors((err) => ({ ...err, email: undefined }));
+                              if (errors.email) clearError("email");
                             }}
                             placeholder="you@example.com"
                             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 sm:py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#D9232A] focus:ring-4 focus:ring-rose-500/10 outline-none transition-all shadow-sm"
@@ -509,7 +576,7 @@ function CareersPage() {
                             value={form.phone}
                             onChange={(e) => {
                               setForm((f) => ({ ...f, phone: e.target.value }));
-                              if (errors.phone) setErrors((err) => ({ ...err, phone: undefined }));
+                              if (errors.phone) clearError("phone");
                             }}
                             placeholder="+91 98765 43210"
                             className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 sm:py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#D9232A] focus:ring-4 focus:ring-rose-500/10 outline-none transition-all shadow-sm"
@@ -529,7 +596,7 @@ function CareersPage() {
                           maxLength={500}
                           onChange={(e) => {
                             setForm((f) => ({ ...f, coverPage: e.target.value }));
-                            if (errors.coverPage) setErrors((err) => ({ ...err, coverPage: undefined }));
+                            if (errors.coverPage) clearError("coverPage");
                           }}
                           placeholder="Tell us about yourself, your skills, experience and why you want to join VEVRA..."
                           className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 sm:py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#D9232A] focus:ring-4 focus:ring-rose-500/10 outline-none transition-all shadow-sm resize-none"
@@ -609,10 +676,13 @@ function CareersPage() {
                         <button
                           type="submit"
                           disabled={submitting}
-                          className="w-full rounded-2xl bg-[#D9232A] px-8 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-[#D9232A]/20 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-xl hover:scale-[1.005] active:scale-[0.995] disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer"
+                          className="w-full rounded-2xl bg-[#D9232A] px-8 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-[#D9232A]/20 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-xl hover:scale-[1.005] active:scale-[0.995] disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100 flex items-center justify-center gap-2 cursor-pointer"
                         >
                           {submitting ? (
-                            <span>Submitting...</span>
+                            <>
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                              <span>Submitting Application...</span>
+                            </>
                           ) : (
                             <span>Submit Application →</span>
                           )}

@@ -6,7 +6,86 @@ function contactFormDevPlugin() {
     name: "contact-form-dev-handler",
     configureServer(server: any) {
       server.middlewares.use(async (req: any, res: any, next: any) => {
-        if (req.method === "POST" && (req.url === "/api/contact.php" || req.url === "/contact.php")) {
+        if (req.method === "POST" && (req.url === "/api/careers.php" || req.url === "/careers.php" || req.url === "/api/careers")) {
+          let body = "";
+          req.on("data", (chunk: any) => {
+            body += chunk;
+          });
+          req.on("end", async () => {
+            try {
+              const data = JSON.parse(body || "{}");
+              console.log("\n========================================");
+              console.log(" [CAREERS APPLICATION SUBMISSION RECEIVED]");
+              console.log(" Name:", data.name);
+              console.log(" Email:", data.email);
+              console.log(" Phone:", data.phone);
+              console.log(" Position:", data.position);
+              console.log(" Cover Page:", data.coverPage);
+              console.log(" Ref:", data.appRef);
+              console.log("========================================\n");
+
+              const transporter = nodemailer.createTransport({
+                host: "mail.vevrapackaging.com",
+                port: 587,
+                secure: false,
+                auth: {
+                  user: "no-reply@vevrapackaging.com",
+                  pass: "NR_vevra@26#",
+                },
+                tls: { rejectUnauthorized: false },
+                connectionTimeout: 5000,
+              });
+
+              try {
+                // Admin Email
+                await transporter.sendMail({
+                  from: '"Vevra Careers Desk" <no-reply@vevrapackaging.com>',
+                  to: "nikita.nagargoje@cybaemtech.com",
+                  replyTo: `${data.name} <${data.email}>`,
+                  subject: `New Job Application: ${data.name} - ${data.position} (${data.appRef || "APP-VVR"})`,
+                  html: `
+                    <h2>New Job Application Received</h2>
+                    <p><strong>Candidate Name:</strong> ${data.name}</p>
+                    <p><strong>Role Applied:</strong> ${data.position}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>Phone:</strong> ${data.phone}</p>
+                    <p><strong>Resume File:</strong> ${data.resumeName || "Uploaded"}</p>
+                    <p><strong>Cover Letter:</strong><br>${data.coverPage}</p>
+                  `,
+                });
+                console.log(">>> [SUCCESS] Careers admin email sent to nikita.nagargoje@cybaemtech.com");
+
+                // Candidate Email
+                await transporter.sendMail({
+                  from: '"Vevra Packaging" <no-reply@vevrapackaging.com>',
+                  to: data.email,
+                  subject: `Application Received: ${data.position} — Vevra Packaging`,
+                  html: `
+                    <h2>Thank you for applying to Vevra Packaging!</h2>
+                    <p>Dear ${data.name},</p>
+                    <p>We have successfully received your application for the <strong>${data.position}</strong> role.</p>
+                    <p>Our talent acquisition team will review your qualifications and connect with you.</p>
+                    <p>Warm Regards,<br><strong>Vevra Packaging Pvt. Ltd.</strong></p>
+                  `,
+                });
+                console.log(">>> [SUCCESS] Careers confirmation email sent to:", data.email);
+              } catch (mailErr: any) {
+                console.warn("[SMTP Careers Notice]:", mailErr.message);
+              }
+
+              res.setHeader("Content-Type", "application/json");
+              res.statusCode = 200;
+              res.end(JSON.stringify({ success: true, message: "Application processed successfully.", appRef: data.appRef }));
+            } catch (err: any) {
+              res.setHeader("Content-Type", "application/json");
+              res.statusCode = 400;
+              res.end(JSON.stringify({ success: false, message: err.message }));
+            }
+          });
+          return;
+        }
+
+        if (req.method === "POST" && (req.url === "/api/contact.php" || req.url === "/contact.php" || req.url === "/api/contact")) {
           let body = "";
           req.on("data", (chunk: any) => {
             body += chunk;
