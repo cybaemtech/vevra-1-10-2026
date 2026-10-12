@@ -13,12 +13,13 @@ import {
   Users,
 } from "lucide-react";
 
-import office01Leadership from "@/assets/VEVRA_Office_Professional_Images/01_leadership_core_team.png";
 import office02Building from "@/assets/VEVRA_Office_Professional_Images/02_corporate_office_building.png";
-import office03CustomerReview from "@/assets/VEVRA_Office_Professional_Images/03_customer_review_sessions.png";
-import office04Engineering from "@/assets/VEVRA_Office_Professional_Images/04_engineering_operations_floor.png";
-import office05OneTeam from "@/assets/VEVRA_Office_Professional_Images/05_one_team_one_purpose.png";
-import office06Collaboration from "@/assets/VEVRA_Office_Professional_Images/06_everyday_collaboration.png";
+import originalCulturalDecor from "@/assets/VEVRA_Office_Professional_Images/original/Bright Modern Office with Cultural Decor.png";
+import originalOpenPlan1 from "@/assets/VEVRA_Office_Professional_Images/original/Bright Modern Open-Plan Office (1).png";
+import originalOpenPlan from "@/assets/VEVRA_Office_Professional_Images/original/Bright Modern Open-Plan Office.png";
+import originalOfficeMeetingRoom from "@/assets/VEVRA_Office_Professional_Images/original/Bright VEVRA Office Meeting Room.png";
+import originalFocusedMeeting from "@/assets/VEVRA_Office_Professional_Images/original/Focused Modern Office Meeting.png";
+import originalWarehouseSunset from "@/assets/VEVRA_Office_Professional_Images/original/Industrial Warehouse at Sunset.png";
 import heroBg from "@/assets/herobg.png";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { COMPANY } from "@/lib/site-content";
@@ -44,46 +45,39 @@ export const Route = createFileRoute("/corporate-office")({
 const OFFICE_GALLERY = [
   {
     step: "01",
-    title: "LEADERSHIP & CORE TEAM",
-    image: office01Leadership,
-    alt: "VEVRA leadership and core team in corporate boardroom",
+    title: "EXECUTIVE BOARDROOM & LEADERSHIP",
+    image: originalOfficeMeetingRoom,
+    alt: "Bright VEVRA office executive meeting room",
   },
   {
     step: "02",
-    title: "CORPORATE OFFICE, ",
-    image: office02Building,
-    alt: "VEVRA Corporate Office building exterior in , Pune",
+    title: "CUSTOMER & STRATEGY SESSIONS",
+    image: originalFocusedMeeting,
+    alt: "Focused modern office review and strategy meeting",
   },
   {
     step: "03",
-    title: "CUSTOMER REVIEW SESSIONS",
-    image: office03CustomerReview,
-    alt: "VEVRA customer review and collaboration boardroom session",
-    screenBadge: "Solutions for a Smarter Tomorrow",
+    title: "ENGINEERING & OPERATIONS FLOOR",
+    image: originalOpenPlan,
+    alt: "Bright modern open-plan packaging engineering workspace",
   },
   {
     step: "04",
-    title: "ENGINEERING & OPERATIONS FLOOR",
-    image: office04Engineering,
-    alt: "VEVRA packaging engineering and operations team floor",
-    overlayText: ["Design", "Develop", "Deliver"],
-    overlayAlign: "right" as const,
+    title: "EVERYDAY TEAM COLLABORATION",
+    image: originalOpenPlan1,
+    alt: "Modern open-plan team collaborative workspace",
   },
   {
     step: "05",
-    title: "ONE TEAM, ONE PURPOSE",
-    image: office05OneTeam,
-    alt: "VEVRA team hallway and collaborative office lobby",
-    overlayText: ["People", "Partnerships", "Packaging", "Progress"],
-    overlayAlign: "left" as const,
+    title: "OFFICE LOBBY & VEVRA CULTURE",
+    image: originalCulturalDecor,
+    alt: "Bright modern office with cultural decor and reception lounge",
   },
   {
     step: "06",
-    title: "EVERYDAY COLLABORATION",
-    image: office06Collaboration,
-    alt: "VEVRA everyday workspace collaboration lounge",
-    overlayText: ["Great", "Packaging", "Builds", "Greater", "Possibilities"],
-    overlayAlign: "right" as const,
+    title: "STRATEGIC LOGISTICS & WAREHOUSE",
+    image: originalWarehouseSunset,
+    alt: "VEVRA industrial warehouse facility at sunset",
   },
 ];
 
@@ -254,12 +248,36 @@ function CorporateOfficePage() {
                   <h2 className="text-xl font-bold text-brand-blue-dark">Reach us</h2>
                   <div className="mt-3 space-y-1.5 text-sm text-slate-600 font-medium">
                     <div className="space-y-0.5">
-                      <p className="font-bold text-brand-blue-dark">{COMPANY.phone}</p>
-                      <p className="font-bold text-brand-blue-dark">{COMPANY.altPhone}</p>
+                      <a
+                        href={`tel:${COMPANY.phone.replace(/\s+/g, "")}`}
+                        className="block font-bold text-brand-blue-dark hover:text-[#D9232A] transition-colors cursor-pointer"
+                        title={`Call ${COMPANY.phone}`}
+                      >
+                        {COMPANY.phone}
+                      </a>
+                      <a
+                        href={`tel:${COMPANY.altPhone.replace(/\s+/g, "")}`}
+                        className="block font-bold text-brand-blue-dark hover:text-[#D9232A] transition-colors cursor-pointer"
+                        title={`Call ${COMPANY.altPhone}`}
+                      >
+                        {COMPANY.altPhone}
+                      </a>
                     </div>
-                    <div className="pt-1 text-xs sm:text-sm text-slate-600">
-                      <p>{COMPANY.email}</p>
-                      <p>{COMPANY.marketingEmail}</p>
+                    <div className="pt-1 text-xs sm:text-sm text-slate-600 space-y-0.5">
+                      <a
+                        href={`mailto:${COMPANY.email}`}
+                        className="block hover:text-[#D9232A] transition-colors cursor-pointer"
+                        title={`Email ${COMPANY.email}`}
+                      >
+                        {COMPANY.email}
+                      </a>
+                      <a
+                        href={`mailto:${COMPANY.careersEmail}`}
+                        className="block hover:text-[#D9232A] transition-colors cursor-pointer"
+                        title={`Email ${COMPANY.careersEmail}`}
+                      >
+                        {COMPANY.careersEmail}
+                      </a>
                     </div>
                     <p className="pt-1 text-xs font-semibold text-slate-500">
                       {COMPANY.timings}

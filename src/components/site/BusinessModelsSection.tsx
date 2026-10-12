@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import boxCorner from "@/assets/capabilities/cap-box-corner.jpg";
+import boxCorner from "@/assets/capabilities/cap-box-corner.png";
 
 const MODELS_DATA = [
   {
@@ -190,32 +190,29 @@ export function BusinessModelsSection() {
                   >
                     {/* Node Dot */}
                     <div
-                      className={`h-6 w-6 rounded-full flex items-center justify-center transition-all duration-500 ${
-                        isActive
+                      className={`h-6 w-6 rounded-full flex items-center justify-center transition-all duration-500 ${isActive
                           ? "bg-brand shadow-[0_0_0_6px_rgba(225,29,72,0.22)] scale-110"
                           : isPassed
                             ? "bg-white border-2 border-brand text-brand"
                             : "bg-white border-2 border-slate-300 group-hover:border-brand"
-                      }`}
+                        }`}
                     >
                       {isActive ? (
                         <span className="h-2 w-2 rounded-full bg-white animate-ping" />
                       ) : (
                         <span
-                          className={`h-2 w-2 rounded-full ${
-                            isPassed ? "bg-brand" : "bg-slate-300 group-hover:bg-brand"
-                          }`}
+                          className={`h-2 w-2 rounded-full ${isPassed ? "bg-brand" : "bg-slate-300 group-hover:bg-brand"
+                            }`}
                         />
                       )}
                     </div>
 
                     {/* Step Title Label */}
                     <span
-                      className={`text-xs sm:text-sm font-bold transition-colors duration-300 ${
-                        isActive
+                      className={`text-xs sm:text-sm font-bold transition-colors duration-300 ${isActive
                           ? "text-brand-blue-dark font-black"
                           : "text-slate-500 group-hover:text-brand-blue-dark"
-                      }`}
+                        }`}
                     >
                       {item.title}
                     </span>
@@ -236,11 +233,10 @@ export function BusinessModelsSection() {
               <div
                 key={item.id}
                 onClick={() => handleSelect(idx)}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl p-6 transition-all duration-500 cursor-pointer min-h-[380px] ${
-                  isActive
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl p-6 transition-all duration-500 cursor-pointer min-h-[380px] ${isActive
                     ? "bg-gradient-to-b from-[#1a3a6b] via-[#153059] to-[#0f2445] text-white border-2 border-brand/60 shadow-[0_20px_40px_-12px_rgba(26,58,107,0.4)] -translate-y-2 ring-1 ring-brand/30"
                     : "bg-white text-slate-900 border border-slate-200/90 shadow-[0_8px_24px_-6px_rgba(15,23,42,0.05)] hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl"
-                }`}
+                  }`}
               >
                 {/* Background Watermark for Active Card */}
                 {isActive ? (
@@ -253,19 +249,17 @@ export function BusinessModelsSection() {
                   {/* Top Row: Icon + Step Number */}
                   <div className="flex items-center justify-between">
                     <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-300 ${
-                        isActive
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-300 ${isActive
                           ? "bg-white/15 border border-white/25 text-rose-300"
                           : "bg-rose-50 border border-rose-100 text-brand group-hover:bg-brand group-hover:text-white"
-                      }`}
+                        }`}
                     >
                       <Icon className="h-6 w-6 stroke-[1.8]" />
                     </div>
 
                     <span
-                      className={`text-xl font-black transition-colors ${
-                        isActive ? "text-slate-300" : "text-slate-400 group-hover:text-brand"
-                      }`}
+                      className={`text-xl font-black transition-colors ${isActive ? "text-slate-300" : "text-slate-400 group-hover:text-brand"
+                        }`}
                     >
                       {item.step}
                     </span>
@@ -273,9 +267,8 @@ export function BusinessModelsSection() {
 
                   {/* Title */}
                   <h3
-                    className={`mt-5 text-xl font-black transition-colors ${
-                      isActive ? "text-white" : "text-brand-blue-dark group-hover:text-brand"
-                    }`}
+                    className={`mt-5 text-xl font-black transition-colors ${isActive ? "text-white" : "text-brand-blue-dark group-hover:text-brand"
+                      }`}
                   >
                     {item.title}
                   </h3>
@@ -285,11 +278,10 @@ export function BusinessModelsSection() {
                     {item.flow.map((pill) => (
                       <span
                         key={pill}
-                        className={`rounded-lg px-2.5 py-1 text-[10px] sm:text-[11px] font-bold transition-colors ${
-                          isActive
+                        className={`rounded-lg px-2.5 py-1 text-[10px] sm:text-[11px] font-bold transition-colors ${isActive
                             ? "bg-white/15 text-white border border-white/20"
                             : "bg-slate-100 text-slate-700"
-                        }`}
+                          }`}
                       >
                         {pill}
                       </span>
@@ -298,9 +290,8 @@ export function BusinessModelsSection() {
 
                   {/* Description */}
                   <p
-                    className={`mt-4 text-xs sm:text-[13px] leading-relaxed font-medium transition-colors ${
-                      isActive ? "text-slate-200" : "text-slate-600"
-                    }`}
+                    className={`mt-4 text-xs sm:text-[13px] leading-relaxed font-medium transition-colors ${isActive ? "text-slate-200" : "text-slate-600"
+                      }`}
                   >
                     {item.body}
                   </p>
@@ -310,21 +301,19 @@ export function BusinessModelsSection() {
                 <div className="relative z-10 mt-6 pt-4 border-t border-slate-100/10 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span
-                      className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 ${
-                        isActive
+                      className={`flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 ${isActive
                           ? "bg-brand text-white shadow-md shadow-brand/30"
                           : "bg-rose-50 text-brand group-hover:bg-brand group-hover:text-white"
-                      }`}
+                        }`}
                     >
                       <ArrowRight className="h-4 w-4 stroke-[2.2]" />
                     </span>
 
                     <span
-                      className={`text-xs font-black uppercase tracking-wider transition-colors ${
-                        isActive
+                      className={`text-xs font-black uppercase tracking-wider transition-colors ${isActive
                           ? "text-brand"
                           : "text-slate-700 group-hover:text-brand"
-                      }`}
+                        }`}
                     >
                       {isActive ? "SELECTED" : "Learn more"}
                     </span>

@@ -6,7 +6,7 @@ import cap05Onsite from "@/assets/capabilities/cap-05-onsite.jpg";
 import cap06Transport from "@/assets/capabilities/cap-06-transport.jpg";
 import cap07Labels from "@/assets/capabilities/cap-07-labels.jpg";
 import cap08Wood from "@/assets/capabilities/cap-08-wood-plywood.png";
-import capBoxCorner from "@/assets/capabilities/cap-box-corner.jpg";
+import capBoxCorner from "@/assets/capabilities/cap-box-corner.png";
 import capPulpHoneycomb from "@/assets/capabilities/cap-pulp-honeycomb.jpg";
 import pulpHeroImg from "@/assets/Vevara/Modeled Pulp packaging- new generated/hero section img.webp";
 import labelsHeroImg from "@/assets/Vevara/Industrial labels and identification- new generated/hero img.png";

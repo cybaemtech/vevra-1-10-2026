@@ -19,7 +19,7 @@ import cap02Plastic from "@/assets/capabilities/cap-02-plastic.jpg";
 import cap03Metal from "@/assets/capabilities/cap-03-metal.jpg";
 import cap07Labels from "@/assets/capabilities/cap-07-labels.jpg";
 import cap08Wood from "@/assets/capabilities/cap-08-wood-plywood.png";
-import capBoxCorner from "@/assets/capabilities/cap-box-corner.jpg";
+import capBoxCorner from "@/assets/capabilities/cap-box-corner.png";
 import capPulpHoneycomb from "@/assets/capabilities/cap-pulp-honeycomb.jpg";
 
 export function AutomotiveProductPage() {
@@ -331,8 +331,8 @@ export function AutomotiveProductPage() {
                 type="button"
                 onClick={() => setActiveTab(tab)}
                 className={`rounded-full px-5 py-2.5 text-xs font-bold transition-all duration-200 ${activeTab === tab
-                    ? "bg-brand text-white shadow-md shadow-brand/25"
-                    : "bg-white text-slate-700 border border-slate-200 hover:border-brand/40 hover:text-brand"
+                  ? "bg-brand text-white shadow-md shadow-brand/25"
+                  : "bg-white text-slate-700 border border-slate-200 hover:border-brand/40 hover:text-brand"
                   }`}
               >
                 {tab}

@@ -6,8 +6,10 @@ export const COMPANY = {
   philosophy: "If Our Customer Wins, We Win.",
   phone: "+91 8484853484",
   altPhone: "+91 2135 622 700",
-  email: "info@vevrapackaging.com",
-  marketingEmail: "marketing@vevrapackaging.com",
+  email: "Enquiries@vevrapackaging.com",
+  marketingEmail: "Careers@vevrapackaging.com",
+  careersEmail: "Careers@vevrapackaging.com",
+  enquiriesEmail: "Enquiries@vevrapackaging.com",
   website: "www.vevrapackaging.com",
   timings: "Mon – Sat: 10:00am – 7:00pm",
   address:

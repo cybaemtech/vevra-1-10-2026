@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BarChart3,
-  CheckCircle2,
   Factory,
   Globe2,
   Package,
@@ -14,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { SiteLayout } from "@/components/site/SiteLayout";
-import capBoxCorner from "@/assets/capabilities/cap-box-corner.jpg";
+import capBoxCorner from "@/assets/capabilities/cap-box-corner.png";
 import cap01Corrugated from "@/assets/capabilities/cap-01-corrugated.png";
 import cap02Plastic from "@/assets/capabilities/cap-02-plastic.jpg";
 import cap03Metal from "@/assets/capabilities/cap-03-metal.jpg";
@@ -184,24 +183,6 @@ export function CustomizedProductPage() {
                 </div>
               </div>
 
-              <div className="mt-auto rounded-2xl bg-[#081830]/95 border border-white/15 p-4 sm:p-5 backdrop-blur-md text-white shadow-2xl w-full max-w-[280px] space-y-2.5 z-10 select-none">
-                <div className="flex items-center gap-3 text-xs font-bold text-slate-200">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>3D CAD &amp; Rapid Sampling</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs font-bold text-slate-200">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Multi-Material Integration</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs font-bold text-slate-200">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Line-Side Ergonomics</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs font-bold text-slate-200">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Total Cost Optimization (TCO)</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -102,7 +102,7 @@ function WarehousesPage() {
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
-                    <span className="block text-base font-black text-slate-900">11+</span>
+                    <span className="block text-base font-black text-slate-900">23+</span>
                     <span className="block text-[11px] font-semibold text-slate-500 leading-tight">
                       Locations Across India
                     </span>
