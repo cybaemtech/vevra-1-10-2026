@@ -307,9 +307,8 @@ export function genRFQ() {
 export function routeLabel(state: RFQState) {
   return state.shipmentType === "Domestic"
     ? `${state.originPin || "—"} → ${state.destPin || "—"}`
-    : `${state.originCity || ""}, ${state.originCountry || "—"} → ${state.destCity || ""}, ${
-        state.destCountry || "—"
-      }`;
+    : `${state.originCity || ""}, ${state.originCountry || "—"} → ${state.destCity || ""}, ${state.destCountry || "—"
+    }`;
 }
 
 export function buildRFQText(state: RFQState, rfqNumber: string) {
@@ -587,7 +586,7 @@ export async function buildRFQPDF(state: RFQState, rfqNumber: string) {
   doc.setFontSize(9);
   doc.setTextColor(...BLUE);
   doc.text(
-    "Contact: +91 8484853484  |  info@vevrapackaging.com  |  Mon-Sat: 10:00am - 7:00pm",
+    "Contact: +91 8484853484  |  enquiries@vevrapackaging.com  |  Mon-Sat: 10:00am - 7:00pm",
     PW / 2,
     HH + 20,
     { align: "center" },
@@ -781,7 +780,7 @@ export async function buildRFQPDF(state: RFQState, rfqNumber: string) {
   doc.setFontSize(9);
   doc.setTextColor(255, 255, 255);
   doc.text("+91 8484853484", colX, rowTop + 21);
-  doc.text("info@vevrapackaging.com", colX, rowTop + 33);
+  doc.text("enquiries@vevrapackaging.com", colX, rowTop + 33);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
