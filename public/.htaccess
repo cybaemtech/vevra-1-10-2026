@@ -1,0 +1,76 @@
+# ----------------------------------------------------------------------
+# VEVRA Packaging - Apache / cPanel Production Configuration
+# ----------------------------------------------------------------------
+
+# 1. Directory Index
+DirectoryIndex index.html index.php
+
+# 2. Character Encoding & MIME Types
+AddDefaultCharset UTF-8
+<IfModule mod_mime.c>
+  AddType text/html .html .htm
+  AddType text/css .css
+  AddType application/javascript .js .mjs
+  AddType application/json .json
+  AddType image/svg+xml .svg .svgz
+  AddType image/webp .webp
+  AddType image/png .png
+  AddType image/jpeg .jpg .jpeg
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType video/mp4 .mp4
+</IfModule>
+
+# 3. Compression (GZIP / Deflate)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# 4. Browser Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# 5. URL Rewriting for Single Page Application (SPA) Fallback
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Allow direct execution of PHP files (for contact.php, careers.php, api/*.php)
+  RewriteRule ^.*\.php$ - [L]
+
+  # If the requested resource is an existing file or directory, serve it directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise, route everything to index.html for client-side routing
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# 6. Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

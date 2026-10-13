@@ -100,7 +100,7 @@ export function QuickQuotePopup() {
             <div className="mt-3.5 space-y-2">
               {/* Primary: Get a Quote */}
               <Link
-                to="/calculator"
+                to="/contact"
                 className="group flex w-full items-center justify-between rounded-lg bg-brand px-3.5 py-2.5 text-xs font-black uppercase tracking-[0.1em] text-white shadow-sm shadow-brand/20 transition-all duration-200 hover:bg-brand-dark hover:shadow-md hover:scale-[1.01]"
               >
                 <div className="flex items-center gap-2">

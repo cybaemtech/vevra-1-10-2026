@@ -102,7 +102,7 @@ export function RfqButton({
         ? "border border-white/40 text-white hover:bg-white hover:text-brand-blue-dark"
         : "border-2 border-brand-blue-dark/20 text-brand-blue-dark hover:border-brand hover:text-brand";
   return (
-    <Link to="/calculator" onClick={scrollToTop} className={`${base} ${styles} ${className}`}>
+    <Link to="/contact" onClick={scrollToTop} className={`${base} ${styles} ${className}`}>
       {children ? children : (
         <>
           {label}
@@ -488,8 +488,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
 
-  // Ensure scroll is at top whenever route changes
+  // Ensure scroll is at top whenever route changes, unless navigating to an anchor hash
   useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      return;
+    }
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [currentPath]);
 

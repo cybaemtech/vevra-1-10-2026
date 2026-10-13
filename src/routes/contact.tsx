@@ -221,10 +221,12 @@ function ContactPage() {
                 </a>
 
                 <Link
-                  to="/calculator"
-                  className="rounded-full border border-slate-300 bg-white px-7 py-3 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-[#0B1930] shadow-sm transition-all duration-300 hover:border-[#1E3A8A] hover:text-[#1E3A8A] hover:bg-slate-50 hover:scale-105 inline-flex items-center gap-2"
+                  to="/warehouses"
+                  hash="our-network"
+                  className="rounded-full border border-slate-300 bg-white px-7 py-3 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-[#0B1930] shadow-sm transition-all duration-300 hover:border-[#D9232A] hover:text-[#D9232A] hover:bg-rose-50/40 hover:scale-105 inline-flex items-center gap-2"
                 >
-                  <span>RFQ Calculator</span>
+                  <MapPin className="h-4 w-4 text-[#D9232A]" />
+                  <span>Find VEVRA Near You</span>
                 </Link>
               </div>
             </div>

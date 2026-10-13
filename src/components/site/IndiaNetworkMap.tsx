@@ -658,12 +658,12 @@ export function IndiaNetworkMap() {
   return (
     <div className="grid items-start gap-8 lg:grid-cols-12 lg:gap-8 xl:gap-10">
       
-      {/* Left Column: Interactive Map Visualization Card */}
-      <div className="lg:col-span-6 sticky top-24">
-        <div className="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-4 sm:p-6 shadow-sm">
+      {/* Left Column: Interactive Map Visualization Card (Sticky, shifted up, fully fits viewport) */}
+      <div className="lg:col-span-6 lg:sticky lg:top-14 xl:top-16 lg:self-start z-10">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-3 sm:p-4 shadow-sm max-h-[calc(100vh-4.5rem)] flex flex-col justify-between">
           
           {/* Map Header Bar */}
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#D9232A]">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D9232A] opacity-75" />
@@ -676,11 +676,12 @@ export function IndiaNetworkMap() {
             </span>
           </div>
 
-          {/* SVG Map Container with India Map Image */}
-          <div className="relative mt-2 aspect-[853/1024] w-full max-w-[580px] mx-auto flex items-center justify-center select-none">
+          {/* SVG Map Container with India Map Image (Proportionally scaled to never cut off bottom) */}
+          <div className="relative mt-1 w-full max-w-[500px] h-[calc(100vh-9.5rem)] max-h-[490px] mx-auto flex items-center justify-center select-none">
             <svg
               viewBox="0 0 853 1024"
-              className="h-full w-full max-h-[620px]"
+              className="h-full w-auto max-h-full max-w-full"
+              preserveAspectRatio="xMidYMid meet"
               role="img"
               aria-label="Map of India showing VEVRA packaging warehouse network"
             >

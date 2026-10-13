@@ -85,7 +85,7 @@ export function ImmersiveHero() {
           {/* CTA Buttons */}
           <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
             <Link
-              to="/calculator"
+              to="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-[#D9232A] px-7 py-3 text-xs sm:text-sm font-bold text-white shadow-lg shadow-[#D9232A]/25 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-xl hover:scale-105"
             >
               <span>Generate Quick RFQ</span>

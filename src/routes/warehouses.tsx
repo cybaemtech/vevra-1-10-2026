@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import {
   ArrowRight,
   Boxes,
@@ -41,6 +42,18 @@ export const Route = createFileRoute("/warehouses")({
 });
 
 function WarehousesPage() {
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const id = window.location.hash.replace("#", "");
+      const elem = document.getElementById(id);
+      if (elem) {
+        setTimeout(() => {
+          elem.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 120);
+      }
+    }
+  }, []);
+
   return (
     <SiteLayout>
       {/* 1. Hero Section */}
@@ -82,7 +95,7 @@ function WarehousesPage() {
               {/* Action Buttons */}
               <div className="mt-7 flex flex-wrap items-center gap-3.5 sm:gap-4">
                 <Link
-                  to="/calculator"
+                  to="/contact"
                   className="arrow-move inline-flex items-center gap-2 rounded-full bg-[#D9232A] px-7 py-3 text-xs sm:text-sm font-bold text-white shadow-lg shadow-[#D9232A]/25 transition-all hover:bg-rose-700 hover:shadow-xl"
                 >
                   Generate Quick RFQ <span className="arrow">→</span>
@@ -179,7 +192,7 @@ function WarehousesPage() {
       </section>
 
       {/* 2. Our Network Section (Interactive Map & Facilities) */}
-      <section className="bg-slate-50/70 py-16 sm:py-20 lg:py-24 border-b border-slate-100">
+      <section id="our-network" className="bg-slate-50/70 py-16 sm:py-20 lg:py-24 border-b border-slate-100 scroll-mt-20 sm:scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* Section Header */}
@@ -298,7 +311,7 @@ function WarehousesPage() {
                 {/* Button */}
                 <div className="shrink-0">
                   <Link
-                    to="/calculator"
+                    to="/contact"
                     className="arrow-move inline-flex items-center gap-2 rounded-full bg-[#D9232A] px-7 py-3.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-[#D9232A]/25 transition-all hover:bg-rose-700 hover:shadow-xl"
                   >
                     Generate Quick RFQ <span className="arrow">→</span>
