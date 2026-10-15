@@ -1,0 +1,12 @@
+# Vevra Packaging - Secure Resumes Folder
+# Prevent execution of any scripts
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|cgi|pl|exe|sh|py)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Serve files as attachment downloads
+<FilesMatch "\.(pdf|doc|docx)$">
+    ForceType application/octet-stream
+    Header set Content-Disposition attachment
+</FilesMatch>

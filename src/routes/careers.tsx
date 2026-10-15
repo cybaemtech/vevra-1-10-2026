@@ -219,21 +219,32 @@ function CareersPage() {
       formData.append("appRef", ref);
       if (form.resumeFile) {
         formData.append("resumeFile", form.resumeFile);
+        formData.append("resumeName", resumeName);
+        formData.append("resumeBase64", resumeBase64);
       }
 
-      // Try /api/careers (Vercel & dev server) with JSON
-      let response = await fetch("/api/careers", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).catch(() => null);
+      // Prioritize PHP endpoints directly for cPanel Apache hosting & dev server
+      const endpoints = ["/api/careers.php", "/careers.php", "/api/careers"];
+      let delivered = false;
 
-      if (!response || !response.ok) {
-        // Fallback to PHP /api/careers.php (cPanel / Apache)
-        response = await fetch("/api/careers.php", {
-          method: "POST",
-          body: formData,
-        }).catch(() => null);
+      for (const endpoint of endpoints) {
+        try {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            body: formData,
+          });
+
+          const contentType = res.headers.get("content-type") || "";
+          if (res.ok && contentType.includes("application/json")) {
+            const data = await res.json().catch(() => null);
+            if (data && data.success) {
+              delivered = true;
+              break;
+            }
+          }
+        } catch {
+          // Try next available endpoint
+        }
       }
 
       setSubmittedRef(ref);

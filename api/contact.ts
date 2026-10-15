@@ -26,14 +26,14 @@ export default async function handler(req: any, res: any) {
       });
     }
 
-    // Configure Transporter
+    // Configure Transporter (Port 465 SSL primary)
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || "mail.vevrapackaging.com",
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === "true",
+      port: Number(process.env.SMTP_PORT) || 465,
+      secure: process.env.SMTP_SECURE !== "false",
       auth: {
         user: process.env.SMTP_USER || "no-reply@vevrapackaging.com",
-        pass: process.env.SMTP_PASS || "NR_vevra@26#",
+        pass: process.env.SMTP_PASS || "no-vevra@2026",
       },
       tls: { rejectUnauthorized: false },
     });
@@ -83,7 +83,7 @@ export default async function handler(req: any, res: any) {
     // Send Admin Email
     await transporter.sendMail({
       from: '"Vevra Packaging Portal" <no-reply@vevrapackaging.com>',
-      to: process.env.ADMIN_EMAIL || "nikita.nagargoje@cybaemtech.com",
+      to: process.env.ADMIN_EMAIL || "enquiries@vevrapackaging.com",
       replyTo: `${fullName} <${email}>`,
       subject: `New Inquiry: ${fullName} - ${company}`,
       html: adminHtml,

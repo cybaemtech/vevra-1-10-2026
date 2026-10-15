@@ -212,6 +212,13 @@ async function main() {
   copyDirRecursive(srcDir, destDir);
   console.log("Copied static assets.");
 
+  // Also ensure all public files (including PHP backends and .htaccess) are copied fresh
+  const publicDir = path.resolve(__dirname, "..", "public");
+  if (fs.existsSync(publicDir)) {
+    console.log(`Syncing public assets and PHP backends from ${publicDir} to ${destDir}...`);
+    copyDirRecursive(publicDir, destDir);
+  }
+
   await prerenderRoutes();
   ensureHtaccess();
 

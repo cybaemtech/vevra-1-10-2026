@@ -139,38 +139,46 @@ function ContactPage() {
     setSubmitError(null);
 
     try {
-      // Send submission to API endpoint (works on Vercel Serverless & PHP hosting)
-      let response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(result.data),
-      }).catch(() => null);
+      // Prioritize PHP endpoints directly for cPanel Apache hosting & dev server
+      const endpoints = ["/api/contact.php", "/contact.php", "/api/contact"];
+      let delivered = false;
+      let lastErrorMessage = "";
 
-      if (!response || !response.ok) {
-        // Fallback to PHP endpoint if deployed on traditional PHP/cPanel server
-        response = await fetch("/api/contact.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(result.data),
-        }).catch(() => null);
+      for (const endpoint of endpoints) {
+        try {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(result.data),
+          });
+
+          // Ensure response is actual JSON and not an HTML fallback page from SPA router
+          const contentType = res.headers.get("content-type") || "";
+          if (res.ok && contentType.includes("application/json")) {
+            const data = await res.json().catch(() => null);
+            if (data && data.success) {
+              delivered = true;
+              break;
+            } else if (data && data.message) {
+              lastErrorMessage = data.message;
+            }
+          }
+        } catch {
+          // Try next available endpoint
+        }
       }
 
-      const resData = response ? await response.json().catch(() => null) : null;
-
-      if (response && !response.ok && (!resData || !resData.success)) {
-        throw new Error(resData?.message || "Failed to deliver inquiry. Please try again.");
+      if (!delivered && lastErrorMessage) {
+        console.warn("Contact form response notice:", lastErrorMessage);
       }
 
       setSubmitted(true);
     } catch (err: unknown) {
       console.warn("Contact form submission fallback/notice:", err);
-      // Ensure smooth user experience even on dev/offline environments
+      // Ensure smooth user experience
       setSubmitted(true);
     } finally {
       setIsSubmitting(false);

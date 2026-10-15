@@ -50,12 +50,16 @@ AddDefaultCharset UTF-8
   ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
 
-# 5. URL Rewriting for Single Page Application (SPA) Fallback
+# 5. URL Rewriting for Single Page Application (SPA) Fallback & API Endpoints
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Allow direct execution of PHP files (for contact.php, careers.php, api/*.php)
+  # Explicit API Endpoints to PHP scripts (never serve index.html for API calls)
+  RewriteRule ^api/contact/?$ api/contact.php [L,QSA]
+  RewriteRule ^api/careers/?$ api/careers.php [L,QSA]
+
+  # Allow direct execution of all PHP scripts (contact.php, careers.php, etc.)
   RewriteRule ^.*\.php$ - [L]
 
   # If the requested resource is an existing file or directory, serve it directly

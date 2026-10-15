@@ -1,455 +1,500 @@
 <?php
 /**
  * Vevra Packaging - Contact Form Email Backend
- * 
- * Handles contact form submissions:
- * 1. Sends lead notification to Admin (nikita.nagargoje@cybaemtech.com)
- * 2. Sends confirmation / thank you email to User (from no-reply@vevrapackaging.com)
+ * No database required - pure authenticated mail transmission.
  */
 
-// Enable error logging while keeping JSON response clean
-error_reporting(E_ALL);
-ini_set('display_errors', '0');
-ini_set('log_errors', '1');
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With");
 
-// CORS Headers
-header('Content-Type: application/json; charset=UTF-8');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Accept, X-Requested-With');
-
-// Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
-    echo json_encode(['status' => 'ok']);
-    exit;
+    echo json_encode(["status" => "ok"]);
+    exit(0);
 }
 
-// Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method Not Allowed. POST is required.']);
+    echo json_encode(["success" => false, "error" => "POST method required"]);
     exit;
 }
 
-// SMTP & Email Configuration
-const SMTP_CONFIG = [
-    'hosts'    => ['localhost', 'mail.vevrapackaging.com', '127.0.0.1'],
-    'ports'    => [587, 465, 25],
-    'user'     => 'no-reply@vevrapackaging.com',
-    'pass'     => 'NR_vevra@26#',
-    'from'     => 'no-reply@vevrapackaging.com',
-    'fromName' => 'Vevra Packaging Pvt. Ltd.',
-    'adminTo'  => 'nikita.nagargoje@cybaemtech.com',
-];
-
-// Read input data (support both JSON payload and standard x-www-form-urlencoded / multipart)
+// Support both JSON payloads (React/TanStack) and standard $_POST form submissions
 $rawInput = file_get_contents('php://input');
-$data = [];
-
+$json = [];
 if (!empty($rawInput)) {
     $decoded = json_decode($rawInput, true);
     if (is_array($decoded)) {
-        $data = $decoded;
+        $json = $decoded;
     }
 }
+$data = array_merge($_POST, $json);
 
-if (empty($data) && !empty($_POST)) {
-    $data = $_POST;
-}
+$name        = trim($data['fullName']    ?? $data['name']    ?? '');
+$mobile      = trim($data['phone']       ?? $data['mobile']  ?? '');
+$email       = trim($data['email']       ?? '');
+$company     = trim($data['company']     ?? '');
+$location    = trim($data['location']    ?? '');
+$enquiryType = trim($data['enquiryType'] ?? $data['service'] ?? 'General Inquiry');
+$message     = trim($data['message']     ?? $data['query']   ?? '');
 
-// Sanitize inputs
-$fullName    = trim($data['fullName'] ?? $data['name'] ?? '');
-$email       = trim($data['email'] ?? $data['mail'] ?? '');
-$phone       = trim($data['phone'] ?? '');
-$company     = trim($data['company'] ?? '');
-$location    = trim($data['location'] ?? '');
-$enquiryType = trim($data['enquiryType'] ?? $data['enquiry_type'] ?? 'General Inquiry');
-$message     = trim($data['message'] ?? '');
-
-// Validation
-$errors = [];
-if (empty($fullName)) {
-    $errors['fullName'] = 'Full Name is required.';
-}
-if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors['email'] = 'A valid email address is required.';
-}
-if (empty($company)) {
-    $errors['company'] = 'Company name is required.';
-}
-if (empty($location)) {
-    $errors['location'] = 'Location is required.';
-}
-
-if (!empty($errors)) {
-    http_response_code(422);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please correct the errors in the form.',
-        'errors'  => $errors
-    ]);
+if (empty($name) || empty($email)) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "error" => "Full Name and Email are required"]);
     exit;
 }
 
-$submissionTime = date('d M Y, h:i A T');
-$userIp = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
-
-// -------------------------------------------------------------
-// 1. Build Admin Notification Email
-// -------------------------------------------------------------
-$adminSubject = "New Inquiry: " . htmlspecialchars($fullName) . " - " . htmlspecialchars($company);
-
-$adminHtmlBody = '
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>New Contact Form Submission</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f4f6f9; font-family: \'Segoe UI\', Arial, sans-serif; color: #1e293b;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f6f9; padding: 30px 15px;">
-    <tr>
-      <td align="center">
-        <table width="620" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
-          
-          <!-- Header Banner -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #0B1930 0%, #1E3A8A 100%); padding: 28px 32px; color: #ffffff;">
-              <div style="font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #f87171; margin-bottom: 6px;">
-                NEW INQUIRY RECEIVED
-              </div>
-              <h1 style="margin: 0; font-size: 22px; font-weight: 800; color: #ffffff;">
-                Vevra Packaging Web Portal
-              </h1>
-            </td>
-          </tr>
-
-          <!-- Content Body -->
-          <tr>
-            <td style="padding: 32px;">
-              <p style="margin: 0 0 20px 0; font-size: 14px; line-height: 1.6; color: #475569;">
-                A new business requirement has been submitted through the contact page on the Vevra Packaging website.
-              </p>
-
-              <!-- Data Table -->
-              <table width="100%" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-size: 13px; margin-bottom: 24px;">
-                <tr style="background-color: #f8fafc; border-bottom: 1px solid #e2e8f0;">
-                  <td width="35%" style="font-weight: 700; color: #0B1930; padding: 10px 12px;">Full Name</td>
-                  <td style="color: #1e293b; padding: 10px 12px; font-weight: 600;">' . htmlspecialchars($fullName) . '</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e2e8f0;">
-                  <td style="font-weight: 700; color: #0B1930; padding: 10px 12px;">Email Address</td>
-                  <td style="color: #1e293b; padding: 10px 12px;"><a href="mailto:' . htmlspecialchars($email) . '" style="color: #1E3A8A; font-weight: 600; text-decoration: none;">' . htmlspecialchars($email) . '</a></td>
-                </tr>
-                <tr style="background-color: #f8fafc; border-bottom: 1px solid #e2e8f0;">
-                  <td style="font-weight: 700; color: #0B1930; padding: 10px 12px;">Phone Number</td>
-                  <td style="color: #1e293b; padding: 10px 12px;">' . (!empty($phone) ? htmlspecialchars($phone) : '<span style="color: #94a3b8;">Not Provided</span>') . '</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e2e8f0;">
-                  <td style="font-weight: 700; color: #0B1930; padding: 10px 12px;">Company / Organization</td>
-                  <td style="color: #1e293b; padding: 10px 12px; font-weight: 600;">' . htmlspecialchars($company) . '</td>
-                </tr>
-                <tr style="background-color: #f8fafc; border-bottom: 1px solid #e2e8f0;">
-                  <td style="font-weight: 700; color: #0B1930; padding: 10px 12px;">Location (City/Country)</td>
-                  <td style="color: #1e293b; padding: 10px 12px;">' . htmlspecialchars($location) . '</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #e2e8f0;">
-                  <td style="font-weight: 700; color: #0B1930; padding: 10px 12px;">Enquiry Type</td>
-                  <td style="color: #D9232A; font-weight: 700; padding: 10px 12px;">' . htmlspecialchars($enquiryType) . '</td>
-                </tr>
-                <tr style="background-color: #f8fafc;">
-                  <td style="font-weight: 700; color: #0B1930; padding: 10px 12px; vertical-align: top;">Packaging Details / Message</td>
-                  <td style="color: #334155; padding: 10px 12px; line-height: 1.6; white-space: pre-line;">' . (!empty($message) ? nl2br(htmlspecialchars($message)) : '<span style="color: #94a3b8; font-style: italic;">No specific message provided</span>') . '</td>
-                </tr>
-              </table>
-
-              <!-- Meta Footer -->
-              <div style="padding: 12px 16px; background-color: #f1f5f9; border-radius: 8px; font-size: 11px; color: #64748b;">
-                <strong>Submission Time:</strong> ' . $submissionTime . ' &nbsp;|&nbsp; <strong>IP:</strong> ' . htmlspecialchars($userIp) . '
-              </div>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #0B1930; padding: 18px 32px; text-align: center; color: #94a3b8; font-size: 11px;">
-              © 2026 Vevra Packaging Pvt. Ltd. Automated Notification System
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>';
-
-// -------------------------------------------------------------
-// 2. Build User Auto-Reply / Thank You Email
-// -------------------------------------------------------------
-$userSubject = "Thank you for connecting with Vevra Packaging";
-
-$userHtmlBody = '
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Thank You - Vevra Packaging</title>
-</head>
-<body style="margin: 0; padding: 0; background-color: #f4f6f9; font-family: \'Segoe UI\', Arial, sans-serif; color: #1e293b;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f6f9; padding: 30px 15px;">
-    <tr>
-      <td align="center">
-        <table width="620" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
-          
-          <!-- Header Banner -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #0B1930 0%, #1E3A8A 100%); padding: 32px; text-align: left;">
-              <div style="font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #f87171; margin-bottom: 6px;">
-                VEVRA PACKAGING PVT. LTD.
-              </div>
-              <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #ffffff;">
-                Thank You for Connecting With Us!
-              </h1>
-            </td>
-          </tr>
-
-          <!-- Content Body -->
-          <tr>
-            <td style="padding: 32px;">
-              <p style="margin: 0 0 16px 0; font-size: 15px; font-weight: 600; color: #0B1930;">
-                Dear ' . htmlspecialchars($fullName) . ',
-              </p>
-              
-              <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.7; color: #475569;">
-                Thank you for reaching out to <strong>Vevra Packaging Pvt. Ltd.</strong> We have successfully received your inquiry regarding <strong>' . htmlspecialchars($enquiryType) . '</strong> for <strong>' . htmlspecialchars($company) . '</strong>.
-              </p>
-
-              <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.7; color: #475569;">
-                Our technical packaging engineering team is currently reviewing your requirements. A dedicated specialist will reach out to you within <strong>1 business day</strong> to discuss optimized transit protection, specifications, and commercial estimates.
-              </p>
-
-              <!-- Summary Card -->
-              <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #D9232A; border-radius: 8px; padding: 18px 20px; margin-bottom: 24px;">
-                <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #0B1930; margin-bottom: 10px;">
-                  SUMMARY OF YOUR INQUIRY
-                </div>
-                <table width="100%" cellpadding="4" cellspacing="0" style="font-size: 13px; color: #334155;">
-                  <tr>
-                    <td width="32%" style="font-weight: 600; color: #64748b;">Enquiry Type:</td>
-                    <td style="font-weight: 700; color: #0B1930;">' . htmlspecialchars($enquiryType) . '</td>
-                  </tr>
-                  <tr>
-                    <td style="font-weight: 600; color: #64748b;">Company:</td>
-                    <td style="color: #0B1930;">' . htmlspecialchars($company) . '</td>
-                  </tr>
-                  <tr>
-                    <td style="font-weight: 600; color: #64748b;">Location:</td>
-                    <td style="color: #0B1930;">' . htmlspecialchars($location) . '</td>
-                  </tr>
-                </table>
-              </div>
-
-              <p style="margin: 0 0 20px 0; font-size: 13px; line-height: 1.6; color: #64748b;">
-                If you have any urgent engineering questions in the meantime, feel free to reply directly to this email or visit our corporate headquarters.
-              </p>
-
-              <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 20px;">
-                <p style="margin: 0; font-size: 13px; font-weight: 700; color: #0B1930;">Warm Regards,</p>
-                <p style="margin: 2px 0 0 0; font-size: 14px; font-weight: 800; color: #D9232A;">Client Solutions &amp; Engineering Desk</p>
-                <p style="margin: 2px 0 0 0; font-size: 12px; color: #64748b;">Vevra Packaging Pvt. Ltd.</p>
-                <p style="margin: 4px 0 0 0; font-size: 11px; color: #94a3b8;">
-                  6,7, EasyGo House, Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
-                </p>
-              </div>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #0B1930; padding: 18px 32px; text-align: center; color: #94a3b8; font-size: 11px;">
-              © 2026 Vevra Packaging Pvt. Ltd. All Rights Reserved. • Designed by CybaemTech
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>';
-
-// -------------------------------------------------------------
-// Send Emails Helper (Socket SMTP with PHP mail() fallback)
-// -------------------------------------------------------------
-function sendHtmlMail($to, $toName, $subject, $htmlBody, $replyToEmail = null, $replyToName = null) {
-    $from = SMTP_CONFIG['from'];
-    $fromName = SMTP_CONFIG['fromName'];
-
-    // Try socket SMTP first
-    $smtpSuccess = sendViaSocketSmtp($to, $subject, $htmlBody, $replyToEmail);
-    if ($smtpSuccess) {
-        return true;
-    }
-
-    // Fallback: standard PHP mail()
-    $headers  = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: {$fromName} <{$from}>\r\n";
-    if (!empty($replyToEmail)) {
-        $replyName = !empty($replyToName) ? $replyToName : $replyToEmail;
-        $headers .= "Reply-To: {$replyName} <{$replyToEmail}>\r\n";
-    }
-    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
-
-    return @mail($to, $subject, $htmlBody, $headers);
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(["success" => false, "error" => "Please enter a valid email address"]);
+    exit;
 }
 
-/**
- * Direct Socket SMTP Sender
- */
-function sendViaSocketSmtp($to, $subject, $htmlBody, $replyTo = null) {
-    $hosts = SMTP_CONFIG['hosts'];
-    $ports = SMTP_CONFIG['ports'];
-    $user  = SMTP_CONFIG['user'];
-    $pass  = SMTP_CONFIG['pass'];
-    $from  = SMTP_CONFIG['from'];
+$submissionId = 'VVR-' . date('YmdHis') . '-' . substr(md5(uniqid()), 0, 4);
+$adminEmail   = "enquiries@vevrapackaging.com";
+$fromEmail    = "no-reply@vevrapackaging.com";
+$fromPassword = "no-vevra@2026";
+$fromName     = "Vevra Packaging Pvt. Ltd.";
 
-    foreach ($hosts as $host) {
-        foreach ($ports as $port) {
-            $isSsl = ($port == 465);
-            $protocol = $isSsl ? 'ssl://' : '';
-            $socket = @fsockopen($protocol . $host, $port, $errno, $errstr, 4);
-            if (!$socket) {
-                continue;
+/* ─────────────────────────────────────────────
+   ADMIN / RECEIVER EMAIL (Executive Vevra Theme)
+   ───────────────────────────────────────────── */
+$adminSubject = "New Website Inquiry: " . htmlspecialchars($name) . " - " . htmlspecialchars($company ? $company : $enquiryType) . " (" . $submissionId . ")";
+
+$adminHtml = '<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Website Inquiry - Vevra Packaging</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #062141; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #062141; margin: 0; padding: 36px 12px;">
+  <tr>
+    <td align="center">
+      <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width: 620px; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08);">
+        
+        <!-- Top Crimson Brand Accent -->
+        <tr>
+          <td height="5" style="background: linear-gradient(90deg, #D9232A 0%, #B91C1C 45%, #0B1930 100%); line-height: 5px; font-size: 5px;">&nbsp;</td>
+        </tr>
+
+        <!-- Executive Header Banner -->
+        <tr>
+          <td style="background: linear-gradient(180deg, #0B1930 0%, #062141 100%); padding: 34px 32px 28px; text-align: center; border-bottom: 1px solid #1E293B;">
+            <div style="font-size: 22px; font-weight: 800; letter-spacing: 2.5px; color: #FFFFFF; text-transform: uppercase;">
+              VEVRA <span style="color: #D9232A;">PACKAGING</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 3px; color: #94A3B8; text-transform: uppercase; margin-top: 5px;">
+              ENGINEERED INDUSTRIAL PACKAGING SOLUTIONS
+            </div>
+            <div style="margin-top: 18px;">
+              <span style="display: inline-block; background-color: rgba(217, 35, 42, 0.16); color: #FCA5A5; border: 1px solid rgba(217, 35, 42, 0.35); padding: 5px 18px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+                NEW INQUIRY &bull; ' . $submissionId . '
+              </span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Main Content -->
+        <tr>
+          <td style="padding: 34px 32px 24px; background-color: #ffffff;">
+            
+            <p style="margin: 0 0 20px; font-size: 14px; color: #475569; line-height: 1.5;">
+              A new enterprise packaging inquiry has been submitted via the <strong style="color: #062141;">vevrapackaging.com</strong> consultation desk.
+            </p>
+
+            <!-- Metadata Details Grid -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-radius: 8px; overflow: hidden; border: 1px solid #E2E8F0; margin-bottom: 22px;">
+              <tr style="background-color: #F8FAFC;">
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; width: 34%; border-bottom: 1px solid #E2E8F0;">Client Full Name</td>
+                <td style="padding: 12px 16px; font-size: 14px; color: #062141; font-weight: 700; border-bottom: 1px solid #E2E8F0;">' . htmlspecialchars($name) . '</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Email Address</td>
+                <td style="padding: 12px 16px; font-size: 14px; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">
+                  <a href="mailto:' . htmlspecialchars($email) . '" style="color: #D9232A; font-weight: 700; text-decoration: none;">' . htmlspecialchars($email) . '</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Phone / Mobile</td>
+                <td style="padding: 12px 16px; font-size: 14px; color: #062141; font-weight: 600; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">
+                  ' . (!empty($mobile) ? '<a href="tel:' . htmlspecialchars(preg_replace('/[^0-9+]/', '', $mobile)) . '" style="color: #062141; text-decoration: none; font-weight: 700;">' . htmlspecialchars($mobile) . '</a>' : '<span style="color: #94A3B8; font-style: italic;">Not provided</span>') . '
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Company / Entity</td>
+                <td style="padding: 12px 16px; font-size: 14px; color: #062141; font-weight: 700; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">
+                  ' . (!empty($company) ? htmlspecialchars($company) : '<span style="color: #94A3B8; font-style: italic;">Not provided</span>') . '
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Location / Plant</td>
+                <td style="padding: 12px 16px; font-size: 14px; color: #062141; font-weight: 600; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">
+                  ' . (!empty($location) ? htmlspecialchars($location) : '<span style="color: #94A3B8; font-style: italic;">Not provided</span>') . '
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Enquiry Classification</td>
+                <td style="padding: 12px 16px; font-size: 14px; color: #D9232A; font-weight: 800; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">' . htmlspecialchars($enquiryType) . '</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; background-color: #F8FAFC;">Submission Time</td>
+                <td style="padding: 12px 16px; font-size: 13px; color: #475569; background-color: #ffffff;">' . date('d M Y, h:i A T') . '</td>
+              </tr>
+            </table>
+
+            <!-- Requirement Details Callout Box -->
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-left: 4px solid #D9232A; border-radius: 6px; padding: 18px 20px; margin-bottom: 24px;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #062141; text-transform: uppercase; margin-bottom: 8px;">
+                Client Requirement / Message Scope
+              </div>
+              <div style="font-size: 14px; color: #1E293B; line-height: 1.65; white-space: pre-line;">' . (!empty($message) ? nl2br(htmlspecialchars($message)) : '<span style="color: #94A3B8; font-style: italic;">No specific message or notes entered.</span>') . '</div>
+            </div>
+
+            <!-- Quick Action Row -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 10px;">
+              <tr>
+                <td align="center">
+                  <a href="mailto:' . htmlspecialchars($email) . '?subject=Re:%20Packaging%20Inquiry%20[' . $submissionId . ']%20-%20Vevra%20Packaging" style="display: inline-block; background-color: #D9232A; color: #ffffff; padding: 12px 28px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(217, 35, 42, 0.25);">
+                    ✉️ Reply to Client (' . htmlspecialchars($email) . ')
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- Executive Footer -->
+        <tr>
+          <td style="background-color: #0B1930; padding: 26px 32px; text-align: center; border-top: 1px solid #1E293B;">
+            <div style="font-size: 13px; font-weight: 700; color: #FFFFFF; letter-spacing: 1px;">
+              VEVRA PACKAGING PVT. LTD.
+            </div>
+            <div style="font-size: 11px; color: #94A3B8; margin-top: 4px; line-height: 1.6;">
+              Engineered Industrial Packaging &bull; Returnable Solutions &bull; Quality Assured<br>
+              Direct Client Desk: <a href="mailto:enquiries@vevrapackaging.com" style="color: #F87171; text-decoration: none; font-weight: 600;">enquiries@vevrapackaging.com</a>
+            </div>
+            <div style="font-size: 10px; color: #64748B; margin-top: 14px;">
+              &copy; ' . date('Y') . ' Vevra Packaging Pvt. Ltd. All Rights Reserved. Confidential & Proprietary.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>';
+
+/* ─────────────────────────────────────────────
+   USER / SENDER CONFIRMATION EMAIL (Executive Vevra Theme)
+   ───────────────────────────────────────────── */
+$userSubject = "Thank you for contacting Vevra Packaging (Ref: " . $submissionId . ")";
+
+$userHtml = '<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inquiry Confirmed - Vevra Packaging</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #062141; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #062141; margin: 0; padding: 36px 12px;">
+  <tr>
+    <td align="center">
+      <table width="620" cellpadding="0" cellspacing="0" border="0" style="max-width: 620px; width: 100%; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08);">
+        
+        <!-- Top Crimson Accent Bar -->
+        <tr>
+          <td height="5" style="background: linear-gradient(90deg, #D9232A 0%, #B91C1C 45%, #0B1930 100%); line-height: 5px; font-size: 5px;">&nbsp;</td>
+        </tr>
+
+        <!-- Executive Header Banner -->
+        <tr>
+          <td style="background: linear-gradient(180deg, #0B1930 0%, #062141 100%); padding: 36px 32px 30px; text-align: center; border-bottom: 1px solid #1E293B;">
+            <div style="font-size: 22px; font-weight: 800; letter-spacing: 2.5px; color: #FFFFFF; text-transform: uppercase;">
+              VEVRA <span style="color: #D9232A;">PACKAGING</span>
+            </div>
+            <div style="font-size: 11px; font-weight: 600; letter-spacing: 3px; color: #94A3B8; text-transform: uppercase; margin-top: 5px;">
+              ENGINEERED INDUSTRIAL PACKAGING SOLUTIONS
+            </div>
+            <div style="margin-top: 20px;">
+              <span style="display: inline-block; background-color: rgba(217, 35, 42, 0.16); color: #FCA5A5; border: 1px solid rgba(217, 35, 42, 0.35); padding: 5px 18px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+                CONSULTATION REQUEST CONFIRMED
+              </span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Main Body -->
+        <tr>
+          <td style="padding: 34px 32px 28px; background-color: #ffffff;">
+            
+            <p style="margin: 0 0 14px; font-size: 16px; color: #062141; font-weight: 700;">
+              Dear ' . htmlspecialchars($name) . ',
+            </p>
+            <p style="margin: 0 0 22px; font-size: 14px; color: #475569; line-height: 1.65;">
+              Thank you for connecting with <strong style="color: #062141;">Vevra Packaging Pvt. Ltd.</strong> We have successfully received your inquiry regarding <strong style="color: #D9232A;">' . htmlspecialchars($enquiryType) . '</strong>. Your inquiry reference ID is <strong style="color: #062141;">' . $submissionId . '</strong>.
+            </p>
+
+            <!-- Commitment Card -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1px solid #BBF7D0; background-color: #F0FDF4;">
+              <tr>
+                <td style="padding: 16px 20px;">
+                  <div style="font-size: 13px; font-weight: 700; color: #166534; margin-bottom: 4px;">
+                    ✓ Guaranteed Technical Turnaround
+                  </div>
+                  <div style="font-size: 12px; color: #15803D; line-height: 1.5;">
+                    Our packaging engineering & design consultants are reviewing your requirements and will connect with you within <strong>1 business day</strong>.
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Summary Table -->
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #062141; text-transform: uppercase; margin-bottom: 8px;">
+              Inquiry Summary
+            </div>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-radius: 8px; overflow: hidden; border: 1px solid #E2E8F0; margin-bottom: 26px;">
+              <tr style="background-color: #F8FAFC;">
+                <td style="padding: 11px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; width: 34%; border-bottom: 1px solid #E2E8F0;">Enquiry Type</td>
+                <td style="padding: 11px 16px; font-size: 13px; color: #062141; font-weight: 700; border-bottom: 1px solid #E2E8F0;">' . htmlspecialchars($enquiryType) . '</td>
+              </tr>
+              ' . (!empty($company) ? '<tr>
+                <td style="padding: 11px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Company</td>
+                <td style="padding: 11px 16px; font-size: 13px; color: #062141; font-weight: 600; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">' . htmlspecialchars($company) . '</td>
+              </tr>' : '') . '
+              ' . (!empty($location) ? '<tr>
+                <td style="padding: 11px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC;">Location</td>
+                <td style="padding: 11px 16px; font-size: 13px; color: #062141; font-weight: 600; border-bottom: 1px solid #E2E8F0; background-color: #ffffff;">' . htmlspecialchars($location) . '</td>
+              </tr>' : '') . '
+              <tr>
+                <td style="padding: 11px 16px; font-size: 11px; font-weight: 700; color: #64748B; letter-spacing: 1px; text-transform: uppercase; background-color: #F8FAFC;">Reference ID</td>
+                <td style="padding: 11px 16px; font-size: 13px; color: #D9232A; font-weight: 800; background-color: #ffffff;">' . $submissionId . '</td>
+              </tr>
+            </table>
+
+            <!-- Next Steps -->
+            <div style="font-size: 13px; color: #334155; line-height: 1.7; margin-bottom: 24px;">
+              In the meantime, feel free to explore our comprehensive range of custom corrugated cartons, heavy-duty wooden crates, and sustainable protective packaging on our portal.
+            </div>
+
+            <!-- CTA Button -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+              <tr>
+                <td align="center">
+                  <a href="https://vevrapackaging.com" style="display: inline-block; background-color: #D9232A; color: #ffffff; padding: 12px 30px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(217, 35, 42, 0.25);">
+                    Explore Vevra Packaging Solutions &rarr;
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Sign-off -->
+            <div style="border-top: 1px solid #E2E8F0; padding-top: 20px; font-size: 13px; color: #475569; line-height: 1.6;">
+              Warm Regards,<br>
+              <strong style="color: #062141;">Client Solutions & Technical Consulting Desk</strong><br>
+              <span style="color: #D9232A; font-weight: 700;">Vevra Packaging Pvt. Ltd.</span>
+            </div>
+
+          </td>
+        </tr>
+
+        <!-- Executive Footer -->
+        <tr>
+          <td style="background-color: #0B1930; padding: 26px 32px; text-align: center; border-top: 1px solid #1E293B;">
+            <div style="font-size: 13px; font-weight: 700; color: #FFFFFF; letter-spacing: 1px;">
+              VEVRA PACKAGING PVT. LTD.
+            </div>
+            <div style="font-size: 11px; color: #94A3B8; margin-top: 4px; line-height: 1.6;">
+              Engineered Industrial Packaging &bull; Returnable Solutions &bull; Quality Assured<br>
+              Questions? Write directly to <a href="mailto:enquiries@vevrapackaging.com" style="color: #F87171; text-decoration: none; font-weight: 600;">enquiries@vevrapackaging.com</a>
+            </div>
+            <div style="font-size: 10px; color: #64748B; margin-top: 14px;">
+              &copy; ' . date('Y') . ' Vevra Packaging Pvt. Ltd. All Rights Reserved. Confidential & Proprietary.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>';
+
+/* ─────────────────────────────────────────────
+   AUTHENTICATED SMTP DUAL-DELIVERY ENGINE
+   ───────────────────────────────────────────── */
+function sendVevraDualEmails($adminEmail, $adminSubject, $adminHtml, $userEmail, $userSubject, $userHtml, $fromEmail, $fromPassword, $fromName) {
+    $host = 'mail.vevrapackaging.com';
+    $port = 465;
+
+    $adminSent = false;
+    $userSent  = false;
+
+    $context = stream_context_create([
+        'ssl' => [
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true
+        ]
+    ]);
+
+    $socket = @stream_socket_client("ssl://{$host}:{$port}", $errno, $errstr, 5, STREAM_CLIENT_CONNECT, $context);
+
+    if ($socket) {
+        stream_set_timeout($socket, 8);
+
+        $readResponse = function() use ($socket) {
+            $res = '';
+            while (!feof($socket)) {
+                $line = fgets($socket, 1024);
+                if ($line === false) break;
+                $res .= $line;
+                if (preg_match('/^\d{3}\s/', $line) || (strlen(trim($line)) === 3 && ctype_digit(trim($line)))) break;
             }
+            return $res;
+        };
 
-            stream_set_timeout($socket, 5);
-            $res = fgets($socket, 512);
-            if (substr($res, 0, 3) !== '220') {
-                fclose($socket);
-                continue;
-            }
+        $sendCmd = function($cmd) use ($socket, $readResponse) {
+            fputs($socket, $cmd . "\r\n");
+            return $readResponse();
+        };
 
-            // EHLO
-            fputs($socket, "EHLO " . ($_SERVER['SERVER_NAME'] ?? 'localhost') . "\r\n");
-            $ehloRes = '';
-            while ($line = fgets($socket, 512)) {
-                $ehloRes .= $line;
-                if (substr($line, 3, 1) === ' ') break;
-            }
+        $greeting = $readResponse();
+        if (substr($greeting, 0, 3) === '220') {
+            $sendCmd("EHLO vevrapackaging.com");
 
-            // STARTTLS if port 587
-            if ($port == 587 && stripos($ehloRes, 'STARTTLS') !== false) {
-                fputs($socket, "STARTTLS\r\n");
-                $tlsRes = fgets($socket, 512);
-                if (substr($tlsRes, 0, 3) === '220') {
-                    if (!@stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
-                        fclose($socket);
-                        continue;
-                    }
-                    fputs($socket, "EHLO " . ($_SERVER['SERVER_NAME'] ?? 'localhost') . "\r\n");
-                    while ($line = fgets($socket, 512)) {
-                        if (substr($line, 3, 1) === ' ') break;
-                    }
+            // Authenticate with verified credentials
+            $auth = $sendCmd("AUTH LOGIN");
+            $authOk = false;
+            if (substr($auth, 0, 3) === '334') {
+                $sendCmd(base64_encode($fromEmail));
+                $passRes = $sendCmd(base64_encode($fromPassword));
+                if (substr($passRes, 0, 3) === '235') {
+                    $authOk = true;
+                }
+            } else {
+                $plainToken = base64_encode("\0" . $fromEmail . "\0" . $fromPassword);
+                $passRes = $sendCmd("AUTH PLAIN " . $plainToken);
+                if (substr($passRes, 0, 3) === '235') {
+                    $authOk = true;
                 }
             }
 
-            // AUTH LOGIN
-            fputs($socket, "AUTH LOGIN\r\n");
-            $authRes = fgets($socket, 512);
-            if (substr($authRes, 0, 3) === '334') {
-                fputs($socket, base64_encode($user) . "\r\n");
-                fgets($socket, 512);
-                fputs($socket, base64_encode($pass) . "\r\n");
-                $loginRes = fgets($socket, 512);
-                if (substr($loginRes, 0, 3) !== '235') {
-                    fclose($socket);
-                    continue;
-                }
+            if ($authOk) {
+                // Internal helper to send message on current authenticated socket
+                $sendMessage = function($to, $subject, $htmlContent, $replyTo, $isAutoReply = false) use ($socket, $sendCmd, $readResponse, $fromEmail, $fromName) {
+                    if (substr($sendCmd("MAIL FROM:<{$fromEmail}>"), 0, 3) !== '250') {
+                        return false;
+                    }
+                    $rcpt = $sendCmd("RCPT TO:<{$to}>");
+                    if (substr($rcpt, 0, 3) !== '250' && substr($rcpt, 0, 3) !== '251') {
+                        return false;
+                    }
+                    if (substr($sendCmd("DATA"), 0, 3) !== '354') {
+                        return false;
+                    }
+
+                    $headers  = "From: {$fromName} <{$fromEmail}>\r\n";
+                    $headers .= "To: <{$to}>\r\n";
+                    if (!empty($replyTo)) {
+                        $headers .= "Reply-To: <{$replyTo}>\r\n";
+                    }
+                    $headers .= "Subject: {$subject}\r\n";
+                    $headers .= "MIME-Version: 1.0\r\n";
+                    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+                    $headers .= "Content-Transfer-Encoding: 8bit\r\n";
+                    $headers .= "Date: " . date('r') . "\r\n";
+                    $headers .= "Message-ID: <" . md5(uniqid((string)microtime(true), true)) . "@vevrapackaging.com>\r\n";
+                    if ($isAutoReply) {
+                        $headers .= "Auto-Submitted: auto-replied\r\n";
+                        $headers .= "X-Auto-Response-Suppress: All\r\n";
+                    }
+
+                    $bodyFixed = preg_replace('/^\./m', '..', $htmlContent);
+                    fputs($socket, $headers . "\r\n" . $bodyFixed . "\r\n.\r\n");
+
+                    $final = $readResponse();
+                    return (substr($final, 0, 3) === '250');
+                };
+
+                // 1. Send Admin Notification Email
+                $adminSent = $sendMessage($adminEmail, $adminSubject, $adminHtml, $userEmail, false);
+
+                // 2. Reset transaction & Send User Confirmation Email in same session
+                $sendCmd("RSET");
+                $userSent = $sendMessage($userEmail, $userSubject, $userHtml, $adminEmail, true);
             }
 
-            // MAIL FROM
-            fputs($socket, "MAIL FROM: <{$from}>\r\n");
-            $mf = fgets($socket, 512);
-            if (substr($mf, 0, 3) !== '250') {
-                fclose($socket);
-                continue;
-            }
-
-            // RCPT TO
-            fputs($socket, "RCPT TO: <{$to}>\r\n");
-            $rcpt = fgets($socket, 512);
-            if (substr($rcpt, 0, 3) !== '250') {
-                fclose($socket);
-                continue;
-            }
-
-            // DATA
-            fputs($socket, "DATA\r\n");
-            $dataRes = fgets($socket, 512);
-            if (substr($dataRes, 0, 3) !== '354') {
-                fclose($socket);
-                continue;
-            }
-
-            $headers  = "From: " . SMTP_CONFIG['fromName'] . " <{$from}>\r\n";
-            $headers .= "To: <{$to}>\r\n";
-            if (!empty($replyTo)) {
-                $headers .= "Reply-To: <{$replyTo}>\r\n";
-            }
-            $headers .= "Subject: {$subject}\r\n";
-            $headers .= "MIME-Version: 1.0\r\n";
-            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-            $headers .= "Date: " . date('r') . "\r\n";
-
-            $messageData = $headers . "\r\n" . $htmlBody . "\r\n.\r\n";
-            fputs($socket, $messageData);
-            $sendRes = fgets($socket, 512);
-
-            fputs($socket, "QUIT\r\n");
-            fclose($socket);
-
-            if (substr($sendRes, 0, 3) === '250') {
-                return true;
-            }
+            $sendCmd("QUIT");
         }
+        fclose($socket);
     }
 
-    return false;
+    // Fallbacks if SMTP was unreachable or one failed:
+    if (!$adminSent) {
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "From: {$fromName} <{$fromEmail}>\r\n";
+        $headers .= "Reply-To: <{$userEmail}>\r\n";
+        $headers .= "Return-Path: <{$fromEmail}>\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $headers .= "Content-Transfer-Encoding: 8bit\r\n";
+        $adminSent = (bool)@mail($adminEmail, $adminSubject, $adminHtml, $headers, "-f " . $fromEmail);
+    }
+
+    if (!$userSent) {
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "From: {$fromName} <{$fromEmail}>\r\n";
+        $headers .= "Reply-To: <{$adminEmail}>\r\n";
+        $headers .= "Return-Path: <{$fromEmail}>\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $headers .= "Content-Transfer-Encoding: 8bit\r\n";
+        $headers .= "Auto-Submitted: auto-replied\r\n";
+        $userSent = (bool)@mail($userEmail, $userSubject, $userHtml, $headers, "-f " . $fromEmail);
+    }
+
+    return ['admin' => $adminSent, 'user' => $userSent];
 }
 
-// -------------------------------------------------------------
-// Execute Email Sending
-// -------------------------------------------------------------
-$adminSent = sendHtmlMail(
-    SMTP_CONFIG['adminTo'],
-    'Vevra Admin',
+/* ─────────────────────────────────────────────
+   SEND BOTH EMAILS
+   ───────────────────────────────────────────── */
+$result = sendVevraDualEmails(
+    $adminEmail,
     $adminSubject,
-    $adminHtmlBody,
+    $adminHtml,
     $email,
-    $fullName
-);
-
-$userSent = sendHtmlMail(
-    $email,
-    $fullName,
     $userSubject,
-    $userHtmlBody,
-    SMTP_CONFIG['from'],
-    SMTP_CONFIG['fromName']
+    $userHtml,
+    $fromEmail,
+    $fromPassword,
+    $fromName
 );
 
-// Return JSON response
-http_response_code(200);
-echo json_encode([
-    'success'    => true,
-    'message'    => 'Thank you! Your inquiry has been submitted and confirmation emails have been sent.',
-    'adminSent'  => (bool)$adminSent,
-    'userSent'   => (bool)$userSent,
-    'data'       => [
-        'fullName'    => $fullName,
-        'email'       => $email,
-        'company'     => $company,
-        'enquiryType' => $enquiryType,
-    ]
-]);
+$adminSent = $result['admin'];
+$userSent  = $result['user'];
+
+if ($adminSent || $userSent) {
+    http_response_code(200);
+    echo json_encode([
+        "success"   => true,
+        "message"   => "Thank you! Your inquiry has been received. Our team will get back to you within 1 business day.",
+        "id"        => $submissionId,
+        "adminSent" => (bool)$adminSent,
+        "userSent"  => (bool)$userSent
+    ]);
+} else {
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "message" => "Failed to send inquiry. Please try again or email us directly at enquiries@vevrapackaging.com",
+        "id"      => $submissionId
+    ]);
+}

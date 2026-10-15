@@ -72,15 +72,16 @@ export const Route = createFileRoute("/leadership")({
   component: LeadershipPage,
 });
 
-// 9 NAVRATNAS OF VEVRA — Comprehensive Corporate Hierarchy & Business Importance
-const NAVRATNAS_PEOPLE = [
+// EXECUTIVE LEADERSHIP — Board of Directors & Foundational Leadership
+const EXECUTIVE_LEADERS = [
   {
-    num: "01",
+    num: "",
+    isExecutive: true,
     firstName: "Ashish",
     lastName: "Gawhane",
     name: "Ashish Gawhane",
     role: "CEO & MD",
-    hierarchyBadge: "Founder & Executive Director",
+    hierarchyBadge: "Founder & Managing Director",
     experience: "28+ Years Experience (Founder & Managing Director)",
     summary:
       "Founder & CEO of Vevra Packaging Private Limited, bringing 28 years of hands-on entrepreneurial and industry experience to the mission of building smarter, more sustainable supply chains.",
@@ -121,12 +122,13 @@ const NAVRATNAS_PEOPLE = [
     linkedin: "https://www.linkedin.com/in/ashish-gawhane-710772441/",
   },
   {
-    num: "02",
+    num: "",
+    isExecutive: true,
     firstName: "Tanushree",
     lastName: "K",
     name: "Tanushree K",
     role: "Chairperson",
-    hierarchyBadge: "Co-Founder & Board Governance",
+    hierarchyBadge: "Co-Founder & Chairperson",
     experience: "25 Years Corporate HR Experience",
     summary:
       "True entrepreneurial success is built from the inside out. After 25 years in corporate HR, Tanushree transitioned into packaging industrial manufacturing to found Vevra Packaging Pvt. Ltd., specializing in precision, end-to-end automobile packaging.",
@@ -172,8 +174,12 @@ const NAVRATNAS_PEOPLE = [
     photoBg: "bg-indigo-50",
     linkedin: null,
   },
+];
+
+// 9 NAVRATNAS OF VEVRA — Operations & Strategic Pillars
+const NAVRATNAS_PEOPLE = [
   {
-    num: "03",
+    num: "01",
     firstName: "Kunal",
     lastName: "Gawhane",
     name: "Kunal Gawhane",
@@ -228,7 +234,7 @@ const NAVRATNAS_PEOPLE = [
     linkedin: "https://www.linkedin.com/in/kunal-gawhane-343061439/",
   },
   {
-    num: "04",
+    num: "02",
     firstName: "Paresh",
     lastName: "Y",
     name: "Paresh Y",
@@ -273,7 +279,7 @@ const NAVRATNAS_PEOPLE = [
     linkedin: "https://linkedin.com/in/paresh-yerunkar-8657a316",
   },
   {
-    num: "05",
+    num: "03",
     firstName: "Shilpa",
     lastName: "Singh",
     name: "Shilpa Singh",
@@ -328,7 +334,7 @@ const NAVRATNAS_PEOPLE = [
     linkedin: "https://www.linkedin.com/in/shilpasingh0401",
   },
   {
-    num: "06",
+    num: "04",
     firstName: "Omkar",
     lastName: "Dixit",
     name: "Omkar Dixit",
@@ -380,6 +386,76 @@ const NAVRATNAS_PEOPLE = [
     numBadge: "bg-slate-100 text-slate-800 border-slate-200",
     photoBg: "bg-slate-50",
     linkedin: "https://linkedin.com/in/omkar-dixit-92bb102a7",
+  },
+  {
+    num: "05",
+    firstName: "Pillar",
+    lastName: "05",
+    name: "To Be Announced",
+    role: "Key Leadership Pillar",
+    hierarchyBadge: "Strategic Leadership",
+    isPlaceholder: true,
+    experience: "Executive Leadership Pillar",
+    summary:
+      "Leadership position under executive announcement. Strategic portfolio details will be updated shortly.",
+    heroPillars: [
+      { icon: Target, title: "Strategic Vision" },
+      { icon: RotateCw, title: "Process Optimization" },
+      { icon: Compass, title: "Industry Experience" },
+      { icon: Users, title: "Team Leadership" },
+    ],
+    focusCards: [
+      { icon: Target, title: "Strategic Initiative Planning" },
+      { icon: RotateCw, title: "Operational Alignment" },
+      { icon: Users, title: "Cross-Department Synergy" },
+      { icon: BarChart3, title: "Scalable Best Practices" },
+    ],
+    careerJourney: [
+      { title: "Industrial Foundation", desc: "Domain Expertise & Sector Mastery" },
+      { title: "Executive Mandate", desc: "Strategic Portfolio Leadership" },
+      { title: "Leadership Pillar", desc: "Vevra Packaging Pvt. Ltd." },
+    ],
+    quote: "Committed to driving excellence, innovation, and sustainable value creation across industrial supply chains.",
+    keyTags: ["Strategic Leadership", "Operational Excellence", "Industry Best Practices"],
+    image: null,
+    numBadge: "bg-slate-100 text-slate-700 border-slate-200",
+    photoBg: "bg-slate-50",
+    linkedin: null,
+  },
+  {
+    num: "06",
+    firstName: "Pillar",
+    lastName: "06",
+    name: "To Be Announced",
+    role: "Key Leadership Pillar",
+    hierarchyBadge: "Strategic Leadership",
+    isPlaceholder: true,
+    experience: "Executive Leadership Pillar",
+    summary:
+      "Leadership position under executive announcement. Strategic portfolio details will be updated shortly.",
+    heroPillars: [
+      { icon: Target, title: "Strategic Vision" },
+      { icon: RotateCw, title: "Process Optimization" },
+      { icon: Compass, title: "Industry Experience" },
+      { icon: Users, title: "Team Leadership" },
+    ],
+    focusCards: [
+      { icon: Target, title: "Strategic Initiative Planning" },
+      { icon: RotateCw, title: "Operational Alignment" },
+      { icon: Users, title: "Cross-Department Synergy" },
+      { icon: BarChart3, title: "Scalable Best Practices" },
+    ],
+    careerJourney: [
+      { title: "Industrial Foundation", desc: "Domain Expertise & Sector Mastery" },
+      { title: "Executive Mandate", desc: "Strategic Portfolio Leadership" },
+      { title: "Leadership Pillar", desc: "Vevra Packaging Pvt. Ltd." },
+    ],
+    quote: "Committed to driving excellence, innovation, and sustainable value creation across industrial supply chains.",
+    keyTags: ["Strategic Leadership", "Operational Excellence", "Industry Best Practices"],
+    image: null,
+    numBadge: "bg-slate-100 text-slate-700 border-slate-200",
+    photoBg: "bg-slate-50",
+    linkedin: null,
   },
   {
     num: "07",
@@ -488,6 +564,9 @@ const NAVRATNAS_PEOPLE = [
   },
 ];
 
+// Combined roster for profile views
+const ALL_LEADERS = [...EXECUTIVE_LEADERS, ...NAVRATNAS_PEOPLE];
+
 // =========================================================================
 // FULL-PAGE LEADER PROFILE DETAIL VIEW (Exact Match to Image 1 Design Mockup)
 // =========================================================================
@@ -496,11 +575,11 @@ function LeaderProfileDetailView({
   onBack,
   onSelectOther,
 }: {
-  leader: (typeof NAVRATNAS_PEOPLE)[number];
+  leader: (typeof ALL_LEADERS)[number];
   onBack: () => void;
-  onSelectOther: (other: (typeof NAVRATNAS_PEOPLE)[number]) => void;
+  onSelectOther: (other: (typeof ALL_LEADERS)[number]) => void;
 }) {
-  const otherLeaders = NAVRATNAS_PEOPLE.filter((p) => p.num !== leader.num);
+  const otherLeaders = ALL_LEADERS.filter((p) => p.name !== leader.name);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -535,7 +614,7 @@ function LeaderProfileDetailView({
       html.style.scrollBehavior = prevHtmlBehavior;
       body.style.scrollBehavior = prevBodyBehavior;
     };
-  }, [leader.num]);
+  }, [leader.name]);
 
   return (
     <div ref={containerRef} id="leader-profile-top" className="bg-[#f8faff] min-h-screen text-slate-900 pb-16">
@@ -596,7 +675,7 @@ function LeaderProfileDetailView({
                         <User className="h-8 w-8" />
                       </div>
                       <span className="text-xs font-black text-slate-400 uppercase tracking-wider">
-                        Pillar {leader.num}
+                        {leader.num ? `Pillar ${leader.num}` : leader.role}
                       </span>
                     </div>
                   )}
@@ -606,10 +685,10 @@ function LeaderProfileDetailView({
 
             {/* Col 2: Middle Details (Name, Role, Experience, Summary, LinkedIn) */}
             <div className="lg:col-span-4 text-center lg:text-left">
-              {/* NAVRATNA Pill Badge */}
+              {/* Leader Category / NAVRATNA Pill Badge */}
               <div className="inline-block mb-3">
                 <span className="rounded-full bg-[#fde8e8] border border-rose-200/80 px-3.5 py-1 text-[11px] font-mono font-black tracking-wider text-[#D9232A] uppercase">
-                  NAVRATNA {leader.num}
+                  {leader.num ? `NAVRATNA ${leader.num}` : (leader.hierarchyBadge || "EXECUTIVE LEADERSHIP")}
                 </span>
               </div>
 
@@ -979,7 +1058,7 @@ function LeaderProfileDetailView({
                   </div>
 
                   <span className="text-[10px] font-mono font-black text-[#D9232A] uppercase tracking-wider">
-                    NAVRATNA {other.num}
+                    {other.num ? `NAVRATNA ${other.num}` : (other.hierarchyBadge || "EXECUTIVE LEADERSHIP")}
                   </span>
                   <h4 className="text-sm sm:text-base font-black text-slate-950 mt-1">
                     {other.name}
@@ -1003,9 +1082,9 @@ function LeaderProfileDetailView({
 }
 
 function LeadershipPage() {
-  const [selectedLeader, setSelectedLeader] = useState<(typeof NAVRATNAS_PEOPLE)[number] | null>(null);
+  const [selectedLeader, setSelectedLeader] = useState<(typeof ALL_LEADERS)[number] | null>(null);
 
-  const handleSelectLeader = (person: (typeof NAVRATNAS_PEOPLE)[number]) => {
+  const handleSelectLeader = (person: (typeof ALL_LEADERS)[number]) => {
     if (typeof window !== "undefined") {
       document.documentElement.style.scrollBehavior = "auto";
       document.body.style.scrollBehavior = "auto";
@@ -1029,9 +1108,9 @@ function LeadershipPage() {
 
   if (selectedLeader) {
     return (
-      <SiteLayout key={`leader-detail-shell-${selectedLeader.num}`}>
+      <SiteLayout key={`leader-detail-shell-${selectedLeader.name}`}>
         <LeaderProfileDetailView
-          key={selectedLeader.num}
+          key={selectedLeader.name}
           leader={selectedLeader}
           onBack={handleBackToOverview}
           onSelectOther={handleSelectLeader}
@@ -1309,14 +1388,9 @@ function LeadershipPage() {
 
               {/* CARD 1: Ashish Gawhane (CEO & MD) */}
               <div
-                onClick={() => NAVRATNAS_PEOPLE[0] && handleSelectLeader(NAVRATNAS_PEOPLE[0])}
+                onClick={() => handleSelectLeader(EXECUTIVE_LEADERS[0])}
                 className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-rose-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
               >
-                {/* Big Faint Watermark Number "01" */}
-                <div className="absolute -top-6 -left-2 text-[6.5rem] sm:text-[8rem] font-black text-rose-100/30 select-none pointer-events-none leading-none z-0">
-                  01
-                </div>
-
                 {/* Left Portrait Image with Faint Glassy Transparent Accent Frame */}
                 <div className="relative w-full sm:w-[210px] md:w-[230px] lg:w-[245px] shrink-0 z-10 flex justify-center">
                   <div className="relative w-full aspect-[4/3.4] sm:aspect-[4/3.7] max-w-[260px]">
@@ -1344,11 +1418,23 @@ function LeadershipPage() {
                 {/* Right Content */}
                 <div className="flex-1 min-w-0 text-left flex flex-col justify-between py-1 relative z-10 w-full">
                   <div>
-                    {/* Top Pill Badge */}
-                    <div className="inline-block mb-1.5">
+                    {/* Top Pill Badge & LinkedIn */}
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
                       <span className="rounded-full bg-rose-50/80 border border-rose-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#D9232A]">
-                        CHIEF – NAVRATNA 01
+                        FOUNDER &amp; MANAGING DIRECTOR
                       </span>
+                      {EXECUTIVE_LEADERS[0].linkedin && (
+                        <a
+                          href={EXECUTIVE_LEADERS[0].linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label="Ashish Gawhane on LinkedIn"
+                          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0A66C2] text-white hover:bg-[#004182] hover:scale-110 shadow-sm transition"
+                        >
+                          <Linkedin className="h-3 w-3 fill-white" />
+                        </a>
+                      )}
                     </div>
 
                     {/* Name */}
@@ -1398,14 +1484,9 @@ function LeadershipPage() {
 
               {/* CARD 2: Tanushree K (Chairperson) */}
               <div
-                onClick={() => NAVRATNAS_PEOPLE[1] && handleSelectLeader(NAVRATNAS_PEOPLE[1])}
-                className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-blue-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
+                onClick={() => handleSelectLeader(EXECUTIVE_LEADERS[1])}
+                className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-rose-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
               >
-                {/* Big Faint Watermark Number "02" */}
-                <div className="absolute -top-6 -left-2 text-[6.5rem] sm:text-[8rem] font-black text-blue-100/30 select-none pointer-events-none leading-none z-0">
-                  02
-                </div>
-
                 {/* Left Portrait Image with Faint Glassy Transparent Accent Frame */}
                 <div className="relative w-full sm:w-[210px] md:w-[230px] lg:w-[245px] shrink-0 z-10 flex justify-center">
                   <div className="relative w-full aspect-[4/3.4] sm:aspect-[4/3.7] max-w-[260px]">
@@ -1434,9 +1515,9 @@ function LeadershipPage() {
                 <div className="flex-1 min-w-0 text-left flex flex-col justify-between py-1 relative z-10 w-full">
                   <div>
                     {/* Top Pill Badge */}
-                    <div className="inline-block mb-1.5">
-                      <span className="rounded-full bg-blue-50/80 border border-blue-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#2563EB]">
-                        CHIEF – NAVRATNA 02
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <span className="rounded-full bg-rose-50/80 border border-rose-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#D9232A]">
+                        CO-FOUNDER &amp; CHAIRPERSON
                       </span>
                     </div>
 
@@ -1526,7 +1607,7 @@ function LeadershipPage() {
             </div>
           </div>
 
-          {/* Cards Grid: 9 Navratna Leaders Cards with Reddish Corner Border & Full Details */}
+          {/* Cards Grid: Navratna Leaders Cards with Reddish Corner Border & Full Details */}
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">
             {NAVRATNAS_PEOPLE.map((person) => (
               <div

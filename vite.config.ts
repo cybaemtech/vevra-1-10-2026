@@ -26,21 +26,21 @@ function contactFormDevPlugin() {
 
               const transporter = nodemailer.createTransport({
                 host: "mail.vevrapackaging.com",
-                port: 587,
-                secure: false,
+                port: 465,
+                secure: true,
                 auth: {
                   user: "no-reply@vevrapackaging.com",
-                  pass: "NR_vevra@26#",
+                  pass: "no-vevra@2026",
                 },
                 tls: { rejectUnauthorized: false },
-                connectionTimeout: 5000,
+                connectionTimeout: 8000,
               });
 
               try {
                 // Admin Email
                 await transporter.sendMail({
                   from: '"Vevra Careers Desk" <no-reply@vevrapackaging.com>',
-                  to: "nikita.nagargoje@cybaemtech.com",
+                  to: "Careers@vevrapackaging.com",
                   replyTo: `${data.name} <${data.email}>`,
                   subject: `New Job Application: ${data.name} - ${data.position} (${data.appRef || "APP-VVR"})`,
                   html: `
@@ -53,7 +53,7 @@ function contactFormDevPlugin() {
                     <p><strong>Cover Letter:</strong><br>${data.coverPage}</p>
                   `,
                 });
-                console.log(">>> [SUCCESS] Careers admin email sent to nikita.nagargoje@cybaemtech.com");
+                console.log(">>> [SUCCESS] Careers admin email sent to Careers@vevrapackaging.com");
 
                 // Candidate Email
                 await transporter.sendMail({
@@ -107,21 +107,21 @@ function contactFormDevPlugin() {
               // Try sending via SMTP
               const transporter = nodemailer.createTransport({
                 host: "mail.vevrapackaging.com",
-                port: 587,
-                secure: false,
+                port: 465,
+                secure: true,
                 auth: {
                   user: "no-reply@vevrapackaging.com",
-                  pass: "NR_vevra@26#",
+                  pass: "no-vevra@2026",
                 },
                 tls: { rejectUnauthorized: false },
-                connectionTimeout: 5000,
+                connectionTimeout: 8000,
               });
 
               try {
                 // 1. Admin Email
                 await transporter.sendMail({
                   from: '"Vevra Packaging Portal" <no-reply@vevrapackaging.com>',
-                  to: "nikita.nagargoje@cybaemtech.com",
+                  to: "enquiries@vevrapackaging.com",
                   replyTo: `${data.fullName} <${data.email}>`,
                   subject: `New Inquiry: ${data.fullName} - ${data.company}`,
                   html: `
@@ -135,7 +135,7 @@ function contactFormDevPlugin() {
                     <p><strong>Message:</strong> ${data.message || "N/A"}</p>
                   `,
                 });
-                console.log(">>> [SUCCESS] Admin notification email sent to nikita.nagargoje@cybaemtech.com");
+                console.log(">>> [SUCCESS] Admin notification email sent to enquiries@vevrapackaging.com");
 
                 // 2. User Auto-Reply Email
                 await transporter.sendMail({
