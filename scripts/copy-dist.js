@@ -208,6 +208,12 @@ AddDefaultCharset UTF-8
 }
 
 async function main() {
+  if (fs.existsSync(destDir)) {
+    console.log(`Cleaning old dist directory at ${destDir}...`);
+    fs.rmSync(destDir, { recursive: true, force: true });
+  }
+  fs.mkdirSync(destDir, { recursive: true });
+
   console.log(`Copying build output from ${srcDir} to ${destDir}...`);
   copyDirRecursive(srcDir, destDir);
   console.log("Copied static assets.");

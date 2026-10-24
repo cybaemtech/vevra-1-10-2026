@@ -237,7 +237,7 @@ const NAVRATNAS_PEOPLE = [
     num: "02",
     firstName: "Paresh",
     lastName: "Y",
-    name: "Paresh Y",
+    name: "Paresh Yerunkar",
     role: "Head – Business Analytics",
     hierarchyBadge: "Strategic Analytics & Transformation",
     experience: "20+ Years Experience (14 Yrs German/US MNCs)",
@@ -654,14 +654,10 @@ function LeaderProfileDetailView({
                 {/* Soft Warm/Rose Fluid Blob behind picture */}
                 <div className="absolute -inset-3 rounded-[3rem] bg-gradient-to-tr from-rose-100/50 via-slate-100/70 to-rose-100/40 blur-[3px] transform rotate-3 pointer-events-none opacity-85" />
 
-                {/* Faint Glassy Translucent Top-Right Corner Accent Border */}
-                <div className="absolute -top-2.5 -right-2.5 w-16 h-16 border-t-[3.5px] border-r-[3.5px] border-[#D9232A]/35 bg-gradient-to-bl from-rose-500/10 via-transparent to-transparent backdrop-blur-[2px] rounded-tr-[2.2rem] pointer-events-none z-20" />
-
                 {/* Photo Portrait Frame Container with Pure Gray Border */}
                 <div
-                  className={`relative w-full aspect-[4/3.4] sm:aspect-[4/3.2] rounded-[2rem] overflow-hidden border border-slate-200/90 shadow-xl flex flex-col items-center justify-center z-10 ${leader.photoBg} ${
-                    leader.isPlaceholder ? "border-dashed border-slate-300 text-slate-400" : ""
-                  }`}
+                  className={`relative w-full aspect-[4/3.4] sm:aspect-[4/3.2] rounded-[2rem] overflow-hidden border border-slate-200/90 shadow-xl flex flex-col items-center justify-center z-10 ${leader.photoBg} ${leader.isPlaceholder ? "border-dashed border-slate-300 text-slate-400" : ""
+                    }`}
                 >
                   {leader.image ? (
                     <img
@@ -916,11 +912,10 @@ function LeaderProfileDetailView({
                 {leader.keyTags?.map((tag, tIdx) => (
                   <span
                     key={tIdx}
-                    className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
-                      tIdx === 0
+                    className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${tIdx === 0
                         ? "border border-[#D9232A] text-[#D9232A] bg-rose-50/40 font-bold shadow-2xs"
                         : "border border-slate-200 bg-slate-50/50 text-slate-700 hover:border-slate-300"
-                    }`}
+                      }`}
                   >
                     {tag}
                   </span>
@@ -943,13 +938,12 @@ function LeaderProfileDetailView({
                     {/* Node marker */}
                     <div className="flex flex-col items-center">
                       <div
-                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${
-                          sIdx === 0
+                        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${sIdx === 0
                             ? "border-slate-400 bg-white text-slate-500"
                             : sIdx === 1
-                            ? "border-[#D9232A] bg-[#D9232A] text-white"
-                            : "border-[#D9232A] bg-[#D9232A] text-white ring-4 ring-rose-100"
-                        }`}
+                              ? "border-[#D9232A] bg-[#D9232A] text-white"
+                              : "border-[#D9232A] bg-[#D9232A] text-white ring-4 ring-rose-100"
+                          }`}
                       >
                         {sIdx === 0 ? (
                           <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
@@ -1038,9 +1032,6 @@ function LeaderProfileDetailView({
                     {/* Soft colored fluid blob */}
                     <div className="absolute -inset-2.5 rounded-[2rem] bg-gradient-to-tr from-rose-100/40 via-slate-100/60 to-rose-100/30 blur-[2px] transform rotate-3 pointer-events-none opacity-80" />
 
-                    {/* Faint Glassy Translucent Red Corner Arch Accent */}
-                    <div className="absolute -top-1.5 -right-1.5 w-10 h-10 border-t-[2.5px] border-r-[2.5px] border-[#D9232A]/35 bg-gradient-to-bl from-rose-500/10 via-transparent to-transparent backdrop-blur-[2px] rounded-tr-[1.2rem] pointer-events-none z-20" />
-
                     {/* Photo container */}
                     <div className="relative w-28 h-32 rounded-2xl overflow-hidden border border-slate-200 shadow-sm group-hover:scale-105 transition-transform duration-300 bg-slate-50 z-10">
                       {other.image ? (
@@ -1125,7 +1116,7 @@ function LeadershipPage() {
           1. HERO SECTION: Inspired Leadership for a Stronger Tomorrow (Match to Ref Mockup)
          ========================================================================= */}
       <section className="relative overflow-hidden bg-white pt-8 pb-12 sm:pt-12 sm:pb-16 lg:py-16 text-slate-900 border-b border-slate-200/60 min-h-[520px] lg:min-h-[580px] xl:min-h-[620px] flex items-center">
-        
+
         {/* Desktop Right Graphic: Seamless panoramic visual with leaders, staircase, and sky arrow */}
         <div className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[62%] xl:w-[60%] 2xl:w-[56%] z-0 select-none overflow-hidden hidden lg:block">
           <img
@@ -1141,7 +1132,7 @@ function LeadershipPage() {
 
             {/* Left Column: Eyebrow, Title, Paragraph, 4 Feature Badges */}
             <div className="lg:col-span-7 xl:col-span-6 max-w-2xl">
-              
+
               {/* Eyebrow */}
               <div className="flex items-center gap-2.5">
                 <span className="w-7 h-[2.5px] bg-[#D9232A] rounded-full" />
@@ -1229,7 +1220,7 @@ function LeadershipPage() {
          ========================================================================= */}
       <section className="bg-white py-14 sm:py-20 border-b border-slate-100 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          
+
           {/* Header */}
           <div className="text-center max-w-4xl mx-auto mb-10 sm:mb-14">
             <div className="inline-flex items-center justify-center gap-2.5 text-[11px] sm:text-xs font-black uppercase tracking-[0.24em] text-[#D9232A]">
@@ -1386,187 +1377,175 @@ function LeadershipPage() {
           {/* Two Prominent Horizontal Board Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
-              {/* CARD 1: Ashish Gawhane (CEO & MD) */}
-              <div
-                onClick={() => handleSelectLeader(EXECUTIVE_LEADERS[0])}
-                className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-rose-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
-              >
-                {/* Left Portrait Image with Faint Glassy Transparent Accent Frame */}
-                <div className="relative w-full sm:w-[210px] md:w-[230px] lg:w-[245px] shrink-0 z-10 flex justify-center">
-                  <div className="relative w-full aspect-[4/3.4] sm:aspect-[4/3.7] max-w-[260px]">
-                    {/* Faint Glassy Ambient Glow */}
-                    <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-rose-200/25 via-white/50 to-rose-100/20 blur-sm pointer-events-none opacity-80" />
+            {/* CARD 1: Ashish Gawhane (CEO & MD) */}
+            <div
+              onClick={() => handleSelectLeader(EXECUTIVE_LEADERS[0])}
+              className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-rose-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
+            >
+              {/* Left Portrait Image with Faint Glassy Transparent Accent Frame */}
+              <div className="relative w-full sm:w-[210px] md:w-[230px] lg:w-[245px] shrink-0 z-10 flex justify-center">
+                <div className="relative w-full aspect-[4/3.4] sm:aspect-[4/3.7] max-w-[260px]">
+                  {/* Faint Glassy Ambient Glow */}
+                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-rose-200/25 via-white/50 to-rose-100/20 blur-sm pointer-events-none opacity-80" />
 
-                    {/* Top-Right Faint Glassy Translucent Red Curved Arch */}
-                    <div className="absolute -top-2.5 -right-2.5 w-16 h-28 border-t-[3.5px] border-r-[3.5px] border-[#D9232A]/35 bg-gradient-to-bl from-rose-500/10 via-transparent to-transparent backdrop-blur-[2px] rounded-tr-[2.2rem] pointer-events-none z-20" />
-                    
-                    {/* Bottom-Left Faint Glassy Red Accent */}
-                    <div className="absolute -bottom-2 -left-2 w-10 h-10 bg-gradient-to-tr from-[#D9232A]/20 to-rose-300/10 border-b-2 border-l-2 border-[#D9232A]/30 backdrop-blur-sm rounded-bl-2xl rounded-tr-lg -z-0 pointer-events-none" />
-
-                    {/* Photo Container */}
-                    <div className="relative h-full w-full rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm bg-slate-50/90 group-hover:scale-[1.02] transition-transform duration-300 z-10">
-                      <img
-                        src={ceoImg}
-                        alt="Ashish Gawhane - CEO & MD"
-                        className="h-full w-full object-cover object-top"
-                        loading="lazy"
-                      />
-                    </div>
+                  {/* Photo Container */}
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm bg-slate-50/90 group-hover:scale-[1.02] transition-transform duration-300 z-10">
+                    <img
+                      src={ceoImg}
+                      alt="Ashish Gawhane - CEO & MD"
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
-
-                {/* Right Content */}
-                <div className="flex-1 min-w-0 text-left flex flex-col justify-between py-1 relative z-10 w-full">
-                  <div>
-                    {/* Top Pill Badge & LinkedIn */}
-                    <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <span className="rounded-full bg-rose-50/80 border border-rose-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#D9232A]">
-                        FOUNDER &amp; MANAGING DIRECTOR
-                      </span>
-                      {EXECUTIVE_LEADERS[0].linkedin && (
-                        <a
-                          href={EXECUTIVE_LEADERS[0].linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          aria-label="Ashish Gawhane on LinkedIn"
-                          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0A66C2] text-white hover:bg-[#004182] hover:scale-110 shadow-sm transition"
-                        >
-                          <Linkedin className="h-3 w-3 fill-white" />
-                        </a>
-                      )}
-                    </div>
-
-                    {/* Name */}
-                    <h3 className="text-2xl sm:text-[1.65rem] font-black text-[#0A2540] tracking-tight leading-tight">
-                      Ashish Gawhane
-                    </h3>
-
-                    {/* Role */}
-                    <p className="text-xs sm:text-sm font-bold text-[#D9232A] mt-0.5">
-                      CEO &amp; MD
-                    </p>
-
-                    {/* Red Dash */}
-                    <div className="w-8 h-0.5 bg-[#D9232A] my-2.5 rounded-full" />
-
-                    {/* Two Key Metrics */}
-                    <div className="grid grid-cols-2 gap-3 my-2.5">
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
-                          <Briefcase className="h-4 w-4 stroke-[2]" />
-                        </div>
-                        <div>
-                          <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">28+</span>
-                          <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">Years Experience</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
-                          <Award className="h-4 w-4 stroke-[2]" />
-                        </div>
-                        <div>
-                          <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">10M+</span>
-                          <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">Products Impacted</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-normal mt-2">
-                      Leading Vevra's vision, growth strategy and global partnerships for innovative and sustainable packaging solutions.
-                    </p>
-                  </div>
-                </div>
-
               </div>
 
-              {/* CARD 2: Tanushree K (Chairperson) */}
-              <div
-                onClick={() => handleSelectLeader(EXECUTIVE_LEADERS[1])}
-                className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-rose-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
-              >
-                {/* Left Portrait Image with Faint Glassy Transparent Accent Frame */}
-                <div className="relative w-full sm:w-[210px] md:w-[230px] lg:w-[245px] shrink-0 z-10 flex justify-center">
-                  <div className="relative w-full aspect-[4/3.4] sm:aspect-[4/3.7] max-w-[260px]">
-                    {/* Faint Glassy Ambient Glow */}
-                    <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-blue-200/25 via-white/50 to-blue-100/20 blur-sm pointer-events-none opacity-80" />
-
-                    {/* Top-Right Faint Glassy Translucent Red Curved Arch */}
-                    <div className="absolute -top-2.5 -right-2.5 w-16 h-28 border-t-[3.5px] border-r-[3.5px] border-rose-500/35 bg-gradient-to-bl from-rose-500/10 via-transparent to-transparent backdrop-blur-[2px] rounded-tr-[2.2rem] pointer-events-none z-20" />
-                    
-                    {/* Bottom-Left Faint Glassy Blue Accent */}
-                    <div className="absolute -bottom-2 -left-2 w-10 h-10 bg-gradient-to-tr from-[#1E3A8A]/20 to-blue-300/10 border-b-2 border-l-2 border-[#1E3A8A]/30 backdrop-blur-sm rounded-bl-2xl rounded-tr-lg -z-0 pointer-events-none" />
-
-                    {/* Photo Container */}
-                    <div className="relative h-full w-full rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm bg-slate-50/90 group-hover:scale-[1.02] transition-transform duration-300 z-10">
-                      <img
-                        src={tanushreeImg}
-                        alt="Tanushree K - Chairperson"
-                        className="h-full w-full object-cover object-top"
-                        loading="lazy"
-                      />
-                    </div>
+              {/* Right Content */}
+              <div className="flex-1 min-w-0 text-left flex flex-col justify-between py-1 relative z-10 w-full">
+                <div>
+                  {/* Top Pill Badge & LinkedIn */}
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="rounded-full bg-rose-50/80 border border-rose-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#D9232A]">
+                      FOUNDER &amp; MANAGING DIRECTOR
+                    </span>
+                    {EXECUTIVE_LEADERS[0].linkedin && (
+                      <a
+                        href={EXECUTIVE_LEADERS[0].linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Ashish Gawhane on LinkedIn"
+                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0A66C2] text-white hover:bg-[#004182] hover:scale-110 shadow-sm transition"
+                      >
+                        <Linkedin className="h-3 w-3 fill-white" />
+                      </a>
+                    )}
                   </div>
-                </div>
 
-                {/* Right Content */}
-                <div className="flex-1 min-w-0 text-left flex flex-col justify-between py-1 relative z-10 w-full">
-                  <div>
-                    {/* Top Pill Badge */}
-                    <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <span className="rounded-full bg-rose-50/80 border border-rose-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#D9232A]">
-                        CO-FOUNDER &amp; CHAIRPERSON
-                      </span>
-                    </div>
+                  {/* Name */}
+                  <h3 className="text-2xl sm:text-[1.65rem] font-black text-[#0A2540] tracking-tight leading-tight">
+                    Ashish Gawhane
+                  </h3>
 
-                    {/* Name */}
-                    <h3 className="text-2xl sm:text-[1.65rem] font-black text-[#0A2540] tracking-tight leading-tight">
-                      Tanushree K
-                    </h3>
+                  {/* Role */}
+                  <p className="text-xs sm:text-sm font-bold text-[#D9232A] mt-0.5">
+                    CEO &amp; MD
+                  </p>
 
-                    {/* Role */}
-                    <p className="text-xs sm:text-sm font-bold text-[#D9232A] mt-0.5">
-                      Chairperson
-                    </p>
+                  {/* Red Dash */}
+                  <div className="w-8 h-0.5 bg-[#D9232A] my-2.5 rounded-full" />
 
-                    {/* Red Dash */}
-                    <div className="w-8 h-0.5 bg-[#D9232A] my-2.5 rounded-full" />
-
-                    {/* Two Key Metrics */}
-                    <div className="grid grid-cols-2 gap-3 my-2.5">
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
-                          <Briefcase className="h-4 w-4 stroke-[2]" />
-                        </div>
-                        <div>
-                          <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">25+</span>
-                          <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">Years Experience</span>
-                        </div>
+                  {/* Two Key Metrics */}
+                  <div className="grid grid-cols-2 gap-3 my-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
+                        <Briefcase className="h-4 w-4 stroke-[2]" />
                       </div>
-
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
-                          <Users className="h-4 w-4 stroke-[2]" />
-                        </div>
-                        <div>
-                          <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">1,500+</span>
-                          <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">People Mentored</span>
-                        </div>
+                      <div>
+                        <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">28+</span>
+                        <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">Years Experience</span>
                       </div>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-normal mt-2">
-                      Driving people development, organizational excellence and a future-ready culture for Vevra's continued growth.
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
+                        <Award className="h-4 w-4 stroke-[2]" />
+                      </div>
+                      <div>
+                        <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">10M+</span>
+                        <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">Products Impacted</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
+                  {/* Description */}
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-normal mt-2">
+                    Leading Vevra's vision, growth strategy and global partnerships for innovative and sustainable packaging solutions.
+                  </p>
+                </div>
               </div>
 
             </div>
+
+            {/* CARD 2: Tanushree K (Chairperson) */}
+            <div
+              onClick={() => handleSelectLeader(EXECUTIVE_LEADERS[1])}
+              className="group rounded-3xl border border-slate-200/70 bg-white/95 backdrop-blur-sm p-6 sm:p-7 lg:p-8 shadow-sm hover:shadow-xl hover:border-rose-200/60 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer flex flex-col sm:flex-row items-center gap-6 lg:gap-7"
+            >
+              {/* Left Portrait Image with Faint Glassy Transparent Accent Frame */}
+              <div className="relative w-full sm:w-[210px] md:w-[230px] lg:w-[245px] shrink-0 z-10 flex justify-center">
+                <div className="relative w-full aspect-[4/3.4] sm:aspect-[4/3.7] max-w-[260px]">
+                  {/* Faint Glassy Ambient Glow */}
+                  <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-blue-200/25 via-white/50 to-blue-100/20 blur-sm pointer-events-none opacity-80" />
+
+                  {/* Photo Container */}
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm bg-slate-50/90 group-hover:scale-[1.02] transition-transform duration-300 z-10">
+                    <img
+                      src={tanushreeImg}
+                      alt="Tanushree K - Chairperson"
+                      className="h-full w-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Content */}
+              <div className="flex-1 min-w-0 text-left flex flex-col justify-between py-1 relative z-10 w-full">
+                <div>
+                  {/* Top Pill Badge */}
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="rounded-full bg-rose-50/80 border border-rose-200/60 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#D9232A]">
+                      CO-FOUNDER &amp; CHAIRPERSON
+                    </span>
+                  </div>
+
+                  {/* Name */}
+                  <h3 className="text-2xl sm:text-[1.65rem] font-black text-[#0A2540] tracking-tight leading-tight">
+                    Tanushree K
+                  </h3>
+
+                  {/* Role */}
+                  <p className="text-xs sm:text-sm font-bold text-[#D9232A] mt-0.5">
+                    Chairperson
+                  </p>
+
+                  {/* Red Dash */}
+                  <div className="w-8 h-0.5 bg-[#D9232A] my-2.5 rounded-full" />
+
+                  {/* Two Key Metrics */}
+                  <div className="grid grid-cols-2 gap-3 my-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
+                        <Briefcase className="h-4 w-4 stroke-[2]" />
+                      </div>
+                      <div>
+                        <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">25+</span>
+                        <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">Years Experience</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50/70 border border-rose-100/80 text-[#D9232A]">
+                        <Users className="h-4 w-4 stroke-[2]" />
+                      </div>
+                      <div>
+                        <span className="text-xs sm:text-sm font-black text-slate-900 block leading-none">1,500+</span>
+                        <span className="text-[10px] text-slate-500 font-medium leading-tight block mt-0.5">People Mentored</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-normal mt-2">
+                    Driving people development, organizational excellence and a future-ready culture for Vevra's continued growth.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
       </section>
@@ -1613,9 +1592,8 @@ function LeadershipPage() {
               <div
                 key={person.num}
                 onClick={() => handleSelectLeader(person)}
-                className={`group flex flex-col justify-between rounded-[2rem] border bg-white p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer ${
-                  person.isPlaceholder ? "border-dashed border-slate-300 bg-slate-50/40" : "border-slate-200/90"
-                }`}
+                className={`group flex flex-col justify-between rounded-[2rem] border bg-white p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden cursor-pointer ${person.isPlaceholder ? "border-dashed border-slate-300 bg-slate-50/40" : "border-slate-200/90"
+                  }`}
               >
                 <div>
                   {/* Top Left Badge & Top Right LinkedIn */}
@@ -1639,21 +1617,17 @@ function LeadershipPage() {
                     )}
                   </div>
 
-                  {/* Centered Picture with Soft Ambient Blob & Reddish Corner Accent Border */}
-                  <div className="my-6 relative flex justify-center items-center">
+                  {/* Centered Picture with Soft Ambient Blob */}
+                  <div className="my-5 sm:my-6 relative flex justify-center items-center">
                     {/* Soft Warm/Rose Fluid Blob behind picture */}
-                    <div className="absolute w-44 h-48 sm:w-48 sm:h-52 rounded-[2.5rem] bg-gradient-to-tr from-rose-100/40 via-slate-100/60 to-rose-100/30 blur-[2px] transform rotate-6 scale-105 pointer-events-none opacity-80" />
+                    <div className="absolute w-52 h-56 sm:w-56 sm:h-60 rounded-[2.5rem] bg-gradient-to-tr from-rose-100/40 via-slate-100/60 to-rose-100/30 blur-[2px] transform rotate-6 scale-105 pointer-events-none opacity-80" />
 
-                    {/* Relative Box holding Photo + Faint Glassy Corner Border */}
+                    {/* Relative Box holding Photo */}
                     <div className="relative">
-                      {/* Faint Glassy Translucent Red Corner Accent Border */}
-                      <div className="absolute -top-2 -right-2 w-14 h-14 border-t-[3px] border-r-[3px] border-[#D9232A]/35 bg-gradient-to-bl from-rose-500/10 via-transparent to-transparent backdrop-blur-[2px] rounded-tr-[1.8rem] pointer-events-none z-20" />
-
                       {/* Photo Portrait Container with Pure Gray Border & Shadow */}
                       <div
-                        className={`relative w-40 h-44 sm:w-44 sm:h-48 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-[1.02] z-10 ${person.photoBg} ${
-                          person.isPlaceholder ? "border-dashed border-slate-300 text-slate-400" : ""
-                        }`}
+                        className={`relative w-48 h-52 sm:w-52 sm:h-56 rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-[1.02] z-10 ${person.photoBg} ${person.isPlaceholder ? "border-dashed border-slate-300 text-slate-400" : ""
+                          }`}
                       >
                         {person.image ? (
                           <img

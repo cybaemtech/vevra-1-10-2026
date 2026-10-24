@@ -365,7 +365,7 @@ function ContactPage() {
                   CORPORATE HEADQUARTERS
                 </span>
                 <p className="mt-1 text-xs font-bold text-[#0B1930] leading-snug">
-                  6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
+                  Vevra Packaging Pvt. Ltd., Survey No. 310/A/1, Plot No. 5, Old Mumbai-Pune Hwy., Near Somatane Toll Plaza, Maharashtra 410506
                 </p>
                 <Link
                   to="/corporate-office"
@@ -478,7 +478,7 @@ function ContactPage() {
                     CORPORATE FACILITY
                   </span>
                   <p className="text-xs font-bold text-slate-100 mt-0.5">
-                    6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
+                    Vevra Packaging Pvt. Ltd., Survey No. 310/A/1, Plot No. 5, Old Mumbai-Pune Hwy., Near Somatane Toll Plaza, Maharashtra 410506
                   </p>
                   <Link
                     to="/corporate-office"
@@ -727,7 +727,7 @@ function ContactPage() {
                 Visit Our <span className="text-[#D9232A]">Headquarters</span>
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-[#4A5568]">
-                6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
+                Vevra Packaging Pvt. Ltd., Survey No. 310/A/1, Plot No. 5, Old Mumbai-Pune Hwy., Near Somatane Toll Plaza, Maharashtra 410506
               </p>
             </div>
 
@@ -775,7 +775,7 @@ function ContactPage() {
                     HEADQUARTERS ADDRESS
                   </span>
                   <p className="mt-0.5 text-xs sm:text-sm font-bold text-[#0B1930] leading-snug">
-                    6,7, EasyGo House,Survey No.310/A/1, Plot no. 5, Old Mumbai - Pune Hwy, near Somatane Toll Plaza, Maharashtra 410506
+                    Vevra Packaging Pvt. Ltd., Survey No. 310/A/1, Plot No. 5, Old Mumbai-Pune Hwy., Near Somatane Toll Plaza, Maharashtra 410506
                   </p>
                   <p className="mt-1 text-[11px] font-semibold text-slate-500">
                     Mon – Sat: 9:00 AM – 6:30 PM • Chakan – Khed Industrial Hub

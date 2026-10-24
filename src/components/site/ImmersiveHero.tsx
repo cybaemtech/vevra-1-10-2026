@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import headerVideo from "@/assets/home-header.mp4";
 
 export function ImmersiveHero() {
   return (
@@ -13,7 +12,7 @@ export function ImmersiveHero() {
           playsInline
           className="h-full w-full object-cover object-center"
         >
-          <source src={headerVideo} type="video/mp4" />
+          <source src="https://www.vevrapackaging.com/assets/home-header-DxTuFdtv.mp4" type="video/mp4" />
         </video>
 
         {/* Smooth horizontal gradient blend from left content area into video */}

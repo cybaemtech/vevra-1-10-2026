@@ -22,6 +22,7 @@ import {
 
 import { SiteLayout } from "@/components/site/SiteLayout";
 import cap05Onsite from "@/assets/capabilities/cap-05-onsite.jpg";
+import servicesHeroVideo from "@/assets/services-hero-video.mp4";
 import { SERVICES } from "@/lib/site-content";
 import { SERVICE_IMAGES } from "@/lib/site-images";
 
@@ -182,18 +183,19 @@ const VALUE_ADVANTAGES = [
 function ServicesPage() {
   return (
     <SiteLayout>
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24 text-slate-900 border-b border-slate-100">
-        {/* Ambient Soft Glows */}
-        <div className="pointer-events-none absolute -left-20 top-0 h-[500px] w-[500px] rounded-full bg-blue-50/80 blur-3xl" />
-        <div className="pointer-events-none absolute right-0 top-10 h-[450px] w-[450px] rounded-full bg-rose-50/70 blur-3xl" />
+      {/* 1. HERO SECTION WITH RIGHT-SIDE VIDEO BOX (AUTOPLAY) */}
+      <section className="relative w-full overflow-hidden bg-white min-h-[540px] sm:min-h-[580px] lg:min-h-[620px] flex flex-col justify-between border-b border-slate-100">
+        {/* Ambient Faint Warm Red Glow on Top-Right Corner */}
+        <div className="pointer-events-none absolute top-0 right-0 h-72 sm:h-80 lg:h-96 w-72 sm:w-80 lg:w-96 bg-gradient-to-bl from-red-600/10 via-red-500/5 to-transparent blur-3xl z-0" />
 
-        <div className="relative mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-14 xl:px-16">
-          {/* Header Row */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="max-w-[780px]">
+        {/* Main Hero Content Area: 2 Columns (Text on Left, Video in Box on Right) */}
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-14 xl:px-16 pt-10 sm:pt-14 lg:pt-16 pb-8 sm:pb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center">
+            
+            {/* Left Column: Heading, Subtitle, CTAs */}
+            <div className="lg:col-span-7 xl:col-span-6">
               {/* Eyebrow Pill */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-blue-50/70 px-4 py-1.5 shadow-sm backdrop-blur">
+              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-blue-50/80 px-4 py-1.5 shadow-sm backdrop-blur">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#1E3A8A]" />
                 <span className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-[#1E3A8A]">
                   INTEGRATED PACKAGING SERVICES
@@ -201,19 +203,19 @@ function ServicesPage() {
               </div>
 
               {/* Headline */}
-              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-[3.25rem] xl:text-[3.75rem] font-black tracking-tight leading-[1.08] text-[#0B1930]">
+              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-[3.1rem] xl:text-[3.6rem] font-black tracking-tight leading-[1.08] text-[#0B1930]">
                 Beyond packaging. <br />
                 We manage the{" "}
                 <span className="text-[#D9232A]">packaging ecosystem.</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="mt-4 text-sm sm:text-base lg:text-lg leading-relaxed text-[#4A5568] font-normal max-w-[680px]">
+              <p className="mt-4 text-sm sm:text-base lg:text-lg leading-relaxed text-[#4A5568] font-normal max-w-[580px]">
                 From packaging engineering and returnable fleets to rental, pooling, on-site plant operations, logistics, and warehouse management — VEVRA delivers complete operational accountability.
               </p>
 
               {/* CTA Buttons */}
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="mt-7 sm:mt-8 flex flex-wrap items-center gap-4">
                 <Link
                   to="/contact"
                   className="rounded-full bg-[#D9232A] px-7 sm:px-8 py-3.5 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-white shadow-xl shadow-[#D9232A]/25 transition-all duration-300 hover:bg-[#b81d23] hover:shadow-2xl hover:shadow-[#D9232A]/35 hover:-translate-y-0.5 active:scale-[0.98] inline-flex items-center gap-2.5"
@@ -224,7 +226,7 @@ function ServicesPage() {
 
                 <Link
                   to="/calculator"
-                  className="rounded-full border border-slate-300 bg-white px-7 sm:px-8 py-3.5 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-[#0B1930] transition-all duration-300 hover:border-[#1E3A8A] hover:text-[#1E3A8A] hover:bg-slate-50 hover:-translate-y-0.5 inline-flex items-center gap-2.5"
+                  className="rounded-full border border-slate-300 bg-white/95 px-7 sm:px-8 py-3.5 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-[#0B1930] shadow-sm backdrop-blur transition-all duration-300 hover:border-[#1E3A8A] hover:text-[#1E3A8A] hover:bg-slate-50 hover:-translate-y-0.5 inline-flex items-center gap-2.5"
                 >
                   <span>Cost Calculator</span>
                   <ArrowRight className="h-4 w-4 text-[#1E3A8A]" />
@@ -232,27 +234,36 @@ function ServicesPage() {
               </div>
             </div>
 
-            {/* Right Decorative Cursive Card */}
-            <div className="hidden lg:flex flex-col items-end select-none">
-              <div className="rounded-3xl border border-slate-200/80 bg-gradient-to-br from-slate-50/90 to-white p-6 shadow-lg shadow-slate-200/50 text-right max-w-[320px]">
-                <span className="font-['Dancing_Script',cursive] text-3xl font-bold text-[#D9232A] block leading-tight">
-                  Total Ecosystem Control
-                </span>
-                <p className="mt-2 text-[11px] font-extrabold uppercase tracking-[0.20em] text-[#0B1930]/80 leading-relaxed">
-                  ONE ACCOUNTABLE PARTNER <br />
-                  FOR YOUR ENTIRE SUPPLY CHAIN
-                </p>
-                <div className="mt-4 flex items-center justify-end gap-2 text-xs font-bold text-slate-500">
-                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                  <span>ISO &amp; Quality Certified</span>
+            {/* Right Column: Clean Video in a framed Box without any text or shade */}
+            <div className="lg:col-span-5 xl:col-span-6 w-full flex justify-center lg:justify-end">
+              <div className="relative w-full max-w-[560px]">
+                {/* Clean Subtle Red Ambient Glow Behind Box */}
+                <div className="absolute -inset-2 sm:-inset-3 bg-gradient-to-tr from-[#D9232A]/15 via-red-500/5 to-transparent rounded-[32px] blur-2xl -z-10 opacity-70" />
+
+                {/* Video Card Container */}
+                <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white p-2 sm:p-2.5 shadow-2xl shadow-slate-900/10">
+                  <div className="relative overflow-hidden rounded-xl sm:rounded-[20px] aspect-[16/10] bg-black">
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="h-full w-full object-cover object-center outline-none focus:outline-none ring-0 border-0"
+                    >
+                      <source src={servicesHeroVideo} type="video/mp4" />
+                    </video>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* 4 Quick Stat Pillars */}
-          <div className="mt-12 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 border-t border-slate-100 pt-8 sm:pt-10">
-            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+          </div>
+        </div>
+
+        {/* 4 Quick Stat Pillars (Seamlessly sitting at the bottom of hero with frosted glass cards) */}
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-14 xl:px-16 pb-10 sm:pb-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 border-t border-slate-200/60 pt-6 sm:pt-8">
+            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/80 bg-white/90 backdrop-blur-md p-4 shadow-sm hover:shadow-md transition-all">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#1E3A8A]">
                 <Layers className="h-5 w-5 stroke-[2]" />
               </div>
@@ -262,7 +273,7 @@ function ServicesPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/80 bg-white/90 backdrop-blur-md p-4 shadow-sm hover:shadow-md transition-all">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
                 <CheckCircle2 className="h-5 w-5 stroke-[2]" />
               </div>
@@ -272,7 +283,7 @@ function ServicesPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/80 bg-white/90 backdrop-blur-md p-4 shadow-sm hover:shadow-md transition-all">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-[#D9232A]">
                 <CalendarClock className="h-5 w-5 stroke-[2]" />
               </div>
@@ -282,7 +293,7 @@ function ServicesPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/70 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/80 bg-white/90 backdrop-blur-md p-4 shadow-sm hover:shadow-md transition-all">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
                 <UsersRound className="h-5 w-5 stroke-[2]" />
               </div>

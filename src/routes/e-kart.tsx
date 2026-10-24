@@ -19,6 +19,7 @@ import {
   Play,
   Radio,
   Refrigerator,
+  Rocket,
   Settings,
   ShieldCheck,
   ShoppingBag,
@@ -34,40 +35,29 @@ import {
 
 import { SiteLayout, RfqButton } from "@/components/site/SiteLayout";
 
-// Gemini-generated images for E-Kart Vehicles & Features
-import heroFoodtruckImg from "@/assets/ekart/hero-foodtruck.jpg";
-import prodEkartImg from "@/assets/ekart/prod-ekart.jpg";
-import prodCompact3wImg from "@/assets/ekart/prod-compact3w.jpg";
-import prodRestaurantImg from "@/assets/ekart/prod-restaurant.jpg";
-import prodOn2cookImg from "@/assets/ekart/prod-on2cook.jpg";
+// Official VEVRA E-Kart Vehicles & Features Images
+import heroFoodtruckImg from "@/assets/ekart/hero-foodtruck.png";
+import prodEkartImg from "@/assets/ekart/Electric-E-Kart.png";
+import prodCompact3wImg from "@/assets/ekart/Electric-Compact 3-Wheeler.png";
+import prodRestaurantImg from "@/assets/ekart/Electric-Restaurant-on-Wheels.png";
+import prodOn2cookImg from "@/assets/ekart/On2Cook-SmartCookingDevice.png";
 import featChargingImg from "@/assets/ekart/feat-charging.jpg";
 import fleetPanoramicImg from "@/assets/ekart/fleet-panoramic.png";
+import vevraLogo from "@/assets/vevra-logo.png";
 
-// Kitchen & Restaurant Accessories Images
-import acc2BurnersImg from "@/assets/ekart/acc-2burners.jpg";
-import accFrierImg from "@/assets/ekart/acc-frier.jpg";
-import accFoodWarmerImg from "@/assets/ekart/acc-foodwarmer.jpg";
-import accChoppingTableImg from "@/assets/ekart/acc-choppingtable.jpg";
-import accWaterTankImg from "@/assets/ekart/acc-watertank.jpg";
-import accCoffeeMachineImg from "@/assets/ekart/acc-coffeemachine.jpg";
-import accSlushDispenserImg from "@/assets/ekart/acc-slushdispenser.png";
-import accSoupHandiImg from "@/assets/ekart/acc-souphandi.png";
-import accColdDisplayImg from "@/assets/ekart/acc-colddisplay.jpg";
-import accShawarmaImg from "@/assets/ekart/acc-shawarma.png";
-import accVisiCoolerImg from "@/assets/ekart/acc-visicooler.png";
-import accPizzaOvenImg from "@/assets/ekart/acc-pizzaoven.png";
-import accDosaMakerImg from "@/assets/ekart/acc-dosamaker.png";
-import accCharcoalBbqImg from "@/assets/ekart/acc-charcoalbbq.jpg";
-import accGrillerImg from "@/assets/ekart/acc-griller.png";
+// Expanding Horizons: VEVRA Technologies & Electronics Visuals
+import techCardVisualImg from "@/assets/ekart/tech_card_visual.png";
+import electronicsCardVisualImg from "@/assets/ekart/electronics_card_visual.png";
+import vevraCubeWordmark from "@/assets/ekart/vevra_cube_wordmark.png";
 
 export const Route = createFileRoute("/e-kart")({
   head: () => ({
     meta: [
-      { title: "VEVRA E-KART — Sustainable Mobility & Mobile Restaurant Solutions | VEVRA" },
+      { title: "VEVRA E-KART — Sustainable Mobility & Commercial Fleet Solutions | VEVRA" },
       {
         name: "description",
         content:
-          "Innovative electric mobility and smart food solutions for businesses, entrepreneurs and communities. Explore electric 3-wheelers, mobile restaurants, and commercial kitchen appliances.",
+          "Innovative electric mobility and smart commercial vehicle solutions for businesses, entrepreneurs and communities. Explore electric 3-wheelers and customized e-karts.",
       },
     ],
   }),
@@ -133,163 +123,6 @@ const PRODUCTS_DATA = [
   },
 ];
 
-// Kitchen Accessories Categories
-const ACCESSORIES_CATEGORIES = [
-  { id: "all", label: "All Equipment" },
-  { id: "cooking", label: "Cooking & Grilling" },
-  { id: "beverage", label: "Beverages & Hot Food" },
-  { id: "cooling", label: "Refrigeration & Display" },
-  { id: "utility", label: "Prep & Utilities" },
-];
-
-// Complete 16 Customized Restaurant & Compact Kitchen Accessories
-const ACCESSORIES_DATA = [
-  {
-    id: "2-burners",
-    name: "2 Burners",
-    category: "cooking",
-    badge: "Compact Cooking",
-    image: acc2BurnersImg,
-    description: "Heavy-duty commercial grade 2-burner gas/electric stove with precision flame control.",
-    specs: ["Heavy Duty SS 304", "Cast Iron Pan Supports", "Low Fuel / Power Consumption"],
-  },
-  {
-    id: "frier",
-    name: "Frier",
-    category: "cooking",
-    badge: "Snack Station",
-    image: accFrierImg,
-    description: "Dual-tank electric deep fryer with twin baskets for crispy fries, nuggets, samosas and snacks.",
-    specs: ["Twin Stainless Baskets", "Rapid Oil Heat Recovery", "Easy Drain Valve"],
-  },
-  {
-    id: "food-warmer",
-    name: "Food Warmer",
-    category: "beverage",
-    badge: "Hot Holding",
-    image: accFoodWarmerImg,
-    description: "4-Pan stainless steel wet/dry well food warmer to keep gravies, soups and rice fresh & warm.",
-    specs: ["4 Gastronorm Pans with Lids", "Thermostatic Heat Dial", "Even Warmth Retention"],
-  },
-  {
-    id: "chopping-table",
-    name: "Chopping Table",
-    category: "utility",
-    badge: "Prep Station",
-    image: accChoppingTableImg,
-    description: "Commercial stainless steel prep counter with heavy-duty undershelf and lockable castor wheels.",
-    specs: ["Food-Grade SS 304 Top", "High Load Under-Storage", "Lockable Castor Wheels"],
-  },
-  {
-    id: "water-tank",
-    name: "Water Storage Tank",
-    category: "utility",
-    badge: "Clean Utility",
-    image: accWaterTankImg,
-    description: "Food-grade fresh water storage tank with quick-dispense spigot tap for mobile kitchen hygiene.",
-    specs: ["Food Grade HDPE Material", "Leak-Proof Brass Valve", "Easy Refill & Cleaning"],
-  },
-  {
-    id: "on2cook",
-    name: "On2 Cook",
-    category: "cooking",
-    badge: "Smart Kitchen Tech",
-    image: prodOn2cookImg,
-    description: "Revolutionary patented cooking tech combining flame & microwave, saving 70% cooking time.",
-    specs: ["Flame + Microwave Fusion", "70% Faster Cooking", "Consistent Quality Every Time"],
-  },
-  {
-    id: "coffee-machine",
-    name: "Coffee Machine",
-    category: "beverage",
-    badge: "Cafe Solutions",
-    image: accCoffeeMachineImg,
-    description: "Dual-group espresso & cappuccino coffee maker with milk frothing wand for high-volume cafe service.",
-    specs: ["Dual Group Espresso", "Integrated Steam Wand", "Commercial Pressure Pump"],
-  },
-  {
-    id: "slush-dispenser",
-    name: "Slush Dispenser",
-    category: "beverage",
-    badge: "Chilled Drinks",
-    image: accSlushDispenserImg,
-    description: "Dual-tank commercial frozen beverage dispenser for fruit slushies, mocktails and cold smoothies.",
-    specs: ["Twin Polycarbonate Tanks", "High-Efficiency Compressor", "Night Refrigeration Mode"],
-  },
-  {
-    id: "soup-handi",
-    name: "Soup Handi",
-    category: "beverage",
-    badge: "Hot Soup Station",
-    image: accSoupHandiImg,
-    description: "Traditional commercial soup kettle warmer for piping hot soups, daal, sambar and stews.",
-    specs: ["Insulated Outer Body", "Removable SS Inner Pot", "10-Level Heat Selector"],
-  },
-  {
-    id: "cold-display",
-    name: "Cold Display Counter",
-    category: "cooling",
-    badge: "Refrigerated Showcase",
-    image: accColdDisplayImg,
-    description: "Curved glass multi-tier refrigerated counter for bakery items, pastries, salads and sandwiches.",
-    specs: ["Panoramic Curved Glass", "Forced Air Uniform Cooling", "Bright LED Illumination"],
-  },
-  {
-    id: "shawarma-heater",
-    name: "Shawarma Heater",
-    category: "cooking",
-    badge: "Rotisserie Grill",
-    image: accShawarmaImg,
-    description: "Vertical rotating meat broiler spit machine for authentic shawarmas, gyros and roasted meats.",
-    specs: ["360° Motorized Rotation", "Adjustable Heat Elements", "Removable Oil Catch Tray"],
-  },
-  {
-    id: "visi-cooler",
-    name: "Visi Cooler",
-    category: "cooling",
-    badge: "Beverage Chiller",
-    image: accVisiCoolerImg,
-    description: "Glass door vertical display refrigerator for bottled drinks, juices, dairy products and cans.",
-    specs: ["Double Glazed Clear Glass", "Quick Chill Refrigeration", "Multi-Tier Adjustable Shelves"],
-  },
-  {
-    id: "pizza-oven",
-    name: "Pizza Oven",
-    category: "cooking",
-    badge: "Baking & Pizza",
-    image: accPizzaOvenImg,
-    description: "High-temperature stone deck electric pizza baking oven for crispy pizzas, garlic bread and pies.",
-    specs: ["Firebrick Stone Base", "Independent Top/Bottom Heat", "Up to 400°C Temperature"],
-  },
-  {
-    id: "dosa-maker",
-    name: "Dosa Maker",
-    category: "cooking",
-    badge: "South Indian Special",
-    image: accDosaMakerImg,
-    description: "Heavy polished flat griddle tawa plate for making crispy dosas, uttapams, crepes and parathas.",
-    specs: ["Uniform Heat Distribution", "Polished Non-Stick Surface", "Heavy-Gauge Stainless Body"],
-  },
-  {
-    id: "charcoal-bbq",
-    name: "Charcoal BBQ",
-    category: "cooking",
-    badge: "Smoky BBQ",
-    image: accCharcoalBbqImg,
-    description: "Tabletop commercial stainless steel BBQ grill station for charcoal-grilled tikkas, kebabs and skewers.",
-    specs: ["Cast Iron Cooking Grates", "Dual Air Damper Control", "Easy Ash Removal Tray"],
-  },
-  {
-    id: "griller",
-    name: "Griller",
-    category: "cooking",
-    badge: "Toasted Sandwiches",
-    image: accGrillerImg,
-    description: "Ribbed heavy cast-iron contact grill press for toasted paninis, burgers, rolls and sandwiches.",
-    specs: ["Ribbed Cast Iron Plates", "Counter-Balanced Top Lid", "Rapid Toasting Technology"],
-  },
-];
-
 const SOLUTIONS_DATA = [
   {
     icon: Store,
@@ -347,7 +180,6 @@ const METRICS_DATA = [
 ];
 
 function EKartPage() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   useEffect(() => {
@@ -375,18 +207,6 @@ function EKartPage() {
     }
   };
 
-  const scrollToAccessories = () => {
-    const el = document.getElementById("accessories-section");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const filteredAccessories =
-    selectedCategory === "all"
-      ? ACCESSORIES_DATA
-      : ACCESSORIES_DATA.filter((item) => item.category === selectedCategory);
-
   return (
     <SiteLayout>
       {/* 1. HERO SECTION */}
@@ -400,7 +220,7 @@ function EKartPage() {
 
         <div className="mx-auto max-w-[1280px] px-6">
           <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
-            
+
             {/* Left Column: Heading, Badges, Metrics & Actions */}
             <div className="lg:col-span-6">
               {/* Premium Pill Badge */}
@@ -435,8 +255,8 @@ function EKartPage() {
                   <span>100% Zero Emissions</span>
                 </div>
                 <div className="flex items-center gap-2 rounded-xl bg-slate-100/80 px-3.5 py-2 border border-slate-200/60">
-                  <Utensils className="h-4 w-4 text-[#D9232A]" />
-                  <span>Modular Kitchen Tech</span>
+                  <Truck className="h-4 w-4 text-[#D9232A]" />
+                  <span>Custom Commercial Fleets</span>
                 </div>
                 <div className="flex items-center gap-2 rounded-xl bg-slate-100/80 px-3.5 py-2 border border-slate-200/60">
                   <Radio className="h-4 w-4 text-blue-600" />
@@ -462,15 +282,6 @@ function EKartPage() {
                   <span>Explore Vehicles</span>
                   <ChevronDown className="h-4 w-4 text-[#D9232A]" />
                 </button>
-
-                <button
-                  type="button"
-                  onClick={scrollToAccessories}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300/80 bg-white/90 px-5 py-3.5 text-sm font-bold text-[#4A5568] shadow-sm backdrop-blur transition-all duration-300 hover:border-slate-400 hover:text-[#0B1930] hover:-translate-y-0.5 active:scale-[0.98]"
-                >
-                  <Utensils className="h-4 w-4 text-[#D9232A]" />
-                  <span>Kitchen Accessories</span>
-                </button>
               </div>
             </div>
 
@@ -487,7 +298,7 @@ function EKartPage() {
                     alt="VEVRA E-Kart Electric Food Truck"
                     className="h-full w-full object-cover object-center transition-transform duration-700 hover:scale-105"
                   />
-                  
+
                   {/* Atmospheric Vignette Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10 pointer-events-none" />
 
@@ -528,22 +339,22 @@ function EKartPage() {
                         Zero Emission Commercial Fleet
                       </h3>
                     </div>
-                  
+
                   </div>
                 </div>
               </div>
 
               {/* Floating Glassmorphism Badge 1 (Top Left Overhang) */}
-             
+
 
               {/* Floating Glassmorphism Badge 2 (Bottom Right Overhang) */}
               <div className="hidden sm:flex absolute -bottom-5 -right-5 z-20 items-center gap-3 rounded-2xl border border-slate-200/80 bg-white/95 p-3.5 shadow-xl backdrop-blur-md transition-transform duration-300 hover:scale-105">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-[#D9232A] text-white shadow-md shadow-rose-500/25">
-                  <Utensils className="h-5 w-5" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/25">
+                  <Zap className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Commercial Kitchen</p>
-                  <p className="text-xs font-black text-[#0B1930]">16+ Modular Accessories</p>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Commercial Fleet</p>
+                  <p className="text-xs font-black text-[#0B1930]">100% Electric Mobility</p>
                 </div>
               </div>
 
@@ -669,119 +480,186 @@ function EKartPage() {
         </div>
       </section>
 
-      {/* 3. SMART E-KART FEATURES BANNER */}
- 
+      {/* 2.5 EXPANDING HORIZONS - BEYOND PACKAGING (TECHNOLOGIES & ELECTRONICS) */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-white to-[#F8FAFC] py-20 sm:py-24 border-t border-slate-100">
+        {/* Decorative Top-Right Isometric Cube Watermark matching mockup */}
+        <div
+          className="pointer-events-none absolute -top-10 right-2 sm:right-10 w-64 sm:w-80 h-64 sm:h-80 opacity-30 select-none overflow-hidden hidden sm:block"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 240 240"
+            fill="none"
+            className="w-full h-full text-rose-300/80"
+          >
+            <polygon
+              points="120,40 40,86 90,115 170,69"
+              fill="currentColor"
+              fillOpacity="0.4"
+            />
+            <polygon
+              points="120,40 200,86 150,115 70,69"
+              fill="currentColor"
+              fillOpacity="0.55"
+            />
+            <polygon
+              points="40,86 120,132 120,200 40,154"
+              fill="currentColor"
+              fillOpacity="0.6"
+            />
+            <polygon
+              points="120,132 200,86 200,154 120,200"
+              fill="currentColor"
+              fillOpacity="0.75"
+            />
+          </svg>
+        </div>
 
-      {/* 4. MODULAR KITCHEN & RESTAURANT ACCESSORIES SECTION */}
-      <section id="accessories-section" className="bg-[#F8FAFC] py-20 border-t border-slate-200/80">
-        <div className="mx-auto max-w-[1280px] px-6">
-          
-          {/* Header & Subtitle */}
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#D9232A]">
-                ELECTRIC COMPACT &amp; CUSTOMISED RESTAURANT
+        {/* Ambient Glow */}
+        <div
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-rose-50/50 rounded-full blur-3xl -z-10"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center">
+            <div className="inline-flex items-center justify-center gap-3">
+              <span className="h-[1.5px] w-7 sm:w-10 bg-[#D9232A] rounded-full" />
+              <span className="text-xs sm:text-[13px] font-black uppercase tracking-[0.28em] text-[#0B1930]">
+                EXPANDING HORIZONS
               </span>
-              <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-[#0B1930] sm:text-4xl">
-                Modular Kitchen &amp; Restaurant Accessories.
-              </h2>
+              <span className="h-[1.5px] w-7 sm:w-10 bg-[#D9232A] rounded-full" />
             </div>
-            <p className="max-w-md text-sm text-[#64748B]">
-              Equip your mobile e-kart with commercial-grade, energy-efficient appliances tailored for street food, cafes, and mobile restaurant setups.
+
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-[44px] font-black tracking-tight text-[#0B1930] leading-tight">
+              Beyond <span className="text-[#D9232A]">Packaging.</span>
+            </h2>
+
+            <p className="mt-3.5 max-w-2xl mx-auto text-sm sm:text-base font-normal leading-relaxed text-slate-600">
+              Building new possibilities with technology and electronics to
+              create a smarter, more connected future.
             </p>
           </div>
 
-          {/* Category Filter Tabs */}
-          <div className="mt-10 flex flex-wrap items-center gap-2">
-            {ACCESSORIES_CATEGORIES.map((tab) => {
-              const isSelected = selectedCategory === tab.id;
-              const count =
-                tab.id === "all"
-                  ? ACCESSORIES_DATA.length
-                  : ACCESSORIES_DATA.filter((i) => i.category === tab.id).length;
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setSelectedCategory(tab.id)}
-                  className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold transition-all ${
-                    isSelected
-                      ? "bg-[#D9232A] text-white shadow-md shadow-[#D9232A]/20"
-                      : "bg-white text-[#4A5568] border border-slate-200 hover:border-slate-300 hover:text-[#0B1930]"
-                  }`}
-                >
-                  <span>{tab.label}</span>
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[10px] font-extrabold ${
-                      isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-[#64748B]"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          {/* Two Large Native React Cards: VEVRA Technologies & VEVRA Electronics */}
+          <div className="mt-12 sm:mt-14 grid gap-8 lg:grid-cols-2">
+            {/* Card 1: VEVRA Technologies */}
+            <div className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-slate-200/90 bg-white shadow-xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:border-slate-300 flex flex-col justify-between min-h-[420px]">
+              {/* Right Side Visual Image (Full Height & Flush to Right) */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 h-full w-full sm:w-[60%] md:w-[58%] lg:w-[56%] flex items-center justify-end overflow-hidden z-0">
+                <img
+                  src={techCardVisualImg}
+                  alt="VEVRA Technologies visual"
+                  className="h-full w-auto max-w-none object-cover object-right transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </div>
 
-          {/* Accessories 4-Column Grid */}
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {filteredAccessories.map((item) => (
-              <div
-                key={item.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                {/* Edge-to-edge Image Frame with Floating Badge */}
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-white">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="h-full w-full object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute top-3 left-3 rounded-md bg-black/60 px-2.5 py-1 text-[10px] font-bold text-white backdrop-blur-md">
-                    {item.badge}
+              {/* Left Content Column */}
+              <div className="relative z-10 w-full sm:w-[56%] md:w-[52%] lg:w-[50%] p-6 sm:p-8 lg:p-9 flex flex-col justify-between min-h-[420px]">
+                <div>
+                  {/* Logo Lockup matching reference design */}
+                  <div className="flex flex-col items-start">
+                    <img
+                      src={vevraCubeWordmark}
+                      alt="VEVRA"
+                      className="h-10 sm:h-11 w-auto object-contain select-none"
+                    />
+                    <span className="text-[10px] sm:text-[11px] font-black tracking-[0.32em] text-[#0B1930] uppercase mt-1 pl-0.5">
+                      TECHNOLOGIES
+                    </span>
                   </div>
+
+                  {/* Heading */}
+                  <h3 className="mt-5 text-2xl sm:text-[26px] font-black text-[#0B1930] leading-[1.18] tracking-tight">
+                    Smart Technology. <br />
+                    Real <span className="text-[#D9232A]">Business Impact.</span>
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-3 text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed max-w-sm">
+                    VEVRA Technologies is our upcoming technology division, focused on
+                    building modern digital products, platforms and solutions for
+                    businesses of tomorrow.
+                  </p>
                 </div>
 
-                {/* Card Content */}
-                <div className="flex flex-1 flex-col justify-between p-5">
-                  <div>
-                    <h3 className="text-sm font-bold text-[#0B1930] group-hover:text-[#D9232A] transition-colors">
-                      {item.name}
-                    </h3>
-                    <p className="mt-1.5 text-xs leading-relaxed text-[#64748B]">
-                      {item.description}
-                    </p>
-
-                    {/* Specs Pills */}
-                    <div className="mt-4 space-y-1.5 border-t border-slate-100 pt-3">
-                      {item.specs.map((spec, sIdx) => (
-                        <div key={sIdx} className="flex items-center gap-1.5 text-[11px] text-[#475569]">
-                          <Check className="h-3 w-3 text-[#D9232A] shrink-0" />
-                          <span>{spec}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Add to RFQ Button */}
-                  <div className="mt-5 pt-2">
-                    <Link
-                      to="/calculator"
-                      className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 py-2 text-xs font-bold text-[#0B1930] transition-all hover:border-[#D9232A] hover:bg-[#D9232A] hover:text-white"
-                    >
-                      Request with E-Kart
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
+                {/* Coming Soon Button (Compact & single line matching reference design) */}
+                <div className="mt-6 sm:mt-8">
+                  <Link
+                    to="/contact"
+                    className="group/btn inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#D9232A] via-[#E11D25] to-[#B0181E] px-4 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-wider text-white shadow-[0_8px_20px_rgba(217,35,42,0.42)] transition-all duration-300 hover:shadow-[0_12px_28px_rgba(217,35,42,0.58)] hover:scale-105 border border-white/20 select-none cursor-pointer whitespace-nowrap"
+                  >
+                    <Rocket className="h-3.5 w-3.5 fill-white text-white shrink-0" />
+                    <span className="whitespace-nowrap">COMING SOON</span>
+                    <span className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 items-center justify-center rounded-full bg-white/25 text-white transition-transform group-hover/btn:translate-x-0.5 shrink-0">
+                      <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </Link>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
 
+            {/* Card 2: VEVRA Electronics */}
+            <div className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-slate-200/90 bg-white shadow-xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:border-slate-300 flex flex-col justify-between min-h-[420px]">
+              {/* Right Side Visual Image (Full Height & Flush to Right) */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 h-full w-full sm:w-[60%] md:w-[58%] lg:w-[56%] flex items-center justify-end overflow-hidden z-0">
+                <img
+                  src={electronicsCardVisualImg}
+                  alt="VEVRA Electronics visual"
+                  className="h-full w-auto max-w-none object-cover object-right transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+              </div>
+
+              {/* Left Content Column */}
+              <div className="relative z-10 w-full sm:w-[56%] md:w-[52%] lg:w-[50%] p-6 sm:p-8 lg:p-9 flex flex-col justify-between min-h-[420px]">
+                <div>
+                  {/* Logo Lockup matching reference design */}
+                  <div className="flex flex-col items-start">
+                    <img
+                      src={vevraCubeWordmark}
+                      alt="VEVRA"
+                      className="h-10 sm:h-11 w-auto object-contain select-none"
+                    />
+                    <span className="text-[10px] sm:text-[11px] font-black tracking-[0.32em] text-[#0B1930] uppercase mt-1 pl-0.5">
+                      ELECTRONICS
+                    </span>
+                  </div>
+
+                  {/* Heading */}
+                  <h3 className="mt-5 text-2xl sm:text-[26px] font-black text-[#0B1930] leading-[1.18] tracking-tight">
+                    Innovative Electronics. <br />
+                    For a <span className="text-[#D9232A]">Connected Future.</span>
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-3 text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed max-w-sm">
+                    VEVRA Electronics is our upcoming electronics division, bringing
+                    cutting-edge electronics, smart devices and innovative tech
+                    products — designed for a smarter, more connected world.
+                  </p>
+                </div>
+
+                {/* Coming Soon Button (Compact & single line matching reference design) */}
+                <div className="mt-6 sm:mt-8">
+                  <Link
+                    to="/contact"
+                    className="group/btn inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#D9232A] via-[#E11D25] to-[#B0181E] px-4 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-wider text-white shadow-[0_8px_20px_rgba(217,35,42,0.42)] transition-all duration-300 hover:shadow-[0_12px_28px_rgba(217,35,42,0.58)] hover:scale-105 border border-white/20 select-none cursor-pointer whitespace-nowrap"
+                  >
+                    <Rocket className="h-3.5 w-3.5 fill-white text-white shrink-0" />
+                    <span className="whitespace-nowrap">COMING SOON</span>
+                    <span className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 items-center justify-center rounded-full bg-white/25 text-white transition-transform group-hover/btn:translate-x-0.5 shrink-0">
+                      <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* 5. SOLUTIONS SECTION */}
+      {/* 3. SOLUTIONS SECTION */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-[1280px] px-6">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
@@ -958,7 +836,7 @@ function EKartPage() {
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-[#D9232A]"></span>
                 </span>
                 <h3 className="text-xs sm:text-sm md:text-base font-bold text-white tracking-wide truncate max-w-[240px] sm:max-w-md md:max-w-xl">
-                  VEVRA Electric — Empowering Sustainable Mobility &amp; Modular Kitchens
+                  VEVRA Electric — Empowering Sustainable Mobility &amp; Commercial Fleets
                 </h3>
               </div>
 

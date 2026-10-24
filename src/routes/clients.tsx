@@ -495,9 +495,9 @@ function ClientsPage() {
               </div>
 
               <h2 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.1]">
-                Tell us what packaging problem
+                Tell us what packaging/ supply chain related solutions
                 <br />
-                you are solving.
+                can we assist you with?
               </h2>
 
               <p className="mt-4 max-w-xl text-sm sm:text-base text-slate-300 font-medium leading-relaxed">

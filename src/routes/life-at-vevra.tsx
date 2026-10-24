@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
+  Gamepad2,
   Heart,
   Image as ImageIcon,
   MapPin,
@@ -23,6 +24,8 @@ import {
   Trophy,
   Users,
   Utensils,
+  Video,
+  X,
   Leaf,
   Layers,
   Youtube,
@@ -41,6 +44,18 @@ import vehicleRestaurantImg from "@/assets/Event&Celebration/Vehicle-restrorant.
 import poojaOfficeImg from "@/assets/Event&Celebration/poojaatoffice.png";
 import teamImg from "@/assets/Event&Celebration/team.png";
 import officeCollabImg from "@/assets/VEVRA_Office_Professional_Images/06_everyday_collaboration.png";
+
+// Culture Section Images from Reference Design
+import cultureIndoorGamesImg from "@/assets/Event&Celebration/culture_indoor_games.png";
+import cultureTeamCelebrationsImg from "@/assets/Event&Celebration/culture_team_celebrations.png";
+import cultureFestiveMomentsImg from "@/assets/Event&Celebration/culture_festive_moments.png";
+import cultureFunReelsImg from "@/assets/Event&Celebration/culture_fun_reels.png";
+
+// Culture Section Videos from assets/culture-game
+import gamesFunVideo from "@/assets/culture-game/Games-fun.mp4";
+import gamesGirlsHappinessVideo from "@/assets/culture-game/Games-girls-happiness.mp4";
+import teamOutingVideo from "@/assets/culture-game/Team-outing.mp4";
+import weAreVevraVideo from "@/assets/culture-game/We-are-Vevra.mp4";
 
 // Employee Recognition & Values Images from assets/Valueoueemp (Optimized for instant load)
 import empAppreciationAwardImg from "@/assets/Valueoueemp/Appreciation_Award_Photo_HD.jpg";
@@ -330,33 +345,225 @@ const YEAR_EVENTS = [
   },
 ];
 
-// Culture Cards
-const CULTURE_PILLARS = [
+// Traditional Indian Diya Icon matching reference design
+function DiyaIcon({ className = "h-5 w-5 text-[#D9232A]" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 3c0 1.8-1.2 3.2-1.2 4.6a1.2 1.2 0 1 0 2.4 0C13.2 6.2 12 4.8 12 3z" />
+      <path d="M4 12h16" />
+      <path d="M5 12c.5 4.5 3.5 8 7 8s6.5-3.5 7-8" />
+    </svg>
+  );
+}
+
+// Office Culture 4 Highlights (Top Right)
+const OFFICE_CULTURE_HIGHLIGHTS = [
   {
     icon: Users,
-    title: "People First",
-    description: "We celebrate every individual and their contribution.",
+    title: "Team Bonding",
+    subtitle: "Stronger teams, brighter outcomes.",
+    iconBg: "bg-rose-50 border-rose-100/70",
+    iconColor: "text-rose-500",
   },
   {
-    icon: Leaf,
-    title: "Work-Life Balance",
-    description: "Events that refresh, energize and inspire.",
-  },
-  {
-    icon: Target,
-    title: "Together We Grow",
-    description: "From small wins to big milestones, we move as one.",
+    icon: Trophy,
+    title: "Fun Activities",
+    subtitle: "Play, recharge, perform better.",
+    iconBg: "bg-blue-50 border-blue-100/70",
+    iconColor: "text-blue-500",
   },
   {
     icon: Star,
-    title: "A Brighter Tomorrow",
-    description: "Building a positive, inclusive and future-ready culture.",
+    title: "Celebrations",
+    subtitle: "Festivals, milestones and everyday wins.",
+    iconBg: "bg-red-50 border-red-100/70",
+    iconColor: "text-red-500",
+  },
+  {
+    icon: Heart,
+    title: "Work-Life Balance",
+    subtitle: "A supportive and positive environment.",
+    iconBg: "bg-emerald-50 border-emerald-100/70",
+    iconColor: "text-emerald-500",
   },
 ];
 
+// Office Culture 4 Interactive Video Cards (Bottom Row matching original video files)
+const CULTURE_PHOTO_CARDS = [
+  {
+    id: "games-fun",
+    title: "Games & Fun",
+    subtitle: "Joyful office games & team energy.",
+    video: gamesFunVideo,
+    tag: "GAMES & FUN",
+    alt: "VEVRA team enjoying games and fun breaks at corporate office",
+    icon: Gamepad2,
+  },
+  {
+    id: "team-outing",
+    title: "Team Outing",
+    subtitle: "Togetherness, bonding & celebration.",
+    video: teamOutingVideo,
+    tag: "TEAM OUTING",
+    alt: "VEVRA team outing, adventures and togetherness",
+    icon: Users,
+  },
+  {
+    id: "games-girls-happiness",
+    title: "Games & Girls' Happiness",
+    subtitle: "Laughter, celebrations & happy moments.",
+    video: gamesGirlsHappinessVideo,
+    tag: "GIRLS' HAPPINESS",
+    alt: "VEVRA team celebrating games, laughter and togetherness",
+    icon: Sparkles,
+  },
+  {
+    id: "we-are-vevra",
+    title: "We Are VEVRA",
+    subtitle: "Our people, pride & unity reel.",
+    video: weAreVevraVideo,
+    tag: "WE ARE VEVRA",
+    alt: "We Are VEVRA team anthem and reel at headquarters",
+    icon: Video,
+  },
+];
+
+// Interactive Card Component: Original Video displayed directly at front, plays on hover, modal on click
+function CultureVideoCard({
+  card,
+  onOpenModal,
+}: {
+  card: (typeof CULTURE_PHOTO_CARDS)[number];
+  onOpenModal: () => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => setIsPlaying(true)).catch(() => {});
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const Icon = card.icon;
+
+  return (
+    <div
+      onClick={onOpenModal}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpenModal();
+        }
+      }}
+      className="group relative cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300 text-left focus:outline-none focus:ring-2 focus:ring-[#D9232A]"
+      title={`Click to watch ${card.title} video`}
+    >
+      {/* Front Video Display Container */}
+      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100">
+        {/* Original video rendered right on the front */}
+        <video
+          ref={videoRef}
+          src={`${card.video}#t=0.001`}
+          preload="auto"
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+
+        {/* Center Play Button Overlay (subtly fades when hover preview plays) */}
+        <div
+          className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-all duration-300 ${
+            isPlaying ? "opacity-0 scale-90" : "opacity-100 scale-100 group-hover:scale-110"
+          }`}
+        >
+          <div className="flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-full bg-slate-950/65 backdrop-blur-md border border-white/40 text-white shadow-2xl transition-all duration-300 group-hover:bg-[#D9232A] group-hover:border-[#D9232A]">
+            <Play className="h-5 w-5 fill-white translate-x-0.5" />
+          </div>
+        </div>
+
+        {/* Click for Sound Cue */}
+        <div className="pointer-events-none absolute bottom-3 right-3 z-10 rounded-full bg-slate-950/75 backdrop-blur-md px-2.5 py-0.5 text-[10px] font-bold text-white opacity-0 group-hover:opacity-10 transition-opacity">
+          Click for Sound ▶
+        </div>
+
+        {/* Subtle Gradient for readability */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-40 group-hover:opacity-0 transition-opacity" />
+      </div>
+
+      {/* Card Footer Bar with Updated Name & Icon */}
+      <div className="flex items-center justify-between gap-3 p-4 sm:p-4.5 bg-white border-t border-slate-100">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-rose-50 text-[#D9232A] border border-rose-100/70 shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:bg-[#D9232A] group-hover:text-white">
+            <Icon className="h-5 w-5" />
+          </div>
+          <div className="min-w-0">
+            <h4 className="text-sm sm:text-[15px] font-bold text-[#0B1930] leading-snug truncate">
+              {card.title}
+            </h4>
+            <p className="mt-0.5 text-xs text-slate-500 font-normal leading-tight truncate">
+              {card.subtitle}
+            </p>
+          </div>
+        </div>
+
+        <span className="shrink-0 text-slate-400 group-hover:text-[#D9232A] transition-colors pr-1">
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function LifeAtVevraPage() {
+  const [activeCultureVideo, setActiveCultureVideo] = useState<
+    (typeof CULTURE_PHOTO_CARDS)[number] | null
+  >(null);
+
   const [activeGalleryIdx, setActiveGalleryIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+  // Esc key and body scroll lock for Video Modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveCultureVideo(null);
+      }
+    };
+    if (activeCultureVideo) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeCultureVideo]);
 
   const [activeEmployeeIdx, setActiveEmployeeIdx] = useState(0);
   const [isEmployeePaused, setIsEmployeePaused] = useState(false);
@@ -945,62 +1152,158 @@ function LifeAtVevraPage() {
       </section>
 
       {/* =========================================================================
-          4. OUR CULTURE SECTION ("More Than Just Work")
+          4. OUR CULTURE SECTION ("Work. Play. Grow. Together at VEVRA")
          ========================================================================= */}
-      <section id="culture-section" className="bg-[#F8FAFC] py-16 sm:py-20 border-b border-slate-100">
-        <div className="mx-auto max-w-[1280px] px-6">
-          <div className="grid items-center gap-10 lg:grid-cols-12">
-            
-            {/* Left Column: Mission & Button */}
-            <div className="lg:col-span-5">
-              <span className="text-[11px] font-black uppercase tracking-[0.25em] text-[#D9232A] block">
-                OUR CULTURE
-              </span>
-              <h2 className="mt-2 text-3xl font-black tracking-tight text-[#0B1930] sm:text-4xl">
-                More Than <br />
-                Just Work
-              </h2>
-              <p className="mt-3.5 text-xs sm:text-sm leading-relaxed text-slate-600 font-normal">
-                At VEVRA, we believe a happy workplace creates extraordinary results. Our events and celebrations reflect our values — respect, teamwork and togetherness.
-              </p>
+      <section
+        id="culture-section"
+        className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-100"
+      >
+        {/* Decorative Top Right Dot Matrix Accent */}
+        <div
+          className="pointer-events-none absolute -top-1 right-0 sm:right-6 w-52 sm:w-72 h-44 opacity-35 select-none hidden sm:block"
+          aria-hidden="true"
+          style={{
+            backgroundImage: `radial-gradient(circle, #D9232A 1.25px, transparent 1.25px)`,
+            backgroundSize: "14px 14px",
+          }}
+        />
 
-              <div className="mt-6">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D9232A] px-7 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-[#D9232A]/20 transition-all hover:bg-[#b81d23]"
-                >
-                  <span>Join Our Journey</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+        {/* Soft Ambient Blob Accent */}
+        <div
+          className="pointer-events-none absolute top-12 left-1/3 -translate-x-1/2 w-96 h-96 rounded-full bg-rose-50/70 blur-3xl -z-10"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          {/* Top Row: Heading on Left, 4 Quick Highlight Cards on Right */}
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
+            {/* Left Column: Heading & Intro Text */}
+            <div className="lg:col-span-5 2xl:col-span-5">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-block w-8 h-[2px] bg-[#D9232A] rounded-full" />
+                <span className="text-xs font-black uppercase tracking-[0.24em] text-[#D9232A]">
+                  OUR OFFICE CULTURE
+                </span>
               </div>
+
+              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-[#0B1930] leading-[1.14]">
+                Work. Play. Grow. <br />
+                Together at <span className="text-[#D9232A]">VEVRA</span>
+              </h2>
+
+              <p className="mt-4 max-w-xl text-sm sm:text-[15px] font-normal leading-relaxed text-slate-600">
+                At VEVRA, we believe great ideas come from happy people. Our
+                vibrant work culture is built on teamwork, fun, creativity and
+                continuous learning.
+              </p>
             </div>
 
-            {/* Right Column: 2x2 Culture Value Cards */}
-            <div className="lg:col-span-7">
-              <div className="grid gap-4 sm:grid-cols-2">
-                {CULTURE_PILLARS.map((pillar, idx) => {
-                  const Icon = pillar.icon;
+            {/* Right Column: 4 Highlight Cards */}
+            <div className="lg:col-span-7 2xl:col-span-7">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 xl:gap-3.5">
+                {OFFICE_CULTURE_HIGHLIGHTS.map((item, idx) => {
+                  const Icon = item.icon;
                   return (
                     <div
                       key={idx}
-                      className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                      className="group flex flex-col items-center text-center rounded-2xl border border-slate-100 bg-white p-4 sm:p-4.5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-slate-200"
                     >
-                      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-rose-50 text-[#D9232A] border border-rose-100">
-                        <Icon className="h-5 w-5" />
+                      <div
+                        className={`flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border transition-transform duration-300 group-hover:scale-110 ${item.iconBg}`}
+                      >
+                        <Icon className={`h-5 w-5 ${item.iconColor}`} />
                       </div>
-                      <h3 className="mt-3.5 text-sm sm:text-base font-bold text-[#0B1930]">
-                        {pillar.title}
+                      <h3 className="mt-3 text-xs sm:text-[13px] font-bold text-[#0B1930] leading-snug">
+                        {item.title}
                       </h3>
-                      <p className="mt-1 text-xs leading-relaxed text-slate-500 font-normal">
-                        {pillar.description}
+                      <p className="mt-1 text-[11px] font-normal leading-tight text-slate-500">
+                        {item.subtitle}
                       </p>
                     </div>
                   );
                 })}
               </div>
             </div>
-
           </div>
+
+          {/* Bottom Row: 4 Video / Reel Cards with Hover Preview & Modal Player */}
+          <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {CULTURE_PHOTO_CARDS.map((card) => (
+              <CultureVideoCard
+                key={card.id}
+                card={card}
+                onOpenModal={() => setActiveCultureVideo(card)}
+              />
+            ))}
+          </div>
+
+          {/* Interactive Culture Video Lightbox Modal (Clean White Background) */}
+          {activeCultureVideo && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 animate-in fade-in duration-200"
+              onClick={() => setActiveCultureVideo(null)}
+            >
+              <div
+                className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-900/25"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Top Bar (White) */}
+                <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5 bg-white">
+                  <div className="flex items-center gap-2.5">
+                    <span className="inline-block h-2 w-2 rounded-full bg-[#D9232A]" />
+                    <span className="text-xs font-black uppercase tracking-widest text-[#D9232A]">
+                      {activeCultureVideo.tag}
+                    </span>
+                    <span className="text-slate-300 hidden sm:inline">•</span>
+                    <span className="text-xs font-bold text-[#0B1930] truncate max-w-[180px] sm:max-w-md hidden sm:inline">
+                      {activeCultureVideo.title}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveCultureVideo(null)}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-[#0B1930] transition-colors cursor-pointer"
+                    aria-label="Close video"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                {/* Video Player */}
+                <div className="relative aspect-video w-full bg-black flex items-center justify-center">
+                  <video
+                    key={activeCultureVideo.id}
+                    src={activeCultureVideo.video}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="h-full w-full object-contain outline-none focus:outline-none"
+                  />
+                </div>
+
+                {/* Modal Bottom Bar (White) */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-5 py-4 bg-white border-t border-slate-100">
+                  <div>
+                    <h3 className="text-base font-bold text-[#0B1930]">
+                      {activeCultureVideo.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 font-normal mt-0.5">
+                      {activeCultureVideo.subtitle}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveCultureVideo(null)}
+                    className="rounded-full bg-slate-100 hover:bg-slate-200 px-4 py-1.5 text-xs font-bold text-[#0B1930] transition-colors cursor-pointer"
+                  >
+                    Close Video
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

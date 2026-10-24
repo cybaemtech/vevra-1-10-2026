@@ -20,6 +20,8 @@ import originalOpenPlan from "@/assets/VEVRA_Office_Professional_Images/original
 import originalOfficeMeetingRoom from "@/assets/VEVRA_Office_Professional_Images/original/Bright VEVRA Office Meeting Room.png";
 import originalFocusedMeeting from "@/assets/VEVRA_Office_Professional_Images/original/Focused Modern Office Meeting.png";
 import originalWarehouseSunset from "@/assets/VEVRA_Office_Professional_Images/original/Industrial Warehouse at Sunset.png";
+import originalChairpersonOffice from "@/assets/VEVRA_Office_Professional_Images/original/Chairpersons-Office.png";
+import originalWarehouseCourtyard from "@/assets/VEVRA_Office_Professional_Images/original/Modern Warehouse Courtyard with VEVRA Entrance.png";
 import heroBg from "@/assets/herobg.png";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { COMPANY } from "@/lib/site-content";
@@ -45,36 +47,48 @@ export const Route = createFileRoute("/corporate-office")({
 const OFFICE_GALLERY = [
   {
     step: "01",
+    title: "MD & CEO'S EXECUTIVE OFFICE",
+    image: originalCulturalDecor,
+    alt: "VEVRA Managing Director & CEO executive office suite",
+  },
+  {
+    step: "02",
+    title: "CHAIRPERSON'S EXECUTIVE OFFICE",
+    image: originalChairpersonOffice,
+    alt: "VEVRA Chairperson's executive office suite",
+  },
+  {
+    step: "03",
     title: "EXECUTIVE BOARDROOM & LEADERSHIP",
     image: originalOfficeMeetingRoom,
     alt: "Bright VEVRA office executive meeting room",
   },
   {
-    step: "02",
+    step: "04",
     title: "CUSTOMER & STRATEGY SESSIONS",
     image: originalFocusedMeeting,
     alt: "Focused modern office review and strategy meeting",
   },
   {
-    step: "03",
+    step: "05",
     title: "ENGINEERING & OPERATIONS FLOOR",
     image: originalOpenPlan,
     alt: "Bright modern open-plan packaging engineering workspace",
   },
   {
-    step: "04",
+    step: "06",
     title: "EVERYDAY TEAM COLLABORATION",
     image: originalOpenPlan1,
     alt: "Modern open-plan team collaborative workspace",
   },
   {
-    step: "05",
-    title: "OFFICE LOBBY & VEVRA CULTURE",
-    image: originalCulturalDecor,
-    alt: "Bright modern office with cultural decor and reception lounge",
+    step: "07",
+    title: "MODERN COURTYARD & VEVRA ENTRANCE",
+    image: originalWarehouseCourtyard,
+    alt: "Modern warehouse courtyard with VEVRA entrance",
   },
   {
-    step: "06",
+    step: "08",
     title: "STRATEGIC LOGISTICS & WAREHOUSE",
     image: originalWarehouseSunset,
     alt: "VEVRA industrial warehouse facility at sunset",
@@ -229,9 +243,9 @@ function CorporateOfficePage() {
                 <div>
                   <h2 className="text-xl font-bold text-brand-blue-dark">Headquarters Address</h2>
                   <div className="mt-3 space-y-1 text-sm text-slate-600 font-medium leading-relaxed">
-                    <p>6,7, EasyGo House, Survey No.310/A/1,</p>
-                    <p>Plot no. 5, Old Mumbai - Pune Hwy,</p>
-                    <p>near Somatane Toll Plaza, Maharashtra 410506</p>
+                    <p className="font-bold text-slate-900">Vevra Packaging Pvt. Ltd.</p>
+                    <p>Survey No. 310/A/1, Plot No. 5, Old Mumbai-Pune Hwy.,</p>
+                    <p>Near Somatane Toll Plaza, Maharashtra 410506.</p>
                   </div>
                 </div>
               </div>
@@ -321,7 +335,7 @@ function CorporateOfficePage() {
             </div>
           </div>
 
-          {/* 6 Image Grid */}
+          {/* 8 Image Grid */}
           <div className="grid gap-6 sm:grid-cols-2 lg:gap-8">
             {OFFICE_GALLERY.map((item) => (
               <figure
