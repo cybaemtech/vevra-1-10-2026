@@ -1,7 +1,7 @@
 import { Quote } from "lucide-react";
 
 import vevraLogo from "@/assets/vevra-logo.png";
-import ceoImg from "@/assets/ceo.png";
+import ceoImg from "@/assets/ceo.jpg";
 const CEO_QUOTES = [
   "We only win when you do.",
   "You'll work with people who have actually been in the trenches and care about getting it right.",
@@ -95,7 +95,7 @@ export function CeoStatement() {
           {/* Right Column: Floating Rounded CEO Card */}
           <div className="relative">
             <div className="relative z-10 rounded-[2.2rem] overflow-hidden bg-white shadow-[0_25px_60px_-15px_rgba(15,23,42,0.22)] border border-slate-200/90 max-w-[500px] xl:max-w-[540px] mx-auto lg:ml-auto">
-              
+
               {/* CEO Portrait Photo (Full Bleed Background) */}
               <div className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.9] overflow-hidden">
                 <img
@@ -104,7 +104,7 @@ export function CeoStatement() {
                   className="w-full h-full object-cover object-top"
                   loading="eager"
                 />
-                
+
                 {/* Subtle soft gradient at top and bottom for text legibility */}
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/40 via-white/10 to-transparent" />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/50 via-transparent to-transparent" />

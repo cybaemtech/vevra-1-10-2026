@@ -51,10 +51,29 @@ import cultureTeamCelebrationsImg from "@/assets/Event&Celebration/culture_team_
 import cultureFestiveMomentsImg from "@/assets/Event&Celebration/culture_festive_moments.png";
 import cultureFunReelsImg from "@/assets/Event&Celebration/culture_fun_reels.png";
 
-// Culture Section Videos from assets/culture-game
+// Office Culture Celebration & Pooja Photos from assets/culture-game (Celebrations First)
+import celebrationAtVevraImg from "@/assets/culture-game/Celebration-at-vevra.jfif";
+import celebrationWithTeamImg from "@/assets/culture-game/celebration-with-team.jfif";
+import celebrationAtPointImg from "@/assets/culture-game/celebration-at-point.jpg";
+import teamCelebrationImg from "@/assets/culture-game/team-celebration.jpeg";
+import daserraCelebrationImg from "@/assets/culture-game/Daserra-celebration.jfif";
+import dandiyaNightImg from "@/assets/culture-game/Dandiya-night.jfif";
+import garabaRasImg from "@/assets/culture-game/Garaba-ras.jfif";
+import dandiyaWinnerBoyImg from "@/assets/culture-game/Dandiya-winner-boy.jpg";
+import garbaWinnerImg from "@/assets/culture-game/Garba-winner.jpg";
+import navratriDecorationImg from "@/assets/culture-game/Navratri-decoration.jfif";
+import poojaCelebrationImg from "@/assets/culture-game/pooja-celebration.jfif";
+import machinePoojaImg from "@/assets/culture-game/machine-pooja.jfif";
+import poojaOfMachineImg from "@/assets/culture-game/pooja-of-machine.jfif";
+import poojaOfMachinesImg from "@/assets/culture-game/pooja-of-machines.jpg";
+import poojaImg from "@/assets/culture-game/pooja.jpg";
+
+// Culture Section Videos from assets/culture-game (Ganpati videos first as requested)
+import ganpatiCelebrationVideo from "@/assets/culture-game/Ganpati-celebration-video.mp4";
+import ganpatiVisarjanVideo from "@/assets/culture-game/ganpati-visargan-video.mp4";
 import gamesFunVideo from "@/assets/culture-game/Games-fun.mp4";
-import gamesGirlsHappinessVideo from "@/assets/culture-game/Games-girls-happiness.mp4";
 import teamOutingVideo from "@/assets/culture-game/Team-outing.mp4";
+import gamesGirlsHappinessVideo from "@/assets/culture-game/Games-girls-happiness.mp4";
 import weAreVevraVideo from "@/assets/culture-game/We-are-Vevra.mp4";
 
 // Employee Recognition & Values Images from assets/Valueoueemp (Optimized for instant load)
@@ -303,42 +322,42 @@ const YOUTUBE_STORY_VIDEOS = [
 const YEAR_EVENTS = [
   {
     month: "JAN",
-    year: "2026",
+    year: "2025",
     title: "New Year Celebration",
     description: "Welcoming new horizons and setting ambitious team goals.",
     image: celebration1Img,
   },
   {
     month: "MAR",
-    year: "2026",
+    year: "2025",
     title: "Traditional Office Pooja",
     description: "Festivities, traditional rituals and cultural harmony.",
     image: poojaOfficeImg,
   },
   {
     month: "JUN",
-    year: "2026",
+    year: "2025",
     title: "Corporate Strategy Meet",
     description: "Leadership team meet and company roadmap presentation.",
     image: eventOfficeImg,
   },
   {
     month: "AUG",
-    year: "2026",
+    year: "2025",
     title: "E-Mobility Expo Meet",
     description: "Unveiling new generation electric vehicles and smart accessories.",
     image: eventEbikeImg,
   },
   {
     month: "OCT",
-    year: "2026",
+    year: "2025",
     title: "Restaurant on Wheels",
     description: "Showcasing modular mobile electric food cart fleet solutions.",
     image: vehicleRestaurantImg,
   },
   {
     month: "DEC",
-    year: "2026",
+    year: "2025",
     title: "Annual Day & Awards",
     description: "Recognizing outstanding performances and celebrating team success.",
     image: teamImg,
@@ -396,8 +415,236 @@ const OFFICE_CULTURE_HIGHLIGHTS = [
   },
 ];
 
-// Office Culture 4 Interactive Video Cards (Bottom Row matching original video files)
+// Office Culture Celebration & Pooja Photos (Celebration images first as requested)
+const OFFICE_CULTURE_PHOTOS = [
+  {
+    id: "celebration-at-vevra",
+    title: "Celebration at Vevra",
+    subtitle: "Joyous celebrations & company milestone moments.",
+    image: celebrationAtVevraImg,
+    tag: "CELEBRATION",
+    alt: "Celebration at Vevra with team",
+    icon: Sparkles,
+  },
+  {
+    id: "celebration-with-team",
+    title: "Celebration with Team",
+    subtitle: "Celebrating together with the entire VEVRA family.",
+    image: celebrationWithTeamImg,
+    tag: "CELEBRATION",
+    alt: "Celebration with team at VEVRA",
+    icon: Users,
+  },
+  {
+    id: "celebration-at-point",
+    title: "Celebration at Point",
+    subtitle: "Team gathering and milestone celebrations.",
+    image: celebrationAtPointImg,
+    tag: "CELEBRATION",
+    alt: "Celebration at point at VEVRA",
+    icon: PartyPopper,
+  },
+  {
+    id: "team-celebration",
+    title: "Team Celebration",
+    subtitle: "Joyous moments, bonding & togetherness.",
+    image: teamCelebrationImg,
+    tag: "CELEBRATION",
+    alt: "Team celebration at VEVRA",
+    icon: Users,
+  },
+  {
+    id: "daserra-celebration",
+    title: "Daserra Celebration",
+    subtitle: "Dussehra festivities, traditions & team unity.",
+    image: daserraCelebrationImg,
+    tag: "FESTIVAL",
+    alt: "Daserra celebration at VEVRA",
+    icon: Trophy,
+  },
+  {
+    id: "dandiya-night",
+    title: "Dandiya Night",
+    subtitle: "Traditional rhythm, music & energetic Dandiya dance.",
+    image: dandiyaNightImg,
+    tag: "CULTURE",
+    alt: "Dandiya night celebration at VEVRA",
+    icon: Sparkles,
+  },
+  {
+    id: "garaba-ras",
+    title: "Garaba Ras",
+    subtitle: "Colorful Garba Raas dance & festive celebration.",
+    image: garabaRasImg,
+    tag: "CULTURE",
+    alt: "Garaba ras celebration at VEVRA",
+    icon: Sparkles,
+  },
+  {
+    id: "dandiya-winner-boy",
+    title: "Dandiya Winner Boy",
+    subtitle: "Honoring best festive performance and enthusiasm.",
+    image: dandiyaWinnerBoyImg,
+    tag: "AWARD",
+    alt: "Dandiya winner boy celebration at VEVRA",
+    icon: Award,
+  },
+  {
+    id: "garba-winner",
+    title: "Garba Winner",
+    subtitle: "Celebrating our champion performer of Garba night.",
+    image: garbaWinnerImg,
+    tag: "AWARD",
+    alt: "Garba winner recognition at VEVRA",
+    icon: Trophy,
+  },
+  {
+    id: "navratri-decoration",
+    title: "Navratri Decoration",
+    subtitle: "Festive rangoli, traditional flowers & vibrant decor.",
+    image: navratriDecorationImg,
+    tag: "FESTIVAL",
+    alt: "Navratri decoration at VEVRA office",
+    icon: Heart,
+  },
+  {
+    id: "pooja-celebration",
+    title: "Pooja Celebration",
+    subtitle: "Sacred ceremonies, prayers & corporate harmony.",
+    image: poojaCelebrationImg,
+    tag: "POOJA",
+    alt: "Pooja celebration at VEVRA",
+    icon: Star,
+  },
+  {
+    id: "machine-pooja",
+    title: "Machine Pooja",
+    subtitle: "Traditional Ayudha Pooja for plant machinery.",
+    image: machinePoojaImg,
+    tag: "POOJA",
+    alt: "Machine pooja at VEVRA facility",
+    icon: Star,
+  },
+  {
+    id: "pooja-of-machine",
+    title: "Pooja of Machine",
+    subtitle: "Honoring equipment, tools & engineering craftsmanship.",
+    image: poojaOfMachineImg,
+    tag: "POOJA",
+    alt: "Pooja of machine at VEVRA plant",
+    icon: Star,
+  },
+  {
+    id: "pooja-of-machines",
+    title: "Pooja of Machines",
+    subtitle: "Plant-wide machinery blessings for safety & success.",
+    image: poojaOfMachinesImg,
+    tag: "POOJA",
+    alt: "Pooja of machines at VEVRA",
+    icon: Star,
+  },
+  {
+    id: "pooja",
+    title: "Pooja",
+    subtitle: "Traditional office pooja seeking prosperity & peace.",
+    image: poojaImg,
+    tag: "POOJA",
+    alt: "Pooja ceremony at VEVRA",
+    icon: Star,
+  },
+];
+
+// Interactive Culture Photo Card Component
+function CulturePhotoCard({
+  item,
+  onOpenModal,
+}: {
+  item: (typeof OFFICE_CULTURE_PHOTOS)[number];
+  onOpenModal: () => void;
+}) {
+  const Icon = item.icon;
+
+  return (
+    <div
+      onClick={onOpenModal}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpenModal();
+        }
+      }}
+      className="group relative cursor-pointer overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:border-slate-300 text-left focus:outline-none focus:ring-2 focus:ring-[#D9232A]"
+      title={`Click to view ${item.title}`}
+    >
+      {/* Front Image Display Container */}
+      <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100">
+        <img
+          src={item.image}
+          alt={item.alt}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+
+        {/* Category Pill on top left */}
+        <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-md px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-[#0B1930] border border-slate-200/80 shadow-sm select-none">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#D9232A]" />
+          <span>{item.tag}</span>
+        </div>
+
+        {/* Hover zoom cue */}
+        <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-[#0B1930] shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
+            <Maximize2 className="h-4 w-4 text-[#D9232A]" />
+          </div>
+        </div>
+      </div>
+
+      {/* Card Footer Bar */}
+      <div className="flex items-center justify-between gap-3 p-4 sm:p-4.5 bg-white border-t border-slate-100">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-rose-50 text-[#D9232A] border border-rose-100/70 shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:bg-[#D9232A] group-hover:text-white">
+            <Icon className="h-5 w-5" />
+          </div>
+          <div className="min-w-0">
+            <h4 className="text-sm sm:text-[15px] font-bold text-[#0B1930] leading-snug truncate">
+              {item.title}
+            </h4>
+            <p className="mt-0.5 text-xs text-slate-500 font-normal leading-tight truncate">
+              {item.subtitle}
+            </p>
+          </div>
+        </div>
+
+        <span className="shrink-0 text-slate-400 group-hover:text-[#D9232A] transition-colors pr-1">
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// Office Culture Interactive Video Cards (Ganpati celebration & visarjan videos first as requested)
 const CULTURE_PHOTO_CARDS = [
+  {
+    id: "ganpati-celebration-video",
+    title: "Ganpati Celebration Video",
+    subtitle: "Festive devotion, energy & blessings.",
+    video: ganpatiCelebrationVideo,
+    tag: "GANPATI CELEBRATION",
+    alt: "VEVRA Ganpati celebration video with team",
+    icon: Sparkles,
+  },
+  {
+    id: "ganpati-visargan-video",
+    title: "Ganpati Visarjan Video",
+    subtitle: "Bappa visarjan celebration & farewell procession.",
+    video: ganpatiVisarjanVideo,
+    tag: "GANPATI VISARJAN",
+    alt: "VEVRA Ganpati visarjan celebration video with team",
+    icon: PartyPopper,
+  },
   {
     id: "games-fun",
     title: "Games & Fun",
@@ -482,7 +729,7 @@ function CultureVideoCard({
       title={`Click to watch ${card.title} video`}
     >
       {/* Front Video Display Container */}
-      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100">
+      <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100">
         {/* Original video rendered right on the front */}
         <video
           ref={videoRef}
@@ -539,21 +786,32 @@ function CultureVideoCard({
 }
 
 function LifeAtVevraPage() {
-  const [activeCultureVideo, setActiveCultureVideo] = useState<
-    (typeof CULTURE_PHOTO_CARDS)[number] | null
-  >(null);
+  // Office Culture Photos & Videos Auto-Slider State
+  const [cultureSlideIdx, setCultureSlideIdx] = useState(0);
+  const [cultureVideoSlideIdx, setCultureVideoSlideIdx] = useState(0);
+  const [isCulturePaused, setIsCulturePaused] = useState(false);
+  const [activeCultureTab, setActiveCultureTab] = useState<"photos" | "videos">("photos");
+  const [activeCultureModal, setActiveCultureModal] = useState<{
+    id: string;
+    title: string;
+    subtitle: string;
+    tag: string;
+    image?: string;
+    video?: string;
+    alt: string;
+  } | null>(null);
 
   const [activeGalleryIdx, setActiveGalleryIdx] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Esc key and body scroll lock for Video Modal
+  // Esc key and body scroll lock for Lightbox Modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setActiveCultureVideo(null);
+        setActiveCultureModal(null);
       }
     };
-    if (activeCultureVideo) {
+    if (activeCultureModal) {
       window.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
     } else {
@@ -563,7 +821,54 @@ function LifeAtVevraPage() {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [activeCultureVideo]);
+  }, [activeCultureModal]);
+
+  // Automatic slideshow for Office Culture (Photos & Videos)
+  useEffect(() => {
+    if (isCulturePaused) return;
+
+    if (activeCultureTab === "photos") {
+      const timer = setInterval(() => {
+        setCultureSlideIdx((prev) => (prev + 1) % OFFICE_CULTURE_PHOTOS.length);
+      }, 3500);
+      return () => clearInterval(timer);
+    } else {
+      const timer = setInterval(() => {
+        setCultureVideoSlideIdx((prev) => (prev + 1) % CULTURE_PHOTO_CARDS.length);
+      }, 4000);
+      return () => clearInterval(timer);
+    }
+  }, [isCulturePaused, activeCultureTab]);
+
+  const nextCultureSlide = () => {
+    if (activeCultureTab === "photos") {
+      setCultureSlideIdx((prev) => (prev + 1) % OFFICE_CULTURE_PHOTOS.length);
+    } else {
+      setCultureVideoSlideIdx((prev) => (prev + 1) % CULTURE_PHOTO_CARDS.length);
+    }
+  };
+
+  const prevCultureSlide = () => {
+    if (activeCultureTab === "photos") {
+      setCultureSlideIdx((prev) => (prev === 0 ? OFFICE_CULTURE_PHOTOS.length - 1 : prev - 1));
+    } else {
+      setCultureVideoSlideIdx((prev) => (prev === 0 ? CULTURE_PHOTO_CARDS.length - 1 : prev - 1));
+    }
+  };
+
+  // Circular 4-card window for culture photos auto-sliding
+  const visibleCulturePhotos = Array.from({ length: 4 }).map((_, offset) => {
+    const idx = (cultureSlideIdx + offset) % OFFICE_CULTURE_PHOTOS.length;
+    const item = OFFICE_CULTURE_PHOTOS[idx]!;
+    return { ...item, circularKey: `${item.id}-${offset}-${cultureSlideIdx}` };
+  });
+
+  // Circular 4-card window for culture videos auto-sliding
+  const visibleCultureVideos = Array.from({ length: 4 }).map((_, offset) => {
+    const idx = (cultureVideoSlideIdx + offset) % CULTURE_PHOTO_CARDS.length;
+    const card = CULTURE_PHOTO_CARDS[idx]!;
+    return { ...card, circularKey: `${card.id}-${offset}-${cultureVideoSlideIdx}` };
+  });
 
   const [activeEmployeeIdx, setActiveEmployeeIdx] = useState(0);
   const [isEmployeePaused, setIsEmployeePaused] = useState(false);
@@ -611,8 +916,12 @@ function LifeAtVevraPage() {
 
   const activeEmployeeItem = EMPLOYEE_VALUE_ITEMS[activeEmployeeIdx] || EMPLOYEE_VALUE_ITEMS[0]!;
 
-  // Preload all gallery & employee images into browser cache on mount for instant zero-delay display
+  // Preload all gallery, employee & culture images into browser cache on mount for instant zero-delay display
   useEffect(() => {
+    OFFICE_CULTURE_PHOTOS.forEach((item) => {
+      const img = new Image();
+      img.src = item.image;
+    });
     EMPLOYEE_VALUE_ITEMS.forEach((item) => {
       const img = new Image();
       img.src = item.image;
@@ -1226,79 +1535,195 @@ function LifeAtVevraPage() {
             </div>
           </div>
 
-          {/* Bottom Row: 4 Video / Reel Cards with Hover Preview & Modal Player */}
-          <div className="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-            {CULTURE_PHOTO_CARDS.map((card) => (
-              <CultureVideoCard
-                key={card.id}
-                card={card}
-                onOpenModal={() => setActiveCultureVideo(card)}
-              />
-            ))}
+          {/* Controls Bar for Office Culture Slider */}
+          <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-100">
+            {/* Left: Tab Switcher (Celebrations vs Video Reels) */}
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100/90 p-1 border border-slate-200/80">
+              <button
+                type="button"
+                onClick={() => setActiveCultureTab("photos")}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+                  activeCultureTab === "photos"
+                    ? "bg-white text-[#0B1930] shadow-sm font-black"
+                    : "text-slate-600 hover:text-[#0B1930]"
+                }`}
+              >
+                <Sparkles className="h-3.5 w-3.5 text-[#D9232A]" />
+                <span>Celebration Photos ({OFFICE_CULTURE_PHOTOS.length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveCultureTab("videos")}
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+                  activeCultureTab === "videos"
+                    ? "bg-white text-[#0B1930] shadow-sm font-black"
+                    : "text-slate-600 hover:text-[#0B1930]"
+                }`}
+              >
+                <Video className="h-3.5 w-3.5 text-[#D9232A]" />
+                <span>Video Reels ({CULTURE_PHOTO_CARDS.length})</span>
+              </button>
+            </div>
+
+            {/* Right: Auto-slide indicator & Navigation Buttons */}
+            <div className="flex items-center gap-3 self-end sm:self-auto">
+              <div className="inline-flex items-center gap-2 rounded-full bg-slate-50 border border-slate-200/60 px-3 py-1 text-[11px] font-bold text-slate-500">
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    isCulturePaused ? "bg-amber-400" : "bg-emerald-500 animate-pulse"
+                  }`}
+                />
+                <span>{isCulturePaused ? "Paused" : "Auto-sliding"}</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-[#0B1930] font-black">
+                  {activeCultureTab === "photos"
+                    ? `${cultureSlideIdx + 1}/${OFFICE_CULTURE_PHOTOS.length}`
+                    : `${cultureVideoSlideIdx + 1}/${CULTURE_PHOTO_CARDS.length}`}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={prevCultureSlide}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0B1930] shadow-sm hover:border-[#D9232A] hover:bg-rose-50 hover:text-[#D9232A] transition-colors cursor-pointer"
+                  aria-label="Previous slide"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={nextCultureSlide}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0B1930] shadow-sm hover:border-[#D9232A] hover:bg-rose-50 hover:text-[#D9232A] transition-colors cursor-pointer"
+                  aria-label="Next slide"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
 
-          {/* Interactive Culture Video Lightbox Modal (Clean White Background) */}
-          {activeCultureVideo && (
+          {/* Cards Display Container with Hover Pause */}
+          <div
+            onMouseEnter={() => setIsCulturePaused(true)}
+            onMouseLeave={() => setIsCulturePaused(false)}
+            className="mt-6"
+          >
+            {activeCultureTab === "photos" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 animate-in fade-in duration-300">
+                {visibleCulturePhotos.map((item) => (
+                  <CulturePhotoCard
+                    key={item.circularKey}
+                    item={item}
+                    onOpenModal={() =>
+                      setActiveCultureModal({
+                        id: item.id,
+                        title: item.title,
+                        subtitle: item.subtitle,
+                        tag: item.tag,
+                        image: item.image,
+                        alt: item.alt,
+                      })
+                    }
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 animate-in fade-in duration-300">
+                {visibleCultureVideos.map((card) => (
+                  <CultureVideoCard
+                    key={card.circularKey}
+                    card={card}
+                    onOpenModal={() =>
+                      setActiveCultureModal({
+                        id: card.id,
+                        title: card.title,
+                        subtitle: card.subtitle,
+                        tag: card.tag,
+                        video: card.video,
+                        alt: card.alt,
+                      })
+                    }
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Interactive Culture Lightbox Modal (Clean White Background) */}
+          {activeCultureModal && (
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6 animate-in fade-in duration-200"
-              onClick={() => setActiveCultureVideo(null)}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-sm p-4 sm:p-6 animate-in fade-in duration-200"
+              onClick={() => setActiveCultureModal(null)}
             >
               <div
-                className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-900/25"
+                className="relative w-full max-w-4xl overflow-hidden rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-900/25 max-h-[92vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Modal Top Bar (White) */}
-                <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5 bg-white">
-                  <div className="flex items-center gap-2.5">
+                <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3.5 bg-white shrink-0">
+                  <div className="flex items-center gap-2.5 min-w-0">
                     <span className="inline-block h-2 w-2 rounded-full bg-[#D9232A]" />
-                    <span className="text-xs font-black uppercase tracking-widest text-[#D9232A]">
-                      {activeCultureVideo.tag}
+                    <span className="text-xs font-black uppercase tracking-widest text-[#D9232A] shrink-0">
+                      {activeCultureModal.tag}
                     </span>
                     <span className="text-slate-300 hidden sm:inline">•</span>
-                    <span className="text-xs font-bold text-[#0B1930] truncate max-w-[180px] sm:max-w-md hidden sm:inline">
-                      {activeCultureVideo.title}
+                    <span className="text-xs font-bold text-[#0B1930] truncate hidden sm:inline">
+                      {activeCultureModal.title}
                     </span>
                   </div>
 
                   <button
                     type="button"
-                    onClick={() => setActiveCultureVideo(null)}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-[#0B1930] transition-colors cursor-pointer"
-                    aria-label="Close video"
+                    onClick={() => setActiveCultureModal(null)}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-[#0B1930] transition-colors cursor-pointer shrink-0 ml-3"
+                    aria-label="Close modal"
                   >
                     <X className="h-4 w-4" />
                   </button>
                 </div>
 
-                {/* Video Player */}
-                <div className="relative aspect-video w-full bg-black flex items-center justify-center">
-                  <video
-                    key={activeCultureVideo.id}
-                    src={activeCultureVideo.video}
-                    controls
-                    autoPlay
-                    playsInline
-                    className="h-full w-full object-contain outline-none focus:outline-none"
-                  />
+                {/* Media Container (Image or Video) */}
+                <div className="relative w-full bg-slate-50 flex items-center justify-center overflow-hidden min-h-[300px] max-h-[64vh]">
+                  {activeCultureModal.video ? (
+                    <div className="relative aspect-video w-full bg-black flex items-center justify-center">
+                      <video
+                        key={activeCultureModal.id}
+                        src={activeCultureModal.video}
+                        controls
+                        autoPlay
+                        playsInline
+                        className="h-full w-full object-contain outline-none focus:outline-none"
+                      />
+                    </div>
+                  ) : (
+                    <img
+                      src={activeCultureModal.image}
+                      alt={activeCultureModal.alt}
+                      className="w-full h-full max-h-[64vh] object-contain"
+                    />
+                  )}
                 </div>
 
                 {/* Modal Bottom Bar (White) */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-5 py-4 bg-white border-t border-slate-100">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-5 py-4 bg-white border-t border-slate-100 shrink-0">
                   <div>
                     <h3 className="text-base font-bold text-[#0B1930]">
-                      {activeCultureVideo.title}
+                      {activeCultureModal.title}
                     </h3>
                     <p className="text-xs text-slate-500 font-normal mt-0.5">
-                      {activeCultureVideo.subtitle}
+                      {activeCultureModal.subtitle}
                     </p>
                   </div>
 
                   <button
                     type="button"
-                    onClick={() => setActiveCultureVideo(null)}
-                    className="rounded-full bg-slate-100 hover:bg-slate-200 px-4 py-1.5 text-xs font-bold text-[#0B1930] transition-colors cursor-pointer"
+                    onClick={() => setActiveCultureModal(null)}
+                    className="rounded-full bg-slate-100 hover:bg-slate-200 px-4 py-1.5 text-xs font-bold text-[#0B1930] transition-colors cursor-pointer shrink-0"
                   >
-                    Close Video
+                    Close
                   </button>
                 </div>
               </div>

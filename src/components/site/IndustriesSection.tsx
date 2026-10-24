@@ -15,8 +15,6 @@ import {
   Wrench,
 } from "lucide-react";
 
-import industriesVisual from "@/assets/INDUSTRIES.png";
-
 const ROW_1 = [
   { name: "Automotive", icon: Car },
   { name: "Engineering", icon: Settings },
@@ -40,39 +38,24 @@ export function IndustriesSection() {
       <div className="pointer-events-none absolute -left-20 bottom-10 h-72 w-72 rounded-full bg-rose-50/70 blur-2xl" />
 
       <div className="relative mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-20">
-        {/* Header Row: Left Text + Right Collage Image */}
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] xl:grid-cols-[1fr_1.25fr] items-center">
-          {/* Left Text */}
-          <div className="max-w-[640px]">
-            <div className="flex items-center gap-2.5 text-xs font-black uppercase tracking-[0.28em] text-brand">
-              <span className="h-1 w-8 bg-brand inline-block rounded-full" />
-              INDUSTRIES
-            </div>
-
-            <h2
-              id="industries-title"
-              className="mt-4 text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-[3.35rem] font-black tracking-tight leading-[1.08] text-brand-blue-dark"
-            >
-              <span className="whitespace-nowrap">Trusted where</span> <br className="hidden sm:inline" />
-              <span className="text-brand whitespace-nowrap">packaging can&apos;t fail.</span>
-            </h2>
-
-            <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-600 font-medium max-w-[560px]">
-              From production lines to global supply chains, our packaging solutions power industries that keep the world moving.
-            </p>
+        {/* Header: Left Text */}
+        <div className="max-w-[720px]">
+          <div className="flex items-center gap-2.5 text-xs font-black uppercase tracking-[0.28em] text-brand">
+            <span className="h-1 w-8 bg-brand inline-block rounded-full" />
+            INDUSTRIES
           </div>
 
-          {/* Right Visual Image */}
-          <div className="flex items-center justify-end">
-            <div className="relative w-full max-w-[720px]">
-              <img
-                src={industriesVisual}
-                alt="Industries Powered by VEVRA Packaging - Automotive, Manufacturing, FMCG, Electronics, Agriculture"
-                className="w-full h-auto object-contain drop-shadow-sm select-none"
-                loading="lazy"
-              />
-            </div>
-          </div>
+          <h2
+            id="industries-title"
+            className="mt-4 text-3xl sm:text-4xl lg:text-[2.85rem] xl:text-[3.35rem] font-black tracking-tight leading-[1.08] text-brand-blue-dark"
+          >
+            <span>Trusted where</span> <br className="hidden sm:inline" />
+            <span className="text-brand">packaging can&apos;t fail.</span>
+          </h2>
+
+          <p className="mt-5 text-sm sm:text-base leading-relaxed text-slate-600 font-medium max-w-[620px]">
+            From production lines to global supply chains, our packaging solutions power industries that keep the world moving.
+          </p>
         </div>
 
         {/* Bottom Section: 2 Rows of Industry Pills on Left + Vertical Badge on Right */}

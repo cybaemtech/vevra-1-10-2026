@@ -56,7 +56,7 @@ import industrialReviewAwardImg from "@/assets/Certificate/industrial-review-awa
 import industrialReviewMagazineImg from "@/assets/Certificate/industrial-review-magazine-2026.png";
 import certificateAwardImg from "@/assets/awords/certificate.png";
 import trophyAwardImg from "@/assets/awords/trophy.png";
-import ceoPortraitImg from "@/assets/ceo.png";
+import ceoPortraitImg from "@/assets/ceo.jpg";
 import sustainableEarthImg from "@/assets/editorial/sustainable-earth-globe.jpg";
 import { RfqButton, SiteLayout } from "@/components/site/SiteLayout";
 import { WorldExpansionMap } from "@/components/site/WorldExpansionMap";
@@ -245,7 +245,7 @@ function AboutPage() {
       <section className="relative overflow-hidden bg-white w-full border-b border-slate-200/80 py-10 sm:py-12 lg:py-16">
         <div className="relative mx-auto max-w-[1640px] px-4 sm:px-8 lg:px-12 xl:px-16 z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-12 items-center">
-            
+
             {/* =========================================================================
                 LEFT COLUMN: EXACT CODED NARRATIVE & 3 PILLARS
                ========================================================================= */}
@@ -536,7 +536,7 @@ function AboutPage() {
                       alt="The Industrial Review Awards 2026 Crystal Trophy"
                       className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
-                    
+
                     <span className="absolute top-2.5 left-2.5 rounded-md bg-white/95 backdrop-blur px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-slate-800 border border-slate-200 shadow-xs">
                       🏆 Official Trophy
                     </span>
@@ -1190,8 +1190,8 @@ function AboutPage() {
                     type="button"
                     onClick={() => setZoomedCertIndex(idx)}
                     className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 ${idx === zoomedCertIndex
-                        ? "w-6 sm:w-7 bg-[#D9232A]"
-                        : "w-2 sm:w-2.5 bg-slate-200 hover:bg-slate-300"
+                      ? "w-6 sm:w-7 bg-[#D9232A]"
+                      : "w-2 sm:w-2.5 bg-slate-200 hover:bg-slate-300"
                       }`}
                     aria-label={`View ${cert.title}`}
                   />
@@ -1250,10 +1250,10 @@ function AboutPage() {
                     {zoomedAwardTab === "tir-trophy"
                       ? "The Industrial Review 2026 — Official Crystal Trophy"
                       : zoomedAwardTab === "tir-certificate"
-                      ? "The Industrial Review 2026 — Certificate of Recognition"
-                      : zoomedAwardTab === "tir-magazine"
-                      ? "The Industrial Review 2026 — Magazine Article & Team Photo"
-                      : "Industry Outlook 2025 — Top 10 Industrial Packaging Companies"}
+                        ? "The Industrial Review 2026 — Certificate of Recognition"
+                        : zoomedAwardTab === "tir-magazine"
+                          ? "The Industrial Review 2026 — Magazine Article & Team Photo"
+                          : "Industry Outlook 2025 — Top 10 Industrial Packaging Companies"}
                   </h3>
                   <p className="text-xs text-slate-500 font-medium">
                     {zoomedAwardTab === "outlook-magazine"
@@ -1279,44 +1279,40 @@ function AboutPage() {
               <button
                 type="button"
                 onClick={() => setZoomedAwardTab("tir-trophy")}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                  zoomedAwardTab === "tir-trophy"
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${zoomedAwardTab === "tir-trophy"
                     ? "bg-[#D9232A] text-white shadow-sm"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
+                  }`}
               >
                 🏆 2026 Crystal Trophy
               </button>
               <button
                 type="button"
                 onClick={() => setZoomedAwardTab("tir-certificate")}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                  zoomedAwardTab === "tir-certificate"
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${zoomedAwardTab === "tir-certificate"
                     ? "bg-[#D9232A] text-white shadow-sm"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
+                  }`}
               >
                 📜 2026 Certificate
               </button>
               <button
                 type="button"
                 onClick={() => setZoomedAwardTab("tir-magazine")}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                  zoomedAwardTab === "tir-magazine"
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${zoomedAwardTab === "tir-magazine"
                     ? "bg-[#D9232A] text-white shadow-sm"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
+                  }`}
               >
                 📰 2026 Article &amp; Team
               </button>
               <button
                 type="button"
                 onClick={() => setZoomedAwardTab("outlook-magazine")}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                  zoomedAwardTab === "outlook-magazine"
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${zoomedAwardTab === "outlook-magazine"
                     ? "bg-[#D9232A] text-white shadow-sm"
                     : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
+                  }`}
               >
                 📰 2025 Industry Outlook Spread
               </button>
@@ -1329,10 +1325,10 @@ function AboutPage() {
                   zoomedAwardTab === "tir-trophy"
                     ? trophyAwardImg
                     : zoomedAwardTab === "tir-certificate"
-                    ? certificateAwardImg
-                    : zoomedAwardTab === "tir-magazine"
-                    ? industrialReviewMagazineImg
-                    : industryOutlookAwardImg
+                      ? certificateAwardImg
+                      : zoomedAwardTab === "tir-magazine"
+                        ? industrialReviewMagazineImg
+                        : industryOutlookAwardImg
                 }
                 alt="National Award & Magazine Feature Preview"
                 className="h-full w-full max-h-[56vh] sm:max-h-[60vh] object-contain rounded-xl drop-shadow-md select-none pointer-events-none transition-all duration-300"

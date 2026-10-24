@@ -37,7 +37,7 @@ import {
 } from "lucide-react";
 
 import bindraHero from "@/assets/leadership/bindra-hero.png";
-import ceoImg from "@/assets/ceo.png";
+import ceoImg from "@/assets/ceo.jpg";
 import tanushreeImg from "@/assets/leadership/Tanushree K.png";
 import pareshImg from "@/assets/leadership/PareshY.png";
 import shilpaImg from "@/assets/leadership/Shilpa Singh.png";
@@ -913,8 +913,8 @@ function LeaderProfileDetailView({
                   <span
                     key={tIdx}
                     className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${tIdx === 0
-                        ? "border border-[#D9232A] text-[#D9232A] bg-rose-50/40 font-bold shadow-2xs"
-                        : "border border-slate-200 bg-slate-50/50 text-slate-700 hover:border-slate-300"
+                      ? "border border-[#D9232A] text-[#D9232A] bg-rose-50/40 font-bold shadow-2xs"
+                      : "border border-slate-200 bg-slate-50/50 text-slate-700 hover:border-slate-300"
                       }`}
                   >
                     {tag}
@@ -939,10 +939,10 @@ function LeaderProfileDetailView({
                     <div className="flex flex-col items-center">
                       <div
                         className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${sIdx === 0
-                            ? "border-slate-400 bg-white text-slate-500"
-                            : sIdx === 1
-                              ? "border-[#D9232A] bg-[#D9232A] text-white"
-                              : "border-[#D9232A] bg-[#D9232A] text-white ring-4 ring-rose-100"
+                          ? "border-slate-400 bg-white text-slate-500"
+                          : sIdx === 1
+                            ? "border-[#D9232A] bg-[#D9232A] text-white"
+                            : "border-[#D9232A] bg-[#D9232A] text-white ring-4 ring-rose-100"
                           }`}
                       >
                         {sIdx === 0 ? (
