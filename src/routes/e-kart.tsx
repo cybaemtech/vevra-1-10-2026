@@ -537,12 +537,12 @@ function EKartPage() {
             </h2>
 
             <p className="mt-3.5 max-w-2xl mx-auto text-sm sm:text-base font-normal leading-relaxed text-slate-600">
-              Building new possibilities with technology and electronics to
+              Building new possibilities with technology and electric mobility to
               create a smarter, more connected future.
             </p>
           </div>
 
-          {/* Two Large Native React Cards: VEVRA Technologies & VEVRA Electronics */}
+          {/* Two Large Native React Cards: VEVRA Technologies & VEVRA Electric EV */}
           <div className="mt-12 sm:mt-14 grid gap-8 lg:grid-cols-2">
             {/* Card 1: VEVRA Technologies */}
             <div className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-slate-200/90 bg-white shadow-xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:border-slate-300 flex flex-col justify-between min-h-[420px]">
@@ -600,13 +600,13 @@ function EKartPage() {
               </div>
             </div>
 
-            {/* Card 2: VEVRA Electronics */}
+            {/* Card 2: VEVRA Electric EV */}
             <div className="group relative overflow-hidden rounded-[28px] sm:rounded-[32px] border border-slate-200/90 bg-white shadow-xl transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:border-slate-300 flex flex-col justify-between min-h-[420px]">
               {/* Right Side Visual Image (Full Height & Flush to Right) */}
               <div className="pointer-events-none absolute inset-y-0 right-0 h-full w-full sm:w-[60%] md:w-[58%] lg:w-[56%] flex items-center justify-end overflow-hidden z-0">
                 <img
                   src={electronicsCardVisualImg}
-                  alt="VEVRA Electronics visual"
+                  alt="VEVRA Electric EV visual"
                   className="h-full w-auto max-w-none object-cover object-right transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
@@ -622,21 +622,21 @@ function EKartPage() {
                       className="h-10 sm:h-11 w-auto object-contain select-none"
                     />
                     <span className="text-[10px] sm:text-[11px] font-black tracking-[0.32em] text-[#0B1930] uppercase mt-1 pl-0.5">
-                      ELECTRONICS
+                      ELECTRIC EV
                     </span>
                   </div>
 
                   {/* Heading */}
                   <h3 className="mt-5 text-2xl sm:text-[26px] font-black text-[#0B1930] leading-[1.18] tracking-tight">
-                    Innovative Electronics. <br />
+                    Innovative <br />
+                    Electric Mobility. <br />
                     For a <span className="text-[#D9232A]">Connected Future.</span>
                   </h3>
 
                   {/* Description */}
                   <p className="mt-3 text-xs sm:text-[13px] text-slate-600 font-normal leading-relaxed max-w-sm">
-                    VEVRA Electronics is our upcoming electronics division, bringing
-                    cutting-edge electronics, smart devices and innovative tech
-                    products — designed for a smarter, more connected world.
+                    VEVRA Electric EV brings smart, sustainable vehicles and innovative
+                    EV solutions for a cleaner, more connected world.
                   </p>
                 </div>
 
