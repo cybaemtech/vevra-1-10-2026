@@ -10,7 +10,7 @@ import {
 import { SiteLayout } from "@/components/site/SiteLayout";
 
 // Hero Image
-import heroCrateImg from "@/assets/Vevara/Evolution of Automotive packaging page 44/CFB Boxes and Wooden ,Plywood Boxes/plywood_shipping_crate_high_quality.webp";
+import heroCrateImg from "@/assets/Vevara/Evolution of Automotive packaging page 44/CFB Boxes and Wooden ,Plywood Boxes/plywood_shipping_crate_high_quality.png";
 
 // 8 Product Range Images
 import box1Img from "@/assets/Vevara/Evolution of Automotive packaging page 44/CFB Boxes and Wooden ,Plywood Boxes/1.png";
@@ -309,7 +309,7 @@ export function WoodPlywoodProductPage() {
           {/* Technical Diagram Container */}
           <div className="mt-10 rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-8 lg:p-10 shadow-xs">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
+
               {/* Left Side: Exploded Assembly Schematic */}
               <div className="lg:col-span-7 flex flex-col justify-center">
                 <div className="relative rounded-2xl bg-[#fbfcfd] border border-slate-200/80 p-4 sm:p-6 lg:p-8 overflow-hidden flex items-center justify-center">
@@ -368,7 +368,7 @@ export function WoodPlywoodProductPage() {
       <section className="relative overflow-hidden bg-white py-12 sm:py-16 text-slate-900">
         <div className="relative mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="rounded-3xl border border-slate-200/80 bg-[#fbfcfd] p-6 sm:p-8 lg:p-10 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-            
+
             <div className="w-full">
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.24em] text-brand">
                 <span className="h-0.5 w-6 bg-brand inline-block rounded-full" />
