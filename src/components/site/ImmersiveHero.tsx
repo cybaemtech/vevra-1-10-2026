@@ -1,18 +1,34 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
+import headerVideo from "@/assets/home-header.mp4";
 
 export function ImmersiveHero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {
+        // Handle autoplay policy if browser requires interaction
+      });
+    }
+  }, []);
+
   return (
     <section className="relative w-full overflow-hidden bg-white min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] xl:min-h-[680px] flex items-center">
       {/* Right-side Video occupying ~65% width on desktop */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[68%] xl:w-[65%] h-full pointer-events-none overflow-hidden z-0">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           className="h-full w-full object-cover object-center"
         >
-          <source src="https://www.vevrapackaging.com/assets/home-header-DxTuFdtv.mp4" type="video/mp4" />
+          <source src={headerVideo} type="video/mp4" />
         </video>
 
         {/* Smooth horizontal gradient blend from left content area into video */}

@@ -19,10 +19,13 @@ AddDefaultCharset UTF-8
   AddType font/woff2 .woff2
   AddType font/woff .woff
   AddType video/mp4 .mp4
+  AddType video/webm .webm
+  AddType video/ogg .ogv
 </IfModule>
 
-# 3. Compression (GZIP / Deflate)
+# 3. Compression (GZIP / Deflate) - Exclude media files
 <IfModule mod_deflate.c>
+  SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|mp4|webm|ogv)$ no-gzip dont-vary
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
   AddOutputFilterByType DEFLATE text/xml
@@ -48,6 +51,8 @@ AddDefaultCharset UTF-8
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
 </IfModule>
 
 # 5. URL Rewriting for Single Page Application (SPA) Fallback & API Endpoints
@@ -67,14 +72,23 @@ AddDefaultCharset UTF-8
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
+  # Never rewrite missing static assets (videos, images, fonts, css, js) to index.html
+  RewriteCond %{REQUEST_URI} \.(mp4|webm|ogv|mov|jpg|jpeg|png|gif|webp|svg|css|js|woff|woff2|ttf|eot)$ [NC]
+  RewriteRule ^ - [R=404,L]
+
   # Otherwise, route everything to index.html for client-side routing
   RewriteRule ^ index.html [L]
 </IfModule>
 
-# 6. Security Headers
+# 6. Security Headers & Video Byte-Range Support
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-XSS-Protection "1; mode=block"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Support HTTP byte-range requests for smooth video playback & seeking
+  <FilesMatch "\.(mp4|webm|ogv)$">
+    Header set Accept-Ranges bytes
+  </FilesMatch>
 </IfModule>

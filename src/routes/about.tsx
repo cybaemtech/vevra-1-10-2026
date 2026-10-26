@@ -44,7 +44,6 @@ import {
   ZoomIn,
 } from "lucide-react";
 
-import aboutHeroVideo from "@/assets/about_hero.mp4";
 import aboutRightImg from "@/assets/about_right.png";
 import heroCratesImage from "@/assets/editorial/about-hero-crates.jpg";
 import visionMountainImage from "@/assets/editorial/about-vision-mission-mountain.jpg";
